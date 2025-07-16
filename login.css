@@ -1,0 +1,13 @@
+.login {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  row-gap: 1rem;
+}
+.add-user {
+  display: flex;
+  flex-flow: column wrap;
+}

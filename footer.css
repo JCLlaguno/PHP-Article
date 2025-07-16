@@ -1,0 +1,8 @@
+/* GLOBAL STYLES */
+/* @import url("./global.css"); */
+.footer {
+  height: 4rem;
+  width: 100%;
+  background-color: var(--black);
+  color: var(--white);
+}

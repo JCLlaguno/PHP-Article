@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+:root {
+  --black: #191919;
+  --whiter: #fefeff;
+  --white: #f7f9fe;
+  --shade: #dee0e5;
+  --fg: #191919;
+  --maroon: #772e25;
+  --red: #c71f37;
+  --blue: #0643a4;
+  --green: #007f4e;
+
+  --radius: 5px;
+  --border-small: 1px solid var(--shade);
+  --btn-font-weight: 500;
+}
+body {
+  user-select: none;
+  letter-spacing: 1.92px;
+  font-family: "Open Sans", sans-serif;
+  color: var(--black);
+  position: relative;
+  height: 100%;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: var(--fg);
+}
+img {
+  display: block;
+  object-fit: cover;
+}
+section {
+  width: 100%;
+  height: 100%;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
+}
+.main {
+  min-height: calc(100vh - 4rem);
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  background-color: var(--white);
+}
+.sidebar,
+.link-name {
+  display: none;
+}
+.section-header {
+  background-color: var(--whiter);
+  border: var(--border-small);
+  display: flex;
+  column-gap: 0.2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: var(--radius);
+}
+.section-icon {
+  width: 2rem;
+}
+.section-title {
+  color: var(--black);
+  font-size: 2rem;
+}
+.users-list {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1rem;
+}
+.title {
+  color: var(--white);
+  font-weight: normal;
+}
+.center {
+  width: 90vw;
+  margin: 0 auto;
+}
+
+/* SECTION container */
+.section-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ADD button container */
+.add-btn-container {
+  margin-bottom: 1rem;
+}
+
+/* EDIT/DELETE buttons container */
+.action-container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  column-gap: 0.2rem;
+}
+
+/* BUTTONS */
+.add-btn {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 1rem;
+  text-align: center;
+  border-radius: var(--radius);
+  font-weight: var(--btn-font-weight);
+}
+.view-btn,
+.update-btn,
+.delete-btn {
+  display: block;
+  padding: 0.2rem 0.2rem;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: var(--btn-font-weight);
+}
+.view-btn img,
+.update-btn img,
+.delete-btn img {
+  width: 26px;
+}
+.view-btn {
+  background-color: var(--maroon);
+}
+.update-btn {
+  background-color: var(--green);
+}
+.delete-btn {
+  background-color: var(--red);
+}
+
+.active {
+  background-color: #c6c7cb;
+}
+
+/* DATA TABLE */
+.data-table {
+  width: 100%;
+  border-spacing: 0;
+  background-color: var(--whiter);
+  table-layout: auto;
+}
+.data-table tr {
+  display: block;
+}
+/* hide the titles on table heading */
+.data-table thead tr {
+  display: none;
+}
+.data-table th,
+.data-table td {
+  padding: 0.5rem;
+}
+.data-table td {
+  text-align: right;
+  display: block;
+  font-size: 1rem;
+  border-left: var(--border-small);
+  border-right: var(--border-small);
+}
+.data-table td::before {
+  content: attr(data-title) ": ";
+  font-weight: 700;
+  float: left;
+}
+.data-table td:last-child::before {
+  content: none;
+}
+.data-table tbody tr:first-child td:first-child {
+  border-top: var(--border-small);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.data-table tbody tr:last-child td:last-child {
+  border-bottom: var(--border-small);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+.data-table tbody tr:nth-child(even) {
+  background-color: var(--white);
+}
+@media screen and (width >= 800px) {
+  .main {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+  /* SECTION container  */
+  .section-container {
+    max-width: 90%;
+  }
+  .section-icon {
+    width: 4rem;
+  }
+  .section-title {
+    font-size: 4rem;
+  }
+  .sidebar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 4rem;
+  }
+  .page-links {
+    display: flex;
+    flex-flow: column wrap;
+    background-color: var(--shade);
+    width: 100%;
+    height: 100%;
+    padding: 3rem 0;
+  }
+  .page-link-container {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    padding: 1rem;
+  }
+  /* ADD button container */
+  .add-btn-container {
+    display: flex;
+    justify-content: end;
+  }
+  /* EDIT/DELETE buttons container */
+  .action-container {
+    justify-content: center;
+  }
+
+  /* DATA TABLE */
+  .data-table td::before {
+    content: none;
+  }
+  .data-table th,
+  .data-table td {
+    border-left: none;
+    border-right: none;
+  }
+  .data-table thead {
+    border-bottom: none;
+  }
+  .data-table thead tr {
+    display: table-row;
+  }
+  .data-table thead tr th {
+    background-color: var(--shade);
+    color: var(--black);
+  }
+  .data-table tr {
+    display: table-row;
+  }
+  .data-table td {
+    display: table-cell;
+    text-align: center;
+  }
+  .data-table td:last-child {
+    justify-content: center;
+    column-gap: 1rem;
+  }
+  /* reset borders from mobile view */
+  .data-table tbody tr:first-child td:first-child {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .data-table tbody tr:last-child td:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  /* add left borders */
+  .data-table tbody tr td:first-child {
+    border-left: var(--border-small);
+  }
+  /* add right borders */
+  .data-table tbody tr td:last-child {
+    border-right: var(--border-small);
+  }
+  /* add bottom borders */
+  .data-table tbody tr:last-child td {
+    border-bottom: var(--border-small);
+  }
+  /* ROUNDED BORDERS */
+  /* add rounded borders on top left*/
+  .data-table thead tr th:first-child {
+    border-top-left-radius: var(--radius);
+  }
+  /* add rounded borders on top right */
+  .data-table thead tr th:last-child {
+    border-top-right-radius: var(--radius);
+  }
+  /* add rounded borders on bottom left */
+  .data-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--radius);
+  }
+  /* add rounded borders on bottom right */
+  .data-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--radius);
+  }
+}
+@media screen and (width >= 1000px) {
+  .section-container {
+    max-width: 100%;
+  }
+  .main {
+    grid-template-columns: 1fr 4fr;
+  }
+  .page-links {
+    padding: 3rem 0;
+  }
+  .page-link-container {
+    padding: 1rem 2rem;
+  }
+  .link-name {
+    display: block;
+  }
+}
