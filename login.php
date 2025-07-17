@@ -21,13 +21,13 @@
 ?>
 <!-- login -->
 <section class="login">
-    <h4>Login</h4>
-    <form class="add-user" action="" method="POST">
+    <form class="login-form" action="" method="POST">
+        <h4 class="login-form-title">Login</h4>
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
-        <input type="submit" name="submit" value="submit">
+        <input type="submit" name="submit" class="login-btn" value="Login">
     </form> 
 </section>
 <!-- end of login -->
