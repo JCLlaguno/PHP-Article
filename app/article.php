@@ -55,19 +55,6 @@ class Article {
         }
     }
 
-    // get single user by username 
-    // public function getUserByName($username) {
-    //     try {
-    //         $stmt = $this->conn->prepare("SELECT id, username, password FROM users WHERE username=:username");
-    //         $stmt->execute([':username' => $username]);
-    //         return $stmt->fetch(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         echo "Database error:" . $e->getMessage();
-    //     } catch (Error $e) {
-    //         echo "General error: " . $e->getMessage();
-    //     }
-    // }
-
     // update article
     public function updateArticle($id, $article_title, $article_content) {
         try {

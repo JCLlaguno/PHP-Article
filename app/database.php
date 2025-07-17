@@ -23,8 +23,8 @@ class Database {
            $this->password
           );
         // set the PDO error mode to exception
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $this->connection;
-        return $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch (PDOException $e) {
           echo "Database error: " . $e->getMessage();
       } catch (Error $e) {

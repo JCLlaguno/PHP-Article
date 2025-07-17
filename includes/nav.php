@@ -27,25 +27,3 @@
     <!-- end of nav header -->
 </nav>
 <!-- end of navbar -->
-<!-- mobile menu -->
- <?php if(isset($_SESSION['userid'])) echo <<< html
-    <aside class="mobile-menu">
-        <!-- nav menu toggle -->
-        <div class="mobile-toggle-btn">
-            <span class="line-1"></span>
-            <span class="line-2"></span>
-            <span class="line-3"></span>
-        </div>
-        <!-- end of nav menu toggle -->
-        <!-- mobile links -->
-        <ul class="mobile-links">
-            <li><a class="mobile-link" href="">Users</a></li>
-            <li><a class="mobile-link" href="">Articles</a></li>
-        </ul>
-        <!-- end of mobile links -->
-        <!-- log out button -->
-            <a class="log-out-btn" href="./logout.php">Log Out</a>'
-        <!-- end of log out button -->
-    </aside>
-html; ?>
-<!-- end of mobile menu -->

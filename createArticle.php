@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once './app/article.php';
-    require_once './header.php';
+    require_once './includes/header.php';
 
     if(isset($_POST['submit'])){
         $article_title = trim($_POST['title']);
@@ -21,4 +21,4 @@
         <input type="submit" name="submit" value="submit">
     </form> 
 
-<?php require_once('./footer.php'); ?>
+<?php require_once('./includes/footer.php'); ?>

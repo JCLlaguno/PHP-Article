@@ -10,7 +10,7 @@ mobileToggle?.addEventListener("click", () => {
 mobileMenuCloseBtn?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
 });
-hugerte.init({
+hugerte?.init({
   selector: "#content",
   branding: false,
 });

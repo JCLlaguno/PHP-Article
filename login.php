@@ -1,7 +1,7 @@
 <?php
-    require_once './session.php';
+    require_once './includes/session.php';
     require_once './app/user.php';
-    require_once './header.php';
+    require_once './includes/header.php';
     
     if(isset($_POST['submit'])) {
         $user = new User();
@@ -32,4 +32,4 @@
 </section>
 <!-- end of login -->
 
-<?php require_once './footer.php';?>
+<?php require_once './includes/footer.php';?>

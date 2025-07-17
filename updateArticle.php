@@ -1,6 +1,6 @@
 <?php
     require_once './app/article.php';
-    require_once './header.php';
+    require_once './includes/header.php';
 
     // get article id from url
     $id = $_GET['id'];
@@ -29,4 +29,4 @@
         <input type="submit" name="submit" value="submit">
     </form> 
 
-<?php require_once('./footer.php'); ?>
+<?php require_once('./includes/footer.php'); ?>

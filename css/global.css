@@ -147,7 +147,8 @@ section {
   background-color: var(--red);
 }
 
-.active {
+/* highlight selected page */
+.selected {
   background-color: #c6c7cb;
 }
 

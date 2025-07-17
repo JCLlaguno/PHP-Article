@@ -1,6 +1,6 @@
 <?php
     require_once './app/user.php';
-    require_once './header.php';
+    require_once './includes/header.php';
 
     if(isset($_POST['submit'])){
         $username = trim($_POST['username']);
@@ -22,4 +22,4 @@
         </form> 
     </main>
 
-<?php require_once('./footer.php'); ?>
+<?php require_once('./includes/footer.php'); ?>
