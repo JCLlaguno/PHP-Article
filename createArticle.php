@@ -10,15 +10,16 @@
 
         $user = new Article();
         $user->createArticle($userid, $article_title, $article_content);
-        header('location: ./index.php');
+        header('location: ./index.php?page=articles');
     }
 ?>
-    <form class="add-user" action="" method="POST">
+<section class="create-article-section">
+    <form class="create-article" action="" method="POST">
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title"><br>
         <label for="content">Content</label><br>
         <textarea name="content" id="content"></textarea>
-        <input type="submit" name="submit" value="submit">
+        <input type="submit" name="submit" value="Create Article">
     </form> 
-
+</section>
 <?php require_once('./includes/footer.php'); ?>

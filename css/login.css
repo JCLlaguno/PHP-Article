@@ -1,22 +1,25 @@
+/* LOGIN PAGE styles */
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  height: calc(100vh - 4rem);
   row-gap: 1rem;
+}
+.login-form {
+  width: 90%;
+  max-width: 300px;
 }
 .login-form-title {
   margin-bottom: 1rem;
   text-align: center;
-}
-.login-form {
-  padding: 1rem;
-  border: var(--border-small);
-  border-radius: var(--radius);
+  font-size: 1.8rem;
+  font-weight: 500;
 }
 .login-form label {
-  margin: 0.2rem 0;
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
   display: inline-block;
   font-size: 0.8rem;
 }
@@ -24,7 +27,8 @@
   border: var(--border-small);
   border-radius: var(--radius);
   outline: none;
-  height: 1.2rem;
+  padding: 0.2rem;
+  font-size: 1rem;
   width: 100%;
   letter-spacing: var(--spacing);
 }
@@ -32,10 +36,18 @@
   border: var(--border-small);
 }
 .login-form .login-btn {
-  background-color: var(--blue);
+  background-color: var(--black);
   border: transparent;
   color: var(--white);
-  height: 2rem;
+  padding: 0.5rem;
   display: inline-block;
   font-size: 1rem;
+}
+@media screen and (width >= 800px) {
+  .login-form {
+    border: var(--border-small);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 350px;
+  }
 }

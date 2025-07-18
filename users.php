@@ -1,4 +1,4 @@
-<!-- users section -->
+<!-- USERS section -->
 <section class="users">
     <!-- users container -->
     <div class="section-container">
@@ -24,16 +24,16 @@
             </thead>
             <tbody>
                 <?php foreach($users as $user) { ?>
-                <tr>
-                    <td data-title="Id"><?php echo $user['id']; ?></td>
-                    <td data-title="Username"><?php echo $user['username']; ?></td>
-                    <td data-title="Action">
-                        <div class="action-container">
-                            <a class="update-btn" href="./updateUser.php?id=<?php echo $user['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                            <a class="delete-btn" href="./deleteUser.php?id=<?php echo $user['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td data-title="Id"><?php echo $user['id']; ?></td>
+                        <td data-title="Username"><?php echo $user['username']; ?></td>
+                        <td data-title="Action">
+                            <div class="action-container">
+                                <a class="update-btn" href="./updateUser.php?id=<?php echo $user['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="delete-btn" href="./deleteUser.php?id=<?php echo $user['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
+                            </div>
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -41,4 +41,4 @@
     </div>
     <!-- end of users container -->
 </section>
-<!-- end of users section -->
+<!-- end of USERS section -->

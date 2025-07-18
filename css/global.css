@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 :root {
   --black: #191919;
@@ -21,7 +22,6 @@
   --btn-font-weight: 500;
 }
 body {
-  user-select: none;
   letter-spacing: 1.92px;
   font-family: "Open Sans", sans-serif;
   color: var(--black);
@@ -45,6 +45,8 @@ section {
   padding-top: 6rem;
   padding-bottom: 2rem;
 }
+
+/* MAIN container */
 .main {
   min-height: calc(100vh - 4rem);
   width: 100%;
@@ -52,6 +54,8 @@ section {
   justify-items: center;
   background-color: var(--white);
 }
+
+/* SIDEBAR */
 .sidebar,
 .link-name {
   display: none;

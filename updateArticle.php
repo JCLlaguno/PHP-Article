@@ -2,12 +2,12 @@
     require_once './app/article.php';
     require_once './includes/header.php';
 
-    // get article id from url
+    // get ARTICLE ID from url
     $id = $_GET['id'];
     
-    $article = new Article(); // create a new article obj
+    $article = new Article(); // create a new ARTICLE object
 
-    // check if article exists in db
+    // check if an article exists in db
     $article = $article->getArticleById($id); // returns []
 
     if(isset($_POST['submit'])) {

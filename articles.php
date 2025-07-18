@@ -1,4 +1,4 @@
-<!-- articles section -->
+<!-- ARTICLES section -->
 <section class="articles">
     <!-- articles container -->
     <div class="section-container">
@@ -8,11 +8,11 @@
             <p class="section-title">Title</p>
         </div>
         <!-- end of section header -->
-        <!-- add user -->
+        <!-- add article -->
         <div class="add-btn-container">
             <a href="./createArticle.php" class="add-btn">New Article</a>
         </div>
-        <!-- end of add user -->
+        <!-- end of add article -->
         <!-- data table -->
         <table class="data-table">
             <thead>
@@ -26,35 +26,35 @@
             </thead>
             <tbody>
                 <?php foreach($articles as $article) { ?>
-                <tr>
-                    <td data-title="Id"><?php echo $article['id']; ?></td>
-                    <td data-title="Author">
-                        <?php
-                            $createdBy = $user->getUserById($article['userid']);
-                            echo $createdBy['username'];
-                        ?>
-                    </td>
-                    <td class="article-title" data-title="Title">
-                        <p><?php echo $article['article_title']; ?></p>
-                    </td>
-                    <td class="article-content" data-title="Content">
-                    <p>
-                        <?php 
-                            $str = $article['article_content'];
-                            if (strlen($str) > 50)
-                            $new_str = substr($str, 0, 100) . '...';
-                            echo($new_str . "\n");
-                        ?>
-                    </p>
-                    </td>
-                    <td data-title="Action">
-                        <div class="action-container">
-                            <a class="view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                            <a class="update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                            <a class="delete-btn" href="./deleteArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td data-title="Id"><?php echo $article['id']; ?></td>
+                        <td data-title="Author">
+                            <?php
+                                $createdBy = $user->getUserById($article['userid']);
+                                echo $createdBy['username'];
+                            ?>
+                        </td>
+                        <td class="article-title" data-title="Title">
+                            <p><?php echo $article['article_title']; ?></p>
+                        </td>
+                        <td class="article-content" data-title="Content">
+                        <p>
+                            <?php 
+                                $str = $article['article_content'];
+                                if (strlen($str) > 10)
+                                $short_str = substr($str, 0, 100) . '...';
+                                echo($short_str . "\n");
+                            ?>
+                        </p>
+                        </td>
+                        <td data-title="Action">
+                            <div class="action-container">
+                                <a class="view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="delete-btn" href="./deleteArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
+                            </div>
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -62,4 +62,4 @@
     </div>
     <!-- end of articles container -->
 </section>
-<!-- end of articles section -->
+<!-- end of ARTICLES section -->

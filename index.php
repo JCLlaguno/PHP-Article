@@ -1,32 +1,36 @@
 <?php
     session_start();
-    // html markup
+    // HEADER
     require_once './includes/header.php';
     
-    // prevent access to index page if not logged in
+    // prevent access to INDEX page if not LOGGED IN
     if(!isset($_SESSION['userid']) && empty($_SESSION['userid'])) {
         header('location: ./login.php');
         exit;
     }
+
+    // include MODEL files
     require_once './app/user.php';
     require_once './app/article.php';
 
+    // create new objects
     $user = new User();
     $users = new User()->getAllUsers();
     $articles = new Article()->getAllArticles();
-
 ?>
 
-<!-- main content -->
+<!-- MAIN content -->
 <main class="main">
      <?php
-        require './includes/sidebar.php';
+        // SIDEBAR
+        require_once './includes/sidebar.php';
 
         // select ACTIVE page
         $pages = ['dashboard', 'users', 'articles'];
-        in_array($page, $pages) ? require("$page.php") : require("./users.php");
+        in_array($page, $pages) ? require_once("$page.php") : require_once("./users.php");
      ?>
 </main>
-<!-- end of main content-->
-    
-<?php require_once('./includes/footer.php');
+<!-- end of MAIN content-->
+
+<!-- FOOTER -->
+<?php require_once('./includes/footer.php'); ?>

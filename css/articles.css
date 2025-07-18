@@ -31,3 +31,10 @@
     content: none;
   }
 }
+
+/* CREATE article page styles */
+.create-article {
+  display: flex;
+  min-height: calc(100vh - 4rem);
+  flex-flow: column wrap;
+}

@@ -2,10 +2,10 @@
     require_once './app/user.php';
     require_once './includes/header.php';
 
-    // get user id from url
+    // get USER ID from url
     $id = $_GET['id'];
     
-    $user = new User(); // create a new user obj
+    $user = new User(); // create a new USER object
 
     // check if user exists in db
     $found_user = $user->getUserById($id); // returns []
@@ -15,17 +15,17 @@
             $username = trim($_POST['username']);
             $old_password = trim($_POST['oldpassword']);
             $new_password = trim($_POST['newpassword']);
-            $password_hash = password_hash($new_password, PASSWORD_DEFAULT); // hash new password
+            $password_hash = password_hash($new_password, PASSWORD_DEFAULT); // hash NEW password
        
             // if old pass is NOT equal to inputted old pass
             if(!password_verify($old_password, $found_user['password'])) { // (param: $str, $hash)
                 echo 'Old password is incorrect.';
 
-            // if old pass is same as new pass
+            // if old pass is SAME as new pass
             } else if($old_password === $new_password) {
                 echo 'New password must be different.';
             
-            // update data
+            // else UPDATE data
             } else {
                 $result = $user->updateUser($id, $username, $password_hash);
                 if($result) header('location: ./index.php');
