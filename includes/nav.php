@@ -4,7 +4,7 @@
     <div class="nav-header center">
         <!-- nav logo -->
         <div class="nav-logo-container">
-            <h2 class='title'>Articles</h2>
+            <a href="./index.php"><h2 class='title'>Articles</h2></a>
         </div>
         <!-- end of nav logo -->
         <!-- nav links -->

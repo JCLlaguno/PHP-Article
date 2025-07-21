@@ -11,6 +11,6 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
 });
 hugerte?.init({
-  selector: "#content",
+  selector: "#article-content",
   branding: false,
 });

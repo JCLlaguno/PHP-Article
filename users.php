@@ -9,8 +9,8 @@
         </div>
         <!-- end of section header -->
         <!-- add user -->
-        <div class="add-btn-container">
-            <a href="./addUser.php" class="add-btn">Add User</a>
+        <div class="new-btn-container">
+            <a href="./addUser.php" class="new-btn">New User</a>
         </div>
         <!-- end of add user -->
         <!-- data table -->
@@ -29,8 +29,8 @@
                         <td data-title="Username"><?php echo $user['username']; ?></td>
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="update-btn" href="./updateUser.php?id=<?php echo $user['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="delete-btn" href="./deleteUser.php?id=<?php echo $user['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
+                                <a class="action-update-btn" href="./updateUser.php?id=<?php echo $user['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="action-delete-btn" href="./deleteUser.php?id=<?php echo $user['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
                             </div>
                         </td>
                     </tr>

@@ -103,21 +103,15 @@ section {
   margin: 0 auto;
 }
 
-/* ADD button container */
-.add-btn-container {
+/* NEW button container */
+.new-btn-container {
+  display: flex;
+  justify-content: end;
   margin-bottom: 1rem;
 }
 
-/* EDIT/DELETE buttons container */
-.action-container {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  column-gap: 0.2rem;
-}
-
 /* BUTTONS */
-.add-btn {
+.new-btn {
   display: block;
   padding: 0.5rem 1rem;
   background-color: var(--blue);
@@ -126,29 +120,6 @@ section {
   text-align: center;
   border-radius: var(--radius);
   font-weight: var(--btn-font-weight);
-}
-.view-btn,
-.update-btn,
-.delete-btn {
-  display: block;
-  padding: 0.2rem 0.2rem;
-  border-radius: var(--radius);
-  font-size: 14px;
-  font-weight: var(--btn-font-weight);
-}
-.view-btn img,
-.update-btn img,
-.delete-btn img {
-  width: 26px;
-}
-.view-btn {
-  background-color: var(--maroon);
-}
-.update-btn {
-  background-color: var(--green);
-}
-.delete-btn {
-  background-color: var(--red);
 }
 
 /* highlight selected page */
@@ -202,6 +173,84 @@ section {
 .data-table tbody tr:nth-child(even) {
   background-color: var(--white);
 }
+
+/* ACTION container */
+.action-container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  column-gap: 0.2rem;
+}
+
+/* ACTION column contents */
+.action-view-btn,
+.action-update-btn,
+.action-delete-btn {
+  display: block;
+  padding: 0.2rem 0.2rem;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: var(--btn-font-weight);
+}
+.action-view-btn img,
+.action-update-btn img,
+.action-delete-btn img {
+  width: 26px;
+}
+.action-view-btn {
+  background-color: var(--maroon);
+}
+.action-update-btn {
+  background-color: var(--green);
+}
+.action-delete-btn {
+  background-color: var(--red);
+}
+
+/* CREATE & EDIT forms */
+.custom-form {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0 auto;
+}
+.form-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: var(--shade);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+/* FORM labels */
+.form-label {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* FORM buttons */
+.form-create-btn,
+.form-update-btn {
+  border: transparent;
+  color: var(--white);
+  display: inline-block;
+  border: var(--border-small);
+  border-radius: var(--radius);
+  outline: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  letter-spacing: var(--spacing);
+}
+.form-create-btn {
+  background-color: var(--blue);
+}
+.form-update-btn {
+  background-color: var(--green);
+}
+
 @media screen and (width >= 800px) {
   .main {
     grid-template-columns: auto 1fr;
@@ -236,15 +285,6 @@ section {
     align-items: center;
     column-gap: 0.5rem;
     padding: 1rem;
-  }
-  /* ADD button container */
-  .add-btn-container {
-    display: flex;
-    justify-content: end;
-  }
-  /* EDIT/DELETE buttons container */
-  .action-container {
-    justify-content: center;
   }
 
   /* DATA TABLE */
@@ -316,7 +356,26 @@ section {
   .data-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: var(--radius);
   }
+
+  /* ACTION EDIT/DELETE buttons container */
+  .action-container {
+    justify-content: center;
+  }
+
+  /* CREATE & EDIT forms */
+  .custom-form {
+    max-width: 800px;
+    border: var(--border-small);
+    padding: 1rem;
+  }
+
+  /* FORM buttons */
+  .form-create-btn,
+  .form-update-btn {
+    max-width: 200px;
+  }
 }
+
 @media screen and (width >= 1000px) {
   .section-container {
     max-width: 100%;

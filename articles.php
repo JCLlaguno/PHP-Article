@@ -9,8 +9,8 @@
         </div>
         <!-- end of section header -->
         <!-- add article -->
-        <div class="add-btn-container">
-            <a href="./createArticle.php" class="add-btn">New Article</a>
+        <div class="new-btn-container">
+            <a href="./createArticle.php" class="new-btn">New Article</a>
         </div>
         <!-- end of add article -->
         <!-- data table -->
@@ -34,10 +34,10 @@
                                 echo $createdBy['username'];
                             ?>
                         </td>
-                        <td class="article-title" data-title="Title">
+                        <td class="table-article-title" data-title="Title">
                             <p><?php echo $article['article_title']; ?></p>
                         </td>
-                        <td class="article-content" data-title="Content">
+                        <td class="table-article-content" data-title="Content">
                         <p>
                             <?php 
                                 $str = $article['article_content'];
@@ -49,9 +49,9 @@
                         </td>
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                                <a class="update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="delete-btn" href="./deleteArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
+                                <a class="action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="action-delete-btn" href="./deleteArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
                             </div>
                         </td>
                     </tr>

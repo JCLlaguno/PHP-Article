@@ -5,28 +5,34 @@
     // get ARTICLE ID from url
     $id = $_GET['id'];
     
-    $article = new Article(); // create a new ARTICLE object
+    $article_obj = new Article(); // create a new ARTICLE object
 
     // check if an article exists in db
-    $article = $article->getArticleById($id); // returns []
+    $article = $article_obj->getArticleById($id); // returns []
 
     if(isset($_POST['submit'])) {
-        if(!empty($_POST['article_title']) && !empty($_POST['article_content'])) {
-            $article_title = trim($_POST['article_title']);
-            $article_content = trim($_POST['article_content']);
+        if(!empty($_POST['article-title']) && !empty($_POST['article-content'])) {
+            $article_title = trim($_POST['article-title']);
+            $article_content = trim($_POST['article-content']);
 
-            $result = $user->updateArticle($id, $article_title, $article_content);
-            if($result) header('location: ./index.php');
+            $result = $article_obj->updateArticle($id, $article_title, $article_content);
+            if($result) header('location: ./index.php?page=articles');
         }
     }
 ?>
-    <h4>Update Article</h4>
-    <form class="add-user" action="" method="POST">
-        <label for="article_title">Article Title:</label><br>
-        <input type="text" id="username" name="username" value="<?php echo $article['article_title']; ?>"><br>
-        <label for="article_content">Article Content</label><br>
-        <input type="text" id="article_content" name="article_content" value="<?php echo $article['article_content']; ?>"><br>
-        <input type="submit" name="submit" value="submit">
-    </form> 
+<!-- create article section -->
+<section class="create-article-section">
+    <div class="section-container">
+        <form class="create-article-form custom-form" action="" method="POST">
+            <h4 class="form-title">Update Article</h4>
+            <label class="form-label" for="article-title">Title:</label>
+            <textarea class="article-title" name="article-title" id="article-title"><?php echo $article['article_title']; ?></textarea>
+            <label class="form-label" for="article-content">Content</label>
+            <textarea class="article-content" name="article-content" id="article-content"><?php echo $article['article_content']; ?></textarea>
+            <input class="form-update-btn" type="submit" name="submit" value="Update Article">
+        </form> 
+    </div>
+</section>
+<!-- end of create article section -->
 
 <?php require_once('./includes/footer.php'); ?>
