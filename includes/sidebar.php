@@ -1,6 +1,6 @@
 
 <!-- mobile sidebar -->
-<aside class="mobile-menu show-menu">
+<aside class="mobile-menu">
     <!-- nav menu toggle -->
     <div class="mobile-toggle-btn">
         <span class="line-1"></span>

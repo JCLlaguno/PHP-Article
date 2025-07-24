@@ -3,9 +3,9 @@
     require_once './app/article.php';
     require_once './includes/header.php';
 
-    if(isset($_POST['submit']) && !empty($_POST['title'] && !empty($_POST['content']))){
-        $article_title = trim($_POST['article_title']);
-        $article_content = trim($_POST['content']);
+    if(isset($_POST['submit']) && !empty($_POST['article-title'] && !empty($_POST['article-content']))){
+        $article_title = trim($_POST['article-title']);
+        $article_content = trim($_POST['article-content']);
         $userid = $_SESSION['userid'];
 
         $user = new Article();

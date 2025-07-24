@@ -41,9 +41,9 @@ img {
 }
 section {
   width: 100%;
-  height: 100%;
   padding-top: 6rem;
   padding-bottom: 2rem;
+  background-color: var(--white);
 }
 
 /* MAIN container */
@@ -55,11 +55,21 @@ section {
   background-color: var(--white);
 }
 
-/* SIDEBAR */
 .sidebar,
 .link-name {
   display: none;
+  z-index: 999;
 }
+
+.divider {
+  height: 2px;
+  border-radius: var(--radius);
+  display: block;
+  width: 20%;
+  margin: 1rem auto;
+  background-color: var(--shade);
+}
+
 .section-header {
   background-color: var(--whiter);
   border: var(--border-small);
@@ -110,16 +120,33 @@ section {
   margin-bottom: 1rem;
 }
 
-/* BUTTONS */
-.new-btn {
-  display: block;
-  padding: 0.5rem 1rem;
+/* BACKGROUND colors */
+.blue {
   background-color: var(--blue);
+}
+.red {
+  background-color: var(--red);
+}
+.green {
+  background-color: var(--green);
+}
+.maroon {
+  background-color: var(--maroon);
+}
+
+/* BUTTONS */
+.btn {
+  border: none;
+  display: block;
+  border-radius: var(--radius);
   color: var(--white);
+  font-weight: var(--btn-font-weight);
+  padding: 0.5rem 1rem;
+}
+.new-btn {
+  background-color: var(--blue);
   font-size: 1rem;
   text-align: center;
-  border-radius: var(--radius);
-  font-weight: var(--btn-font-weight);
 }
 
 /* highlight selected page */

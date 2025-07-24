@@ -1,3 +1,8 @@
+.articles {
+  position: relative;
+  z-index: 9999;
+}
+
 /* CUSTOM STYLES for articles */
 .data-table .table-article-title,
 .data-table .table-article-content {
@@ -18,10 +23,6 @@
   margin-bottom: 0.5rem;
 }
 @media screen and (width >= 800px) {
-  .data-table .table-article-title,
-  .data-table .table-article-content {
-    text-align: left;
-  }
   .data-table .table-article-title p,
   .data-table .table-article-content p {
     max-width: 100%;
@@ -35,7 +36,6 @@
 /* CREATE article page styles */
 .create-article-section {
   background-color: var(--white);
-  overflow-y: scroll;
   min-height: calc(100vh - 4rem);
 }
 .create-article-section .section-header {
@@ -96,4 +96,91 @@
   background-color: var(--shade) !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+/* VIEW article page styles */
+.view-article-section {
+  min-height: calc(100vh - 4rem);
+  background-color: var(--whiter);
+}
+.article-container {
+  margin: 0 auto;
+  max-width: 90%;
+}
+@media screen and (width >= 400px) {
+  .article-container {
+    width: 90%;
+    max-width: 600px;
+  }
+}
+@media screen and (width >= 800px) {
+  .view-article-section {
+    background-color: var(--white);
+  }
+  .article-container-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+  .article-container {
+    background-color: var(--whiter);
+    max-width: 600px;
+    padding: 1rem;
+    border: var(--border-small);
+    position: relative;
+  }
+  .article-container::before {
+    content: "";
+    position: absolute;
+    bottom: -1rem;
+    left: -1rem;
+    background-color: var(--whiter);
+    border: var(--border-small);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  .view-article-title {
+    margin-top: 2rem;
+  }
+}
+@media screen and (width >= 1000px) {
+  .article-container {
+    max-width: 800px;
+  }
+}
+
+/* DELETE modal */
+.delete-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+.delete-modal.show-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+.delete-modal-content {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  row-gap: 2rem;
+  width: 20%;
+  height: 20%;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.delete-modal-content .modal-title {
+  align-self: center;
+  justify-self: center;
+}
+.delete-modal-content .modal-confirm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

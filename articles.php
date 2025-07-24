@@ -10,7 +10,7 @@
         <!-- end of section header -->
         <!-- add article -->
         <div class="new-btn-container">
-            <a href="./createArticle.php" class="new-btn">New Article</a>
+            <a href="./createArticle.php" class="btn new-btn">New Article</a>
         </div>
         <!-- end of add article -->
         <!-- data table -->
@@ -20,7 +20,7 @@
                     <th>Id</th>
                     <th>Author</th>
                     <th>Title</th>
-                    <th>Content</th>
+                    <!-- <th>Content</th> -->
                     <th class="action-title">Action</th>
                 </tr>
             </thead>
@@ -37,21 +37,23 @@
                         <td class="table-article-title" data-title="Title">
                             <p><?php echo $article['article_title']; ?></p>
                         </td>
-                        <td class="table-article-content" data-title="Content">
-                        <p>
-                            <?php 
-                                $str = $article['article_content'];
-                                if (strlen($str) > 10)
-                                $short_str = substr($str, 0, 100) . '...';
-                                echo($short_str . "\n");
-                            ?>
-                        </p>
-                        </td>
+                        <!-- <td class="table-article-content" data-title="Content">
+                            <p>
+                                <?php 
+                                    // $str = $article['article_content'];
+                                    // if (strlen($str) > 10) {
+                                    // $short_str = substr($str, 0, 100) . '...';
+                                    // echo($short_str);
+                                    // } else echo $str;
+                                ?>
+                            </p>
+                        </td> -->
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                                <a class="action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="action-delete-btn" href="./deleteArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
+                                <a class="btn action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="btn action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="btn action-delete-btn" href="#" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
+
                             </div>
                         </td>
                     </tr>
@@ -59,6 +61,7 @@
             </tbody>
         </table>
         <!-- end of data table -->
+        <?php require_once './includes/deleteModal.php' ?>
     </div>
     <!-- end of articles container -->
 </section>
