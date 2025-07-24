@@ -10,7 +10,7 @@
         <!-- end of section header -->
         <!-- add article -->
         <div class="new-btn-container">
-            <a href="./createArticle.php" class="btn new-btn">New Article</a>
+            <a href="./createArticle.php" class="btn bg-blue">New Article</a>
         </div>
         <!-- end of add article -->
         <!-- data table -->
@@ -50,9 +50,9 @@
                         </td> -->
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="btn action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                                <a class="btn action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="btn action-delete-btn" href="#" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
+                                <a class="btn bg-maroon action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="btn bg-green action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="btn bg-red action-delete-btn" href="#" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
 
                             </div>
                         </td>

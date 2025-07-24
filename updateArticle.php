@@ -29,7 +29,7 @@
             <textarea class="article-title" name="article-title" id="article-title"><?php echo $article['article_title']; ?></textarea>
             <label class="form-label" for="article-content">Content</label>
             <textarea class="article-content" name="article-content" id="article-content"><?php echo $article['article_content']; ?></textarea>
-            <input class="form-update-btn" type="submit" name="submit" value="Update Article">
+            <input class="form-update-btn bg-green" type="submit" name="submit" value="Update Article">
         </form> 
     </div>
 </section>

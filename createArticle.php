@@ -22,7 +22,7 @@
             <textarea class="article-title" name="article-title" id="article-title"></textarea>
             <label class="form-label" for="article-content">Content</label>
             <textarea class="article-content" name="article-content" id="article-content"></textarea>
-            <input class="form-create-btn" type="submit" name="submit" value="Create Article">
+            <input class="form-create-btn bg-blue" type="submit" name="submit" value="Create Article">
         </form> 
     </div>
 </section>

@@ -46,6 +46,20 @@ section {
   background-color: var(--white);
 }
 
+/* BACKGROUND colors */
+.bg-blue {
+  background-color: var(--blue);
+}
+.bg-red {
+  background-color: var(--red);
+}
+.bg-green {
+  background-color: var(--green);
+}
+.bg-maroon {
+  background-color: var(--maroon);
+}
+
 /* MAIN container */
 .main {
   min-height: calc(100vh - 4rem);
@@ -120,33 +134,16 @@ section {
   margin-bottom: 1rem;
 }
 
-/* BACKGROUND colors */
-.blue {
-  background-color: var(--blue);
-}
-.red {
-  background-color: var(--red);
-}
-.green {
-  background-color: var(--green);
-}
-.maroon {
-  background-color: var(--maroon);
-}
-
 /* BUTTONS */
 .btn {
   border: none;
-  display: block;
+  display: inline-block;
   border-radius: var(--radius);
   color: var(--white);
   font-weight: var(--btn-font-weight);
   padding: 0.5rem 1rem;
-}
-.new-btn {
-  background-color: var(--blue);
-  font-size: 1rem;
   text-align: center;
+  font-size: 1rem;
 }
 
 /* highlight selected page */
@@ -213,25 +210,13 @@ section {
 .action-view-btn,
 .action-update-btn,
 .action-delete-btn {
-  display: block;
   padding: 0.2rem 0.2rem;
-  border-radius: var(--radius);
   font-size: 14px;
-  font-weight: var(--btn-font-weight);
 }
 .action-view-btn img,
 .action-update-btn img,
 .action-delete-btn img {
   width: 26px;
-}
-.action-view-btn {
-  background-color: var(--maroon);
-}
-.action-update-btn {
-  background-color: var(--green);
-}
-.action-delete-btn {
-  background-color: var(--red);
 }
 
 /* CREATE & EDIT forms */
@@ -263,7 +248,6 @@ section {
 .form-update-btn {
   border: transparent;
   color: var(--white);
-  display: inline-block;
   border: var(--border-small);
   border-radius: var(--radius);
   outline: none;
@@ -271,11 +255,40 @@ section {
   font-size: 1rem;
   letter-spacing: var(--spacing);
 }
-.form-create-btn {
-  background-color: var(--blue);
+
+/* DELETE modal */
+.delete-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
 }
-.form-update-btn {
-  background-color: var(--green);
+.delete-modal.show-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+.delete-modal-content {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  width: 220px;
+  min-height: 200px;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+.delete-modal-content .modal-title {
+  align-self: center;
+  justify-self: center;
+}
+.delete-modal-content .modal-confirm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 @media screen and (width >= 800px) {
@@ -400,6 +413,12 @@ section {
   .form-create-btn,
   .form-update-btn {
     max-width: 200px;
+  }
+
+  /* DELETE modal */
+  .delete-modal-content {
+    width: 320px;
+    min-height: 220px;
   }
 }
 

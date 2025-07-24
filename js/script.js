@@ -17,33 +17,8 @@ hugerte?.init({
   branding: false,
 });
 
-// DELETE modal with page reload
-// const deleteButton = document.querySelectorAll(".action-delete-btn");
-// const deleteModal = document.querySelector(".delete-modal");
-// const deleteModalInput = document.querySelector(".id-input");
-// const deleteModalCancel = document.querySelector(".modal-cancel-btn");
-
-// // if NO is selected in modal
-// deleteModalCancel.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   deleteModal.classList.remove("show-modal");
-// });
-
-// // if action delete btn is CLICKED
-// deleteButton.forEach((btn) => {
-//   btn.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     // show custom DELETE modal
-//     deleteModal.classList.toggle("show-modal");
-
-//     // pass row id to custom DELETE modal
-//     deleteModalInput.setAttribute("value", `${btn.dataset.id}`);
-//   });
-// });
-
 // DELETE modal WITHOUT page reload
 const deleteButton = document.querySelectorAll(".action-delete-btn");
-const deleteButtonArr = [...deleteButton];
 const deleteModal = document.querySelector(".delete-modal");
 const deleteModalContent = document.querySelector(".delete-modal-content");
 const deleteModalInput = document.querySelector(".id-input");
@@ -53,21 +28,27 @@ const deleteModalConfirm = document.querySelector(".modal-confirm-btn");
 // if NO is selected in modal
 deleteModalCancel?.addEventListener("click", (e) => {
   e.preventDefault();
+  // hide custom DELETE modal
   deleteModal?.classList.remove("show-modal");
+  // enable scrolling
+  document.body.style.overflow = "auto";
 });
 
 // // if action delete btn is CLICKED
 deleteButton?.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
+  btn.addEventListener("click", (e) => {
     e.preventDefault();
     // show custom DELETE modal
     deleteModal?.classList.toggle("show-modal");
+    // disable scrolling
+    document.body.style.overflow = "hidden";
     // pass row id to custom DELETE modal input
     deleteModalInput?.setAttribute("value", `${btn.dataset.id}`);
   });
 });
 
-deleteModalContent?.addEventListener("submit", async function (e) {
+// id YES is selected on modal
+deleteModalContent?.addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent default form submission
 
   const form = e.target;
@@ -81,8 +62,14 @@ deleteModalContent?.addEventListener("submit", async function (e) {
 
   if (!response.ok) return;
 
-  const rowIndex = deleteButtonArr.findIndex((el) => +el.dataset.id === +id);
+  // find row containing the delete button
+  const rowIndex = [...deleteButton].findIndex((el) => +el.dataset.id === +id);
   const row = deleteButton[+rowIndex].closest("tr");
+
+  // remove row
   row.remove();
   deleteModal?.classList.remove("show-modal");
+
+  // enable scrolling
+  document.body.style.overflow = "auto";
 });
