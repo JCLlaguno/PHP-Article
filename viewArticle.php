@@ -15,6 +15,15 @@
 <section class="view-article-section">
     <div class="article-container-wrapper">
         <div class="article-container">
+            <!-- close article btn-->
+            <div class="close-article-btn-container">
+                <a href="./index.php?page=articles" class="close-article-btn">
+                    <span class="line-1"></span>
+                    <span class="line-2"></span>
+                    <span class="line-3"></span>
+                </a>
+            </div>
+            <!-- end of close article btn-->
             <!-- view article title -->
             <div class="view-article-title">
                 <h4><?php echo $article['article_title'] ?></h4>

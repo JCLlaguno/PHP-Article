@@ -20,10 +20,12 @@
   --radius: 5px;
   --border-small: 1px solid var(--shade);
   --btn-font-weight: 500;
+
+  --font: "Open Sans", sans-serif;
 }
 body {
   letter-spacing: 1.92px;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font);
   color: var(--black);
   position: relative;
   height: 100%;
@@ -45,6 +47,9 @@ section {
   padding-bottom: 2rem;
   background-color: var(--white);
 }
+textarea {
+  font-family: var(--font);
+}
 
 /* BACKGROUND colors */
 .bg-blue {
@@ -59,13 +64,15 @@ section {
 .bg-maroon {
   background-color: var(--maroon);
 }
+.bg-black {
+  background-color: var(--black);
+}
 
 /* MAIN container */
 .main {
   min-height: calc(100vh - 4rem);
   width: 100%;
   display: grid;
-  justify-items: center;
   background-color: var(--white);
 }
 
@@ -144,6 +151,7 @@ section {
   padding: 0.5rem 1rem;
   text-align: center;
   font-size: 1rem;
+  letter-spacing: var(--spacing);
 }
 
 /* highlight selected page */
@@ -246,14 +254,7 @@ section {
 /* FORM buttons */
 .form-create-btn,
 .form-update-btn {
-  border: transparent;
-  color: var(--white);
-  border: var(--border-small);
-  border-radius: var(--radius);
-  outline: none;
   padding: 0.5rem;
-  font-size: 1rem;
-  letter-spacing: var(--spacing);
 }
 
 /* DELETE modal */
@@ -279,7 +280,7 @@ section {
   min-height: 200px;
   background-color: var(--white);
   border-radius: var(--radius);
-  padding: 0.5rem;
+  padding: 0.8rem;
 }
 .delete-modal-content .modal-title {
   align-self: center;

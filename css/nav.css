@@ -19,6 +19,10 @@
 }
 .nav-links {
   order: 1;
+  display: none; /* hide nav-menu by default */
+}
+/* if body has a main element, display nav-menu */
+body:has(.main) .nav-links {
   display: flex;
   align-items: center;
 }
@@ -34,7 +38,7 @@
   background-color: var(--white);
   position: absolute;
   width: 100%;
-  height: 3px;
+  height: 2px;
   border-radius: 50px;
   top: 50%;
   left: 50%;

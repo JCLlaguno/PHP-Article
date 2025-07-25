@@ -13,9 +13,9 @@
             if(password_verify($password, $user['password'])) {
                 $_SESSION['userid'] = $user['id'];
                 header('location: ./index.php');
-            } else echo 'Incorrect password';
+            } // else echo 'Incorrect password';
         } else {
-            echo 'User does not exist.';
+            // echo 'User does not exist.';
         }
     }
 ?>
@@ -24,10 +24,10 @@
     <form class="login-form" action="" method="POST">
         <h4 class="login-form-title">Login</h4>
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
+        <input type="text" id="username" name="username" autocomplete="off"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
-        <input type="submit" name="submit" class="login-btn" value="Login">
+        <input type="submit" name="submit" class="btn login-btn" value="Login">
     </form> 
 </section>
 <!-- end of login -->

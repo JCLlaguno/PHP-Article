@@ -55,10 +55,17 @@
   resize: none;
   color: var(--black);
   letter-spacing: 1.92px;
-  font-family: "Open Sans", sans-serif;
 }
 .create-article-form .article-title:focus-visible {
   outline: 2px solid var(--shade);
+}
+.form-btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+}
+.form-back-btn {
+  flex: 0 0 20%;
 }
 @media screen and (width >= 800px) {
   .create-article-section .section-header {
@@ -68,6 +75,13 @@
     max-width: 800px;
     margin: 0 auto;
   }
+  /* CREATE article page styles */
+  .form-btn-container {
+    justify-content: space-between;
+  }
+  .form-back-btn {
+    flex: 0 0 10%;
+  }
 }
 
 /* CUSTOM hugerte styles */
@@ -75,7 +89,7 @@
   margin-bottom: 1rem;
   border-radius: var(--radius) !important;
   border: var(--border-small) !important;
-  font-family: "Open Sans" !important;
+  font-family: var(--font) !important;
 }
 .tox-editor-header {
   box-shadow: none !important;
@@ -102,11 +116,50 @@
 .view-article-section {
   min-height: calc(100vh - 4rem);
   background-color: var(--whiter);
+  padding-top: 4rem;
 }
 .article-container {
   margin: 0 auto;
   max-width: 90%;
 }
+.close-article-btn-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 1rem 0;
+}
+.close-article-btn {
+  position: relative;
+  width: 25px;
+  height: 25px;
+}
+.close-article-btn span {
+  background-color: var(--white);
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--radius);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s, width 0.2s ease-in-out;
+  background-color: var(--black);
+}
+.article-container .line-1 {
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 100%;
+}
+.article-container .line-2 {
+  width: 0px;
+}
+.article-container .line-3 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 100%;
+}
+.view-article-title {
+  text-align: center;
+}
+
 @media screen and (width >= 400px) {
   .article-container {
     width: 90%;
@@ -116,6 +169,7 @@
 @media screen and (width >= 800px) {
   .view-article-section {
     background-color: var(--white);
+    padding-top: 6rem;
   }
   .article-container-wrapper {
     position: relative;
@@ -141,6 +195,9 @@
   }
   .view-article-title {
     margin-top: 2rem;
+  }
+  .close-article-btn-container {
+    margin: 0;
   }
 }
 @media screen and (width >= 1000px) {
