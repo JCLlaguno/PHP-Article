@@ -73,3 +73,75 @@ deleteModalContent?.addEventListener("submit", async (e) => {
   // enable scrolling
   document.body.style.overflow = "auto";
 });
+
+// custom EDITOR
+const btn = document.querySelector("button");
+const content = document.querySelector(".getcontent");
+const editorContent = document.querySelector(".editor");
+const articleContent = document.getElementById("article-content");
+const btnCreate = document.querySelector(".form-create-btn");
+
+btnCreate?.addEventListener(
+  "click",
+  () => (articleContent.value = editorContent.innerHTML)
+);
+
+// btn?.addEventListener("click", function () {
+//   // set value of article content text area to editor content's value
+
+//   const s = editorContent.innerHTML;
+//   content.style.display = "block";
+//   content.textContent = s;
+// });
+
+// function link() {
+//   var url = prompt("Enter the URL");
+//   document.execCommand("createLink", false, url);
+// }
+
+// function copy() {
+//   document.execCommand("copy", false, "");
+// }
+
+// function changeColor() {
+//   var color = prompt("Enter your color in hex ex:#f1f233");
+//   document.execCommand("foreColor", false, color);
+// }
+
+// function getImage() {
+//   var file = document.querySelector("input[type=file]").files[0];
+
+//   var reader = new FileReader();
+
+//   let dataURI;
+
+//   reader.addEventListener(
+//     "load",
+//     function () {
+//       dataURI = reader.result;
+
+//       const img = document.createElement("img");
+//       img.src = dataURI;
+//       editorContent.appendChild(img);
+//     },
+//     false
+//   );
+
+//   if (file) {
+//     console.log("s");
+//     reader.readAsDataURL(file);
+//   }
+// }
+
+// function printMe() {
+//   if (confirm("Check your Content before print")) {
+//     const body = document.body;
+//     let s = body.innerHTML;
+//     body.textContent = editorContent.innerHTML;
+
+//     document.execCommandShowHelp;
+//     body.style.whiteSpace = "pre";
+//     window.print();
+//     location.reload();
+//   }
+// }
