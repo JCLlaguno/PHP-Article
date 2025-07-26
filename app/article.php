@@ -41,6 +41,32 @@ class Article {
             echo "General error: " . $e->getMessage();
         }
     }
+    
+    // paginate articles
+    public function paginateArticles($limit, $offset) {
+        try {
+            $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles LIMIT $offset, $limit"); // offset, limit
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Database error:" . $e->getMessage();
+        } catch (Error $e) {
+            echo "General error: " . $e->getMessage();
+        }
+    }
+
+    // count all articles
+    public function countTotalArticles() {
+        try {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) As total_count FROM `articles`");
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Database error:" . $e->getMessage();
+        } catch (Error $e) {
+            echo "General error: " . $e->getMessage();
+        }
+    }
 
     // get single article by id 
     public function getArticleById($id) {

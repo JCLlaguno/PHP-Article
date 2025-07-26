@@ -12,10 +12,10 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
 });
 
-hugerte?.init({
-  selector: "#article-content",
-  branding: false,
-});
+// hugerte?.init({
+//   selector: "#article-content",
+//   branding: false,
+// });
 
 // DELETE modal WITHOUT page reload
 const deleteButton = document.querySelectorAll(".action-delete-btn");

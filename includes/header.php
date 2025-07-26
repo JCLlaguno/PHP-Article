@@ -17,7 +17,7 @@
 <body>
     <?php 
         // set the current page
-        $page = (isset($_GET['page'])) ? $_GET['page'] : 'users';
+        // $page = (isset($_GET['page'])) ? $_GET['page'] : 'users';
         
         require_once './includes/nav.php'; 
     ?>

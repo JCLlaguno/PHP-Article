@@ -16,7 +16,7 @@
     // create new objects
     $user = new User();
     $users = new User()->getAllUsers();
-    $articles = new Article()->getAllArticles();
+    // $articles = new Article()->getAllArticles();
 ?>
 
 <!-- MAIN content -->
@@ -27,7 +27,8 @@
 
         // select ACTIVE page
         $pages = ['dashboard', 'users', 'articles'];
-        in_array($page, $pages) ? require_once("$page.php") : require_once("./users.php");
+        // in_array($page, $pages) ? require_once("$page.php") : require_once("./articles.php");
+        require_once './articles.php';
      ?>
 </main>
 <!-- end of MAIN content-->
