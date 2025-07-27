@@ -45,7 +45,7 @@ class Article {
     // paginate articles
     public function paginateArticles($limit, $offset) {
         try {
-            $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles LIMIT $offset, $limit"); // offset, limit
+            $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles ORDER BY id DESC LIMIT $offset, $limit "); // offset, limit
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

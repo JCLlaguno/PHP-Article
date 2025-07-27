@@ -31,8 +31,8 @@
             <div class="divider"></div>
             <!-- end of view article title -->
             <!-- view article content -->
-            <div class="view-article-content">
-                <p class="view-article-content"><?php echo $article['article_content']; ?></p>
+            <div>
+                <pre class="view-article-content"><?php echo $article['article_content']; ?></pre>
             </div>
             <!-- end of view article content -->
         </div>

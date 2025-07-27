@@ -33,7 +33,7 @@ $articles = new Article()->paginateArticles($total_records_per_page, $offset);
         <!-- section header -->
         <div class="section-header">
             <span><img class="section-icon" src="./img/articles.svg" alt="users"></span>
-            <p class="section-title">Title</p>
+            <p class="section-title">Articles</p>
         </div>
         <!-- end of section header -->
         <!-- add article -->
