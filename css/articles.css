@@ -77,7 +77,7 @@
 }
 .view-article-content {
   width: 100%;
-  text-wrap: wrap;
+  text-wrap: balance;
   font-family: var(--font-family);
   letter-spacing: var(--spacing);
 }

@@ -20,4 +20,4 @@
         <input type="submit" name="submit" value="submit">
     </form> 
 
-<?php require_once('./includes/footer.php'); ?>
+<?php require_once './includes/footer.php'; ?>

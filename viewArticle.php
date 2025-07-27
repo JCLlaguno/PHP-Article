@@ -5,10 +5,8 @@
     // get ARTICLE ID from url
     $id = $_GET['id'];
 
-    $article_obj = new Article(); // create a new ARTICLE object
-
     // check if an article exists in db
-    $article = $article_obj->getArticleById($id); // returns []
+    $article = new Article()->getArticleById($id); // returns []
 ?>
 
 <!-- view article section -->
@@ -40,4 +38,4 @@
 </section>
 <!-- end of view article section -->
 
-<?php require_once('./includes/footer.php'); ?>
+<?php require_once './includes/footer.php'; ?>

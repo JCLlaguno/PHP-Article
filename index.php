@@ -16,26 +16,34 @@
     // create new objects
     $user = new User();
     $users = new User()->getAllUsers();
-    // $articles = new Article()->getAllArticles();
 ?>
 
 <!-- MAIN content -->
 <main class="main">
      <?php
-        // SIDEBAR
+        // set DEFAULT page
+        if(!isset($_GET['page'])) $_GET['page'] = 'users';
+
+        // include SIDEBAR
         require_once './includes/sidebar.php';
 
-        // Select the ACTIVE page
-        // DEFAULT page
-        if(!isset($_GET['page'])) $_GET['page'] = 'users';
-        
-        // if page = articles
-        if ($_GET['page'] == 'articles') require_once './articles.php';
-        // if page = users
-        else if($_GET['page'] == 'users') require_once './users.php';
+        // set ACTIVE page
+        switch ($_GET['page']) {
+        // if PAGE = users
+        case "users":
+            require_once './users.php';
+            break;
+        // if PAGE = articles
+        case "articles":
+            require_once './articles.php';
+            break;
+        //  if PAGE = dashboard (default)
+        default:
+            require_once './dashboard.php';
+        }
      ?>
 </main>
 <!-- end of MAIN content-->
 
 <!-- FOOTER -->
-<?php require_once('./includes/footer.php'); ?>
+<?php require_once './includes/footer.php'; ?>

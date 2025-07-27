@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -440,7 +442,7 @@ textarea {
   }
 }
 
-/* table pagination styles */
+/* table PAGINATION styles */
 .page-info {
   margin-top: 1rem;
 }
@@ -461,36 +463,30 @@ textarea {
   border-bottom: var(--border-small);
   border-left: none;
   border-right: none;
-}
-.pagination-btn-disabled {
-  font-size: 0.8rem;
+  border-radius: 0;
 }
 .pagination-btn-active {
   background-color: var(--shade);
 }
-.pagination li .pagination-btn {
-  border-radius: 0;
-}
-.pagination li:first-child .btn {
+.pagination li:first-child .pagination-btn {
   border-top-left-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-left: var(--border-small);
 }
-.pagination li:last-child .btn {
+.pagination li:last-child .pagination-btn {
   border-top-right-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
   border-right: var(--border-small);
 }
-.pagination li:first-child .pagination-btn-disabled {
+.pagination-btn-disabled {
   background-color: var(--whiter);
   color: var(--shade);
   border: var(--border-small);
+}
+.pagination li:first-child .pagination-btn-disabled {
   border-right: none;
 }
 .pagination li:last-child .pagination-btn-disabled {
-  background-color: var(--whiter);
-  color: var(--shade);
-  border: var(--border-small);
   border-left: none;
 }
 

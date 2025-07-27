@@ -4,15 +4,14 @@
     require_once './includes/header.php';
     
     if(isset($_POST['submit'])) {
-        $user = new User();
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
         
-        $user = $user->getUserByName($username);
+        $user = new User()->getUserByName($username);
         if($user) {
             if(password_verify($password, $user['password'])) {
                 $_SESSION['userid'] = $user['id'];
-                header('location: ./index.php');
+                header('location: ./index.php?page=users');
             } // else echo 'Incorrect password';
         } else {
             // echo 'User does not exist.';
@@ -32,4 +31,4 @@
 </section>
 <!-- end of login -->
 
-<?php require_once './includes/footer.php';?>
+<?php require_once './includes/footer.php'; ?>

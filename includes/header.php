@@ -15,6 +15,6 @@
 <!-- body -->
 <body>
     <?php 
-        
+        // include NAVBAR
         require_once './includes/nav.php'; 
     ?>
