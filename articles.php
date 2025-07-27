@@ -2,18 +2,21 @@
 
 // Articles PAGINATION 
 // get current page no.
-if (isset($_GET['page_no']) && $_GET['page_no']!="") { 
-        $page_no = $_GET['page_no'];
-    } else $page_no = 1;
+if(isset($_GET['page_no'])) {
+    $page_no = $_GET['page_no'];
+} else {
+    $page_no = 1;
+}
 
 // set total records per page value
 $total_records_per_page = 8;
 
 // calculate offset value & set other variables
-$offset = ($page_no-1) * $total_records_per_page;
+$offset = ($page_no - 1) * $total_records_per_page;
+
 $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
-$adjacents = "2";
+// $adjacents = "2";
 
 
 // get the total no. of pages for pagination
@@ -89,17 +92,19 @@ $articles = new Article()->paginateArticles($total_records_per_page, $offset);
             </tbody>
         </table>
         <!-- end of data table -->
+         <!-- page indicators -->
         <div class="page-info">
             <p>Page <?php echo $page_no." of ".$total_no_of_pages; ?></p>
         </div>
+        <!-- end of page indicators -->
         <!-- pagination buttons -->
         <ul class="pagination">
             <?php 
-                if($page_no > 1) echo "<li><a class='btn bg-black pagination-btn' href='?page_no=1'>First Page</a></li>";
+                if($page_no > 1) echo "<li><a class='btn bg-black pagination-btn' href='?page=articles&page_no=1'>First Page</a></li>";
             ?>
             <li>
                 <a class="<?php echo ($page_no <= 1) ? 'btn pagination-btn-disabled' : 'btn bg-black pagination-btn'  ?>" 
-                <?php if($page_no > 1) echo "href='?page_no=$previous_page'"; ?>>Previous</a>
+                <?php if($page_no > 1) echo "href='?page=articles&page_no=$previous_page'"; ?>>Previous</a>
             </li>
                 <?php
                     if ($total_no_of_pages >= 10) {  	 
@@ -107,7 +112,7 @@ $articles = new Article()->paginateArticles($total_records_per_page, $offset);
                             if ($counter == $page_no) {
                                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
                             } else {
-                                echo "<li><a class='btn pagination-btn' href='?page_no=$counter'>$counter</a></li>";
+                                echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
                             }
                         }
                     } 
@@ -115,11 +120,11 @@ $articles = new Article()->paginateArticles($total_records_per_page, $offset);
             <li >
                 <a class="btn <?php echo ($page_no >= $total_no_of_pages) ? 'pagination-btn-disabled' : 'pagination-btn'; ?>"
                  
-                <?php if($page_no < $total_no_of_pages) echo "href='?page_no=$next_page'"; ?>>Next</a>
+                <?php if($page_no < $total_no_of_pages) echo "href='?page=articles&page_no=$next_page'"; ?>>Next</a>
             </li>
 
             <?php 
-                if($page_no < $total_no_of_pages) echo "<li><a class='bg-black btn pagination-btn' href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+                if($page_no < $total_no_of_pages) echo "<li><a class='bg-black btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
             ?>
         </ul>
         <!-- end of pagination buttons -->

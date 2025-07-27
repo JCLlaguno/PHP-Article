@@ -25,10 +25,14 @@
         // SIDEBAR
         require_once './includes/sidebar.php';
 
-        // select ACTIVE page
-        $pages = ['dashboard', 'users', 'articles'];
-        // in_array($page, $pages) ? require_once("$page.php") : require_once("./articles.php");
-        require_once './articles.php';
+        // Select the ACTIVE page
+        // DEFAULT page
+        if(!isset($_GET['page'])) $_GET['page'] = 'users';
+        
+        // if page = articles
+        if ($_GET['page'] == 'articles') require_once './articles.php';
+        // if page = users
+        else if($_GET['page'] == 'users') require_once './users.php';
      ?>
 </main>
 <!-- end of MAIN content-->
