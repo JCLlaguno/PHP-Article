@@ -19,7 +19,7 @@
         <form class="create-article-form custom-form" action="" method="POST">
             <h4 class="form-title">Create Article</h4>
             <label class="form-label" for="article-title">Title:</label>
-            <input class="article-title" name="article-title" id="article-title">
+            <textarea class="article-title" name="article-title" id="article-title"></textarea>
             <label class="form-label" for="article-content">Content</label>
             <!-- <div class="content-editor" id="content-editor" contenteditable></div> -->
             <textarea class="article-content" name="article-content" id="article-content"></textarea>

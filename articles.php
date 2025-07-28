@@ -68,20 +68,9 @@
                         <td class="table-article-title" data-title="Title">
                             <p><?php echo $article['article_title']; ?></p>
                         </td>
-                        <!-- <td class="table-article-content" data-title="Content">
-                            <p>
-                                <?php 
-                                    // $str = $article['article_content'];
-                                    // if (strlen($str) > 10) {
-                                    // $short_str = substr($str, 0, 100) . '...';
-                                    // echo($short_str);
-                                    // } else echo $str;
-                                ?>
-                            </p>
-                        </td> -->
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="btn bg-maroon action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="btn bg-black action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
                                 <a class="btn bg-green action-update-btn" href="./updateArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
                                 <a class="btn bg-red action-delete-btn" href="#" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
 
@@ -93,11 +82,11 @@
         </table>
         <!-- end of data table -->
         
-         <!-- page indicators -->
-        <div class="page-info">
+         <!-- pagination-pages -->
+        <div class="pagination-pages">
             <p>Page <?php echo $page_no." of ".$total_no_of_pages; ?></p>
         </div>
-        <!-- end of page indicators -->
+        <!-- end of pages -->
 
         <!-- PAGINATION buttons -->
         <ul class="pagination">

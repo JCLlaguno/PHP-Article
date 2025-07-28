@@ -38,26 +38,19 @@
 .create-article-section .section-title {
   font-size: 1rem;
 }
-.create-article-form .article-title {
+.article-title,
+.article-content {
   padding: 1rem;
   border: var(--border-small);
   border-radius: var(--radius);
   color: var(--black);
+  field-sizing: content;
+  font-size: 1rem;
   letter-spacing: 1.92px;
   outline: none;
-  font-size: 1rem;
-}
-.create-article-form .article-content {
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
-  border: var(--border-small);
-  border-radius: var(--radius);
   resize: none;
-  color: var(--black);
-  letter-spacing: 1.92px;
-  outline: none;
-  font-size: 1rem;
+}
+.article-content {
   margin-bottom: 1rem;
 }
 .form-btn-container {
