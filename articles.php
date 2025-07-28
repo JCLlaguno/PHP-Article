@@ -103,7 +103,7 @@
         <ul class="pagination">
             <!-- PREVIOUS button -->
             <li>
-                <a class="<?php echo ($page_no <= 1) ? 'btn pagination-btn-disabled' : 'btn bg-black pagination-btn'  ?>" 
+                <a class="btn pagination-btn <?php if ($page_no <= 1) echo 'pagination-btn-disabled'; ?>" 
                 <?php if($page_no > 1) echo "href='?page=articles&page_no=$previous_page'"; ?>>Previous</a>
             </li>
 
@@ -182,7 +182,7 @@
 
             <!-- NEXT button -->
             <li >
-                <a class="btn <?php echo ($page_no >= $total_no_of_pages) ? 'pagination-btn-disabled' : 'pagination-btn'; ?>"
+                <a class="btn pagination-btn <?php if ($page_no >= $total_no_of_pages) echo 'pagination-btn-disabled'?>"
                 <?php if($page_no < $total_no_of_pages) echo "href='?page=articles&page_no=$next_page'"; ?>>Next</a>
             </li>
         </ul>
