@@ -449,7 +449,7 @@ textarea {
   /* CREATE & EDIT forms */
   .custom-form {
     max-width: 800px;
-    border: var(--border-small);
+    /* border: var(--border-small); */
     padding: 1rem;
   }
 

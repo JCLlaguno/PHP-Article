@@ -1,10 +1,11 @@
 "use strict";
+
+// SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".mobile-toggle-btn");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuCloseBtn = document.querySelector(
   ".mobile-menu .mobile-toggle-btn"
 );
-
 mobileToggle?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
 });
@@ -27,14 +28,6 @@ deleteModalCancel?.addEventListener("click", (e) => {
   deleteModal?.classList.remove("show-modal");
   // enable scrolling
   document.body.style.overflow = "auto";
-
-  // show alert
-  const html = `
-    <div class="alert">
-        <div class="alert-content">
-            <p>Article was deleted</p>
-        </div>
-    </div>`;
 });
 
 // // if action delete btn is CLICKED
@@ -95,4 +88,59 @@ deleteModalContent?.addEventListener("submit", async (e) => {
   setTimeout(() => {
     alert.remove();
   }, 2000);
+});
+
+// HIDE/SHOW create article form
+const newBtn = document.querySelector(".new-btn-container .btn");
+const createArticleModal = document.querySelector(".create-article-section");
+const createArticleForm = document.querySelector(".create-article-form");
+
+// show create article modal
+newBtn.addEventListener("click", () =>
+  createArticleModal.classList.add("show")
+);
+
+// close window when back is pressed
+const backButton = document.querySelector(".form-btn-container .form-back-btn");
+backButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  createArticleModal.classList.remove("show");
+});
+
+// when form is submitted
+createArticleForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+
+  // Convert FormData to a plain JS object
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  try {
+    const response = await fetch("./createArticle.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Sending JSON
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
+    }
+    const successData = await response.json();
+    console.log(successData.message);
+
+    // close create article modal
+    // createArticleModal.classList.remove("show");
+
+    // reload the window
+    window.location.reload();
+  } catch (error) {
+    alert(error);
+  }
 });

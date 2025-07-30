@@ -1,34 +1,30 @@
 <?php
     session_start();
-    require_once './app/article.php';
-    require_once './includes/header.php';
+    require_once('./app/article.php');
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true);
 
-    if(isset($_POST['submit']) && !empty($_POST['article-title'] && !empty($_POST['article-content']))){
-        $article_title = trim($_POST['article-title']);
-        $article_content = trim($_POST['article-content']);
+    if (empty($input['article-title']) || empty($input['article-content'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing required fields']);
+        exit;
+    }
+
+    try {
+    
+        $article_title = trim($input['article-title']);
+        $article_content = trim($input['article-content']);
         $userid = $_SESSION['userid'];
 
-        $article = new Article();
-        $article->createArticle($userid, $article_title, $article_content);
-        header('location: ./index.php?page=articles');
+        new Article()->createArticle($userid, $article_title, $article_content);
+
+        echo json_encode(["success" => true, "message" => "Record inserted"]);
+
+    } catch (PDOException $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
     }
 ?>
-<!-- create article section -->
-<section class="create-article-section">
-    <div class="section-container">
-        <form class="create-article-form custom-form" action="" method="POST">
-            <h4 class="form-title">Create Article</h4>
-            <label class="form-label" for="article-title">Title:</label>
-            <textarea class="article-title" name="article-title" id="article-title"></textarea>
-            <label class="form-label" for="article-content">Content</label>
-            <!-- <div class="content-editor" id="content-editor" contenteditable></div> -->
-            <textarea class="article-content" name="article-content" id="article-content"></textarea>
-            <div class="form-btn-container">
-                <a href="./index.php?page=articles" class="btn bg-black form-back-btn">Back</a>
-                <input class="btn bg-blue form-create-btn" type="submit" name="submit" value="Create Article">
-            </div>
-        </form> 
-    </div>
-</section>
-<!-- end of create article section -->
-<?php require_once './includes/footer.php'; ?>

@@ -2,6 +2,7 @@
 <section class="articles">
     <!-- DELETE modal -->
     <?php require_once './includes/deleteModal.php'; ?>
+    <?php require_once './includes/createForm.php'; ?>
     <!-- articles container -->
     <div class="section-container">
         <!-- section header -->
@@ -12,7 +13,7 @@
         <!-- end of section header -->
         <!-- add article -->
         <div class="new-btn-container">
-            <a href="./createArticle.php" class="btn bg-blue">New Article</a>
+            <a href="#" class="btn bg-blue">New Article</a>
         </div>
         <!-- end of add article -->
 

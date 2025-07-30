@@ -21,7 +21,6 @@
                     ':article_title' => $article_title,
                     ':article_content' => $article_content
             ]); 
-                echo "New records created successfully";
             } catch (PDOException $e) {
                 echo "Database error: " . $e->getMessage();
             } catch (Error $e) {
