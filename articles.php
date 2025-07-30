@@ -1,5 +1,7 @@
 <!-- ARTICLES section -->
 <section class="articles">
+    <!-- DELETE modal -->
+    <?php require_once './includes/deleteModal.php'; ?>
     <!-- articles container -->
     <div class="section-container">
         <!-- section header -->
@@ -176,9 +178,6 @@
             </li>
         </ul>
         <!-- end of PAGINATION buttons -->
-
-        <!-- DELETE modal -->
-        <?php require_once './includes/deleteModal.php'; ?>
     </div>
     <!-- end of articles container -->
 </section>

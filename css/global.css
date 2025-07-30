@@ -304,6 +304,36 @@ textarea {
   width: 100%;
 }
 
+/* custom ALERT message */
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+.alert-content {
+  display: grid;
+  place-items: center;
+  width: 220px;
+  min-height: 200px;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+}
+.alert-content .alert-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: var(--btn-font-weight);
+  color: var(--red);
+}
+
 @media screen and (width >= 800px) {
   .main {
     grid-template-columns: auto 1fr;

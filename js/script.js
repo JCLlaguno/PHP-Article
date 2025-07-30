@@ -27,6 +27,14 @@ deleteModalCancel?.addEventListener("click", (e) => {
   deleteModal?.classList.remove("show-modal");
   // enable scrolling
   document.body.style.overflow = "auto";
+
+  // show alert
+  const html = `
+    <div class="alert">
+        <div class="alert-content">
+            <p>Article was deleted</p>
+        </div>
+    </div>`;
 });
 
 // // if action delete btn is CLICKED
@@ -67,4 +75,24 @@ deleteModalContent?.addEventListener("submit", async (e) => {
 
   // enable scrolling
   document.body.style.overflow = "auto";
+
+  // show an ALERT message
+  const html = `
+    <div class="alert">
+        <div class="alert-content">
+            <p class="alert-title">Article was deleted</p>
+        </div>
+    </div>`;
+  const articles = document.querySelector(".articles");
+  articles.insertAdjacentHTML("afterbegin", html);
+
+  const alert = document.querySelector(".alert");
+
+  // close ALERT immediately if modal is clicked
+  alert.addEventListener("click", () => alert.remove());
+
+  // close ALERT after 2 sec
+  setTimeout(() => {
+    alert.remove();
+  }, 2000);
 });
