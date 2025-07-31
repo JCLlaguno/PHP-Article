@@ -1,41 +1,45 @@
 <?php
-    require_once './app/article.php';
-    require_once './includes/header.php';
 
-    // get ARTICLE ID from url
-    $id = $_GET['id'];
-    
-    $article_obj = new Article(); // create a new ARTICLE object
+    session_start();
+    require_once('./app/article.php');
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
-    // check if an article exists in db
-    $article = $article_obj->getArticleById($id); // returns []
+    // handle GET request
+    if($_SERVER['REQUEST_METHOD'] === 'GET') {
+        // get ARTICLE ID from fetch()
+        $id = $_GET['id'];
+        // check if an article exists in db
+        new Article()->getArticleById($id); // returns JSON
+    }
 
-    if(isset($_POST['submit'])) {
-        if(!empty($_POST['article-title']) && !empty($_POST['article-content'])) {
-            $article_title = trim($_POST['article-title']);
-            $article_content = trim($_POST['article-content']);
+    // handle UPDATE request
+    if($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
-            $result = $article_obj->updateArticle($id, $article_title, $article_content);
-            if($result) header('location: ./index.php?page=articles');
+        header('Content-Type: application/json');
+
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (empty($input['article-title']) || empty($input['article-content'])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing required fields']);
+            exit;
+        }
+
+        try {
+        
+            $article_title = trim($input['article-title']);
+            $article_content = trim($input['article-content']);
+            $userid = trim($input['article-id']);
+
+            new Article()->updateArticle($userid, $article_title, $article_content);
+
+            echo json_encode(["success" => true, "message" => "Article updated!"]);
+
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
         }
     }
 ?>
-<!-- create article section -->
-<section class="create-article-section">
-    <div class="section-container">
-        <form class="create-article-form custom-form" action="" method="POST">
-            <h4 class="form-title">Update Article</h4>
-            <label class="form-label" for="article-title">Title:</label>
-            <textarea class="article-title" name="article-title" id="article-title"><?php echo $article['article_title']; ?></textarea>
-            <label class="form-label" for="article-content">Content</label>
-            <textarea class="article-content" name="article-content" id="article-content"><?php echo $article['article_content']; ?></textarea>
-            <div class="form-btn-container">
-                <a href="./index.php?page=articles" class="btn bg-black form-back-btn">Back</a>
-                <input class="btn bg-green form-update-btn" type="submit" name="submit" value="Update Article">
-            </div>
-        </form> 
-    </div>
-</section>
-<!-- end of create article section -->
-
-<?php require_once './includes/footer.php'; ?>

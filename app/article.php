@@ -72,9 +72,12 @@
             try {
                 $stmt = $this->conn->prepare("SELECT id, article_title, article_content FROM articles WHERE id=:id");
                 $stmt->execute([':id' => $id]);
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo json_encode($data);
             } catch (PDOException $e) {
-                echo "Database error:" . $e->getMessage();
+                // echo "Database error:" . $e->getMessage();
+                http_response_code(500);
+                echo json_encode(['error' => $e->getMessage()]);
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }

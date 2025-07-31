@@ -1,6 +1,6 @@
 <!-- DELETE modal -->
 <div class="delete-modal">
-    <form method="POST" action="" class="delete-modal-content">
+    <form class="delete-modal-content">
         <input class="id-input" type="hidden" name="article-id" value="article-id">
         <p class="modal-title">Delete this article?</p> 
         <div class="modal-confirm">

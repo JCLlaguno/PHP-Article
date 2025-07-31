@@ -1,15 +1,15 @@
 <?php 
     require_once './app/article.php';
-    
-    // if(isset($_POST['submit']))
-    // new Article()->deleteArticle($_POST['article-id']);
-    // header('location: ./index.php?page=articles');
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-    // Access data using the 'name' attribute from HTML
-    $id = $_POST['article-id']; 
+    if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        
+        header('Content-Type: application/json');
 
-    // Process the data (e.g., save to database, send email)
-    new Article()->deleteArticle($id);       
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        new Article()->deleteArticle($input['delete-id']);   
+        
+        echo json_encode(["success" => true, "message" => "Article was deleted!"]);  
+    }  
 ?>

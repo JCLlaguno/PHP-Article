@@ -331,6 +331,11 @@ textarea {
   justify-content: center;
   align-items: center;
   font-weight: var(--btn-font-weight);
+}
+.alert-title.alert-success {
+  color: var(--green);
+}
+.alert-title.alert-error {
   color: var(--red);
 }
 
@@ -449,7 +454,6 @@ textarea {
   /* CREATE & EDIT forms */
   .custom-form {
     max-width: 800px;
-    /* border: var(--border-small); */
     padding: 1rem;
   }
 

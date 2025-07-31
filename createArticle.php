@@ -17,11 +17,11 @@
     
         $article_title = trim($input['article-title']);
         $article_content = trim($input['article-content']);
-        $userid = $_SESSION['userid'];
+        $userid = trim($_SESSION['userid']);
 
         new Article()->createArticle($userid, $article_title, $article_content);
 
-        echo json_encode(["success" => true, "message" => "Record inserted"]);
+        echo json_encode(["success" => true, "message" => "Added new article!"]);
 
     } catch (PDOException $e) {
         http_response_code(500);
