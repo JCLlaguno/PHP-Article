@@ -16,5 +16,3 @@
     </div>
 </section>
 <!-- end of update article section -->
-
-<?php // require_once './includes/footer.php'; ?>

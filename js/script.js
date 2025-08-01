@@ -1,15 +1,15 @@
 "use strict";
 
 // custom ALERT message
-const bogoAlert = (message, alertType = "alert-success") => {
-  const successHtml = `
+const bogoAlert = (message, alertType = "bg-black") => {
+  const html = `
     <div class="alert">
-        <div class="alert-content">
-            <p class="alert-title ${alertType}">${message}</p>
+        <div class="alert-content ${alertType}">
+            <p class="alert-title">${message}</p>
         </div>
     </div>`;
   const articles = document.querySelector(".articles");
-  articles.insertAdjacentHTML("afterbegin", successHtml);
+  articles.insertAdjacentHTML("afterbegin", html);
 
   const alert = document.querySelector(".alert");
 
@@ -42,19 +42,21 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
 // CREATE ARTICLE
 // HIDE/SHOW create article form
 const newBtn = document.querySelector(".new-btn-container .btn");
-const createArticleModal = document.querySelector(".create-article-section");
+const createArticleModal = document.querySelector(".form-modal-container");
 const createArticleForm = document.querySelector(".create-article-form");
 
 // show create article modal
-newBtn.addEventListener("click", () =>
-  createArticleModal.classList.add("show")
-);
+newBtn.addEventListener("click", () => {
+  createArticleModal.classList.add("show");
+  document.body.style.overflow = "hidden";
+});
 
 // close create article modal when back is pressed
 const backButton = document.querySelector(".form-btn-container .form-back-btn");
 backButton.addEventListener("click", (e) => {
   e.preventDefault();
   createArticleModal.classList.remove("show");
+  document.body.style.overflow = "auto";
 });
 
 // when form is submitted
@@ -85,7 +87,7 @@ createArticleForm.addEventListener("submit", async function (e) {
     createArticleModal.classList.remove("show");
 
     // show an ALERT message
-    bogoAlert(successData.message);
+    bogoAlert(successData.message, "bg-blue");
   } catch (error) {
     alert(error);
   }
@@ -171,7 +173,7 @@ updateArticleModal.addEventListener("submit", async (e) => {
     updateArticleModal.classList.remove("show");
 
     // show an ALERT message
-    bogoAlert(successData.message);
+    bogoAlert(successData.message, "bg-green");
   } catch (error) {
     alert(error);
   }
@@ -241,7 +243,7 @@ deleteModalContent?.addEventListener("submit", async (e) => {
     const successData = await response.json();
 
     // show an ALERT message
-    // bogoAlert(successData.message, "alert-error");
+    bogoAlert(successData.message, "bg-red");
   } catch (error) {
     alert(error);
   }
