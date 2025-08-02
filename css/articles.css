@@ -2,7 +2,6 @@
   position: relative;
   z-index: 9999;
 }
-
 /* CUSTOM STYLES for articles */
 .data-table .table-article-title,
 .data-table .table-article-content {
@@ -23,48 +22,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* UPDATE article page styles */
-.update-article-section {
-  display: none;
-}
-.update-article-section.show {
-  position: fixed;
-  inset: 0;
-  background-color: var(--white);
-  min-height: calc(100vh - 4rem);
-  display: flex;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  backdrop-filter: blur(5px);
-}
-.update-article-section .custom-form {
-  background-color: var(--white);
-}
-.update-article-section .section-header {
-  font-size: 1rem;
-  padding: 1rem;
-  background-color: var(--whiter);
-}
-.update-article-section .section-title {
-  font-size: 1rem;
-}
-.article-title,
-.article-content {
-  padding: 1rem;
-  border: var(--border-small);
-  border-radius: var(--radius);
-  color: var(--black);
-  field-sizing: content;
-  font-size: 1rem;
-  letter-spacing: 1.92px;
-  outline: none;
-  resize: none;
-}
-.form-back-btn {
-  flex: 0 0 20%;
-}
-
 /* VIEW article page styles */
 .view-article-section {
   min-height: calc(100vh - 4rem);
@@ -76,6 +33,9 @@
   text-wrap: balance;
   font-family: var(--font-family);
   letter-spacing: var(--spacing);
+}
+.view-article-title {
+  text-align: center;
 }
 .article-container {
   margin: 0 auto;
@@ -92,6 +52,7 @@
   width: 25px;
   height: 25px;
 }
+/* CLOSE (x) button */
 .close-article-btn span {
   background-color: var(--white);
   position: absolute;
@@ -115,12 +76,7 @@
   transform: translate(-50%, -50%) rotate(-45deg);
   width: 100%;
 }
-.view-article-title {
-  text-align: center;
-}
-
 @media screen and (width >= 400px) {
-  /* CREATE article page styles */
   /* VIEW article page styles */
   .article-container {
     width: 90%;
@@ -131,7 +87,8 @@
   /* CUSTOM STYLES for articles */
   .data-table .table-article-title p,
   .data-table .table-article-content p {
-    max-width: 100%;
+    text-align: center;
+    max-width: 800px;
   }
   .data-table .table-article-title::before,
   .data-table .table-article-content::before {

@@ -1,5 +1,5 @@
 
-    <div class="form-modal-container">
+    <div class="form-modal-container create-modal">
         <!-- create article form -->
         <form class="create-article-form custom-form">
             <div class="form-title bg-blue">

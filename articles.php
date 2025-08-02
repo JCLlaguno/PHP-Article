@@ -53,7 +53,7 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Author</th>
+                    <th>Posted by</th>
                     <th>Title</th>
                     <!-- <th>Content</th> -->
                     <th class="action-title">Action</th>
@@ -63,7 +63,7 @@
                 <?php foreach($articles as $article) { ?>
                     <tr>
                         <td data-title="Id"><?php echo $article['id']; ?></td>
-                        <td data-title="Author">
+                        <td data-title="Posted by">
                             <?php
                                 $createdBy = $user->getUserById($article['userid']);
                                 echo $createdBy['username'];

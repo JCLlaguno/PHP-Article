@@ -42,7 +42,7 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
 // CREATE ARTICLE
 // HIDE/SHOW create article form
 const newBtn = document.querySelector(".new-btn-container .btn");
-const createArticleModal = document.querySelector(".form-modal-container");
+const createArticleModal = document.querySelector(".create-modal");
 const createArticleForm = document.querySelector(".create-article-form");
 
 // show create article modal
@@ -95,7 +95,7 @@ createArticleForm.addEventListener("submit", async function (e) {
 
 // UPDATE article
 // HIDE/SHOW update article form
-const updateArticleModal = document.querySelector(".update-article-section");
+const updateArticleModal = document.querySelector(".update-modal");
 const updateArticleForm = document.querySelector(".update-article-form");
 const actionUpdateButton = document.querySelectorAll(".action-update-btn");
 const updateModalInput = updateArticleModal.querySelector(".id-input");
@@ -137,7 +137,7 @@ actionUpdateButton.forEach((btn) => {
 
 // close update article modal when back is pressed
 const updateBackButton = document.querySelector(
-  ".update-article-section .form-back-btn"
+  ".update-article-form .form-back-btn"
 );
 updateBackButton.addEventListener("click", () => {
   updateArticleModal.classList.remove("show");

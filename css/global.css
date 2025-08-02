@@ -250,19 +250,18 @@ textarea {
   position: fixed;
   inset: 0;
   background-color: var(--white);
-  min-height: calc(100vh - 4rem);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 9999;
   backdrop-filter: blur(5px);
-  overflow: auto;
+  overflow-y: auto;
   padding: 6rem 0;
 }
 .custom-form {
   display: flex;
-  flex-flow: column wrap;
+  flex-direction: column;
   margin: 0 auto;
   border-radius: var(--radius);
   width: 90%;
@@ -285,7 +284,9 @@ textarea {
   display: inline-block;
   font-size: 1rem;
   font-weight: 500;
+  padding-left: 0.2rem;
 }
+/* FORM controls */
 .form-control {
   padding: 1rem;
   border: var(--border-small);
@@ -297,6 +298,7 @@ textarea {
   outline: none;
   resize: none;
 }
+
 .form-label,
 .form-control,
 .form-btn-container {
@@ -428,10 +430,12 @@ textarea {
     column-gap: 0.5rem;
     padding: 1rem;
   }
-
   /* DATA TABLE */
   .data-table td::before {
     content: none;
+  }
+  .data-table th {
+    white-space: nowrap;
   }
   .data-table th,
   .data-table td {
