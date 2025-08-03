@@ -7,23 +7,23 @@ const createArticle = () => {
   const createArticleForm = document.querySelector(".create-article-form");
 
   // show create article modal
-  newArticleBtn.addEventListener("click", () => {
+  newArticleBtn?.addEventListener("click", () => {
     createArticleModal.classList.add("show");
     document.body.style.overflow = "hidden";
   });
 
   // close create article modal when back is pressed
-  const backButton = createArticleModal.querySelector(
+  const backButton = createArticleModal?.querySelector(
     ".form-btn-container .form-back-btn"
   );
-  backButton.addEventListener("click", (e) => {
+  backButton?.addEventListener("click", (e) => {
     e.preventDefault();
     createArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
   });
 
   // when form is submitted
-  createArticleForm.addEventListener("submit", async function (e) {
+  createArticleForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);

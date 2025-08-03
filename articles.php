@@ -2,6 +2,7 @@
 <section class="articles">
     <!-- DELETE modal -->
     <?php require_once './includes/createForm.php'; ?>
+    <?php require_once './includes/viewArticleForm.php'; ?>
     <?php require_once './includes/updateForm.php'; ?>
     <?php require_once './includes/deleteForm.php'; ?>
     <!-- articles container -->
@@ -74,7 +75,7 @@
                         </td>
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="btn bg-black action-view-btn" href="./viewArticle.php?id=<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="btn bg-black action-view-btn" data-id="<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
                                 <a class="btn bg-green action-update-btn" data-id="<?php echo $article['id']; ?>" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
                                 <a class="btn bg-red action-delete-btn" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
 

@@ -5,11 +5,15 @@ import { bogoAlert } from "./script.js";
 // 2. from form (PUT) to update articles
 const updateArticle = () => {
   const actionUpdateButton = document.querySelectorAll(".action-update-btn");
+  const updateBackButton = document.querySelector(
+    ".update-article-form .form-back-btn"
+  );
   const updateArticleModal = document.querySelector(".update-article-modal");
-  const updateArticleForm = updateArticleModal.querySelector(
+  const updateArticleForm = updateArticleModal?.querySelector(
     ".update-article-form"
   );
-  const updateArticleId = updateArticleForm.querySelector("#update-article-id"); // id from UPDATE FORM
+  const updateArticleId =
+    updateArticleForm?.querySelector("#update-article-id"); // id from UPDATE FORM
 
   // LOAD article
   const loadArticle = async (id) => {
@@ -34,6 +38,7 @@ const updateArticle = () => {
   actionUpdateButton.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+      console.log(e.target);
 
       // SHOW update article form
       updateArticleModal.classList.add("show");
@@ -43,22 +48,19 @@ const updateArticle = () => {
       updateArticleModal.style.overflow = "scroll";
       // pass row id from table to UPDATE form input
       updateArticleId?.setAttribute("value", `${btn.dataset.id}`);
-      // load the selected article
+      // load selected article
       loadArticle(btn.dataset.id);
     });
   });
 
   // close update article modal when back is pressed
-  const updateBackButton = document.querySelector(
-    ".update-article-form .form-back-btn"
-  );
-  updateBackButton.addEventListener("click", () => {
+  updateBackButton?.addEventListener("click", () => {
     updateArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
   });
 
   // if form is SUBMITTED
-  updateArticleModal.addEventListener("submit", async (e) => {
+  updateArticleModal?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);

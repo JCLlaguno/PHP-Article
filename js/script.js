@@ -1,4 +1,5 @@
 import { createArticle } from "./createArticle.js";
+import { viewArticle } from "./viewArticle.js";
 import { updateArticle } from "./updateArticle.js";
 import { deleteArticle } from "./deleteArticle.js";
 
@@ -45,6 +46,8 @@ export { bogoAlert };
 
 // CREATE article
 createArticle();
+// VIEW article
+viewArticle();
 // UPDATE article
 updateArticle();
 // DELETE article
