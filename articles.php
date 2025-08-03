@@ -3,7 +3,7 @@
     <!-- DELETE modal -->
     <?php require_once './includes/createForm.php'; ?>
     <?php require_once './includes/updateForm.php'; ?>
-    <?php require_once './includes/deleteModal.php'; ?>
+    <?php require_once './includes/deleteForm.php'; ?>
     <!-- articles container -->
     <div class="section-container">
         <!-- section header -->
