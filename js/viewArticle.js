@@ -7,12 +7,11 @@ const viewArticle = () => {
   // LOAD article
   const loadArticle = async (id) => {
     try {
-      const response = await fetch(`./viewArticle.php?get_id=${id}`); // will send a GET request to viewArticle.php
+      const response = await fetch(`./getArticle.php?get_id=${id}`); // send a GET request to getArticle.php
 
       if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
       const data = await response.json();
-      console.log(data);
 
       // Fill form
       viewArticleModal.querySelector(".view-article-title h4").textContent =

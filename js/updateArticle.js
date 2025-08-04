@@ -18,7 +18,7 @@ const updateArticle = () => {
   // LOAD article
   const loadArticle = async (id) => {
     try {
-      const response = await fetch(`./updateArticle.php?get_id=${id}`); // will send a GET request to updateArticle.php
+      const response = await fetch(`./getArticle.php?get_id=${id}`); // send a GET request to getArticle.php
 
       if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
@@ -38,7 +38,6 @@ const updateArticle = () => {
   actionUpdateButton.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(e.target);
 
       // SHOW update article form
       updateArticleModal.classList.add("show");

@@ -2,15 +2,6 @@
 <div class="view-article-modal">
     <div class="article-container-wrapper">
         <div class="article-container">
-            <!-- close article btn-->
-            <div class="close-article-btn-container">
-                <a class="close-article-btn">
-                    <span class="line-1"></span>
-                    <span class="line-2"></span>
-                    <span class="line-3"></span>
-                </a>
-            </div>
-            <!-- end of close article btn-->
             <!-- view article title -->
             <div class="view-article-title">
                 <h4>
@@ -26,6 +17,13 @@
                 </pre>
             </div>
             <!-- end of view article content -->
+            <!-- close article btn-->
+            <div class="close-article-btn-container">
+                <a class="btn close-article-btn">
+                    <img src="./img/back.svg" alt="">
+                </a>
+            </div>
+            <!-- end of close article btn-->
         </div>
     </div>
 </div>

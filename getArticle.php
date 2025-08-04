@@ -8,6 +8,9 @@
         // get ARTICLE ID from fetch()
         $id = $_GET['get_id'];
         // check if an article exists in db
-        new Article()->getArticleById($id); // returns JSON
+        $data = new Article()->getArticleById($id); // []
+
+        // convert [] to JSON {}
+        echo json_encode($data); // {}
     }
 ?>
