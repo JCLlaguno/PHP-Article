@@ -2,7 +2,7 @@ const viewArticle = () => {
   const actionViewButton = document.querySelectorAll(".action-view-btn");
   const viewArticleModal = document.querySelector(".view-article-modal");
   const viewArticleCloseButton =
-    viewArticleModal.querySelector(".close-article-btn");
+    viewArticleModal?.querySelector(".close-article-btn");
 
   // LOAD article
   const loadArticle = async (id) => {
@@ -39,7 +39,7 @@ const viewArticle = () => {
   });
 
   // if close (X) button is CLICKED
-  viewArticleCloseButton.addEventListener("click", (e) => {
+  viewArticleCloseButton?.addEventListener("click", (e) => {
     e.preventDefault();
     // HIDE view article modal
     viewArticleModal.classList.remove("show");

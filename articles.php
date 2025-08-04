@@ -1,10 +1,14 @@
 <!-- ARTICLES section -->
 <section class="articles">
     <!-- DELETE modal -->
-    <?php require_once './includes/createForm.php'; ?>
-    <?php require_once './includes/viewArticleForm.php'; ?>
-    <?php require_once './includes/updateForm.php'; ?>
-    <?php require_once './includes/deleteForm.php'; ?>
+    <?php 
+        require_once './app/article.php'; 
+        require_once './app/user.php';
+        require_once './includes/createForm.php';
+        require_once './includes/viewArticleForm.php';
+        require_once './includes/updateForm.php';
+        require_once './includes/deleteForm.php'; 
+    ?>
     <!-- articles container -->
     <div class="section-container">
         <!-- section header -->
@@ -15,7 +19,7 @@
         <!-- end of section header -->
         <!-- add article -->
         <div class="new-btn-container">
-            <a class="btn bg-blue">New Article</a>
+            <a class="btn bg-blue new-article-btn">New Article</a>
         </div>
         <!-- end of add article -->
 
@@ -66,7 +70,7 @@
                         <td data-title="Id"><?php echo $article['id']; ?></td>
                         <td data-title="Posted by">
                             <?php
-                                $createdBy = $user->getUserById($article['userid']);
+                                $createdBy = new User()->getUserById($article['userid']);
                                 echo $createdBy['username'];
                             ?>
                         </td>

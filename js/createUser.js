@@ -1,28 +1,29 @@
 import { bogoAlert } from "./script.js";
 
-const createArticle = () => {
-  const newArticleBtn = document.querySelector(".new-btn-container .btn");
-  const createArticleModal = document.querySelector(".create-article-modal");
-  const createArticleForm = document.querySelector(".create-article-form");
+const createUser = () => {
+  const newUserBtn = document.querySelector(".new-btn-container .new-user-btn");
+  const createUserModal = document.querySelector(".create-user-modal");
+  const createUserForm = document.querySelector(".create-user-form");
 
-  // show create article modal
-  newArticleBtn?.addEventListener("click", () => {
-    createArticleModal?.classList.add("show");
+  // show create user modal
+  newUserBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    createUserModal.classList.add("show");
     document.body.style.overflow = "hidden";
   });
 
-  // close create article modal when back is pressed
-  const backButton = createArticleModal?.querySelector(
+  // close create user modal when back is pressed
+  const backButton = createUserModal?.querySelector(
     ".form-btn-container .form-back-btn"
   );
   backButton?.addEventListener("click", (e) => {
     e.preventDefault();
-    createArticleModal.classList.remove("show");
+    createUserModal.classList.remove("show");
     document.body.style.overflow = "auto";
   });
 
   // when form is submitted
-  createArticleForm?.addEventListener("submit", async function (e) {
+  createUserForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -31,7 +32,7 @@ const createArticle = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("./createArticle.php", {
+      const response = await fetch("./createUser.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Sending JSON
@@ -46,7 +47,7 @@ const createArticle = () => {
       const successData = await response.json();
 
       // close create article modal
-      createArticleModal.classList.remove("show");
+      createUserModal.classList.remove("show");
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-blue");
@@ -56,4 +57,4 @@ const createArticle = () => {
   });
 };
 
-export { createArticle };
+export { createUser };

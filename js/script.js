@@ -1,7 +1,9 @@
+import { createUser } from "./createUser.js";
 import { createArticle } from "./createArticle.js";
 import { viewArticle } from "./viewArticle.js";
 import { updateArticle } from "./updateArticle.js";
 import { deleteArticle } from "./deleteArticle.js";
+import { loadAllUsers } from "./loadAllUsers.js";
 
 // SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".mobile-toggle-btn");
@@ -43,6 +45,11 @@ const bogoAlert = (message, alertType = "bg-black") => {
 };
 
 export { bogoAlert };
+
+// LOAD all users
+loadAllUsers();
+// CREATE user
+createUser();
 
 // CREATE article
 createArticle();

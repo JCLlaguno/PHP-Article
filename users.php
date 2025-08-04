@@ -1,5 +1,6 @@
 <!-- USERS section -->
 <section class="users">
+    <?php require_once './includes/createUserForm.php'; ?>
     <!-- users container -->
     <div class="section-container">
         <!-- section header -->
@@ -10,11 +11,11 @@
         <!-- end of section header -->
         <!-- add user -->
         <div class="new-btn-container">
-            <a href="./addUser.php" class="btn bg-blue">New User</a>
+            <a class="btn bg-blue new-user-btn">New User</a>
         </div>
         <!-- end of add user -->
         <!-- data table -->
-        <table class="data-table">
+        <table class="data-table users-table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -23,18 +24,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($users as $user) { ?>
-                    <tr>
-                        <td data-title="Id"><?php echo $user['id']; ?></td>
-                        <td data-title="Username"><?php echo $user['username']; ?></td>
-                        <td data-title="Action">
-                            <div class="action-container">
-                                <a class="btn bg-green action-update-btn" href="./updateUser.php?id=<?php echo $user['id']; ?>"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="btn bg-red action-delete-btn" href="./deleteUser.php?id=<?php echo $user['id']; ?>"><img src="./img/delete.svg" alt="Edit"></a>
-                            </div>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <tr>
+                    <!-- users -->
+                </tr>
             </tbody>
         </table>
         <!-- end of data table -->

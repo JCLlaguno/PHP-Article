@@ -12,12 +12,6 @@
         header('location: ./index.php');
     }
 ?>
-    <form class="add-user" action="" method="POST">
-        <label class="form-label" for="username">Username:</label><br>
-        <input type="text" id="username" name="username" value=""><br>
-        <label class="form-label" for="password">Password:</label><br>
-        <input type="password" id="password" name="password" value=""><br><br>
-        <input type="submit" name="submit" value="submit">
-    </form> 
+   
 
 <?php require_once './includes/footer.php'; ?>

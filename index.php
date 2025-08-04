@@ -8,14 +8,6 @@
         header('location: ./login.php');
         exit;
     }
-
-    // include MODEL files
-    require_once './app/user.php';
-    require_once './app/article.php';
-
-    // create new objects
-    $user = new User();
-    $users = new User()->getAllUsers();
 ?>
 
 <!-- MAIN content -->
