@@ -1,0 +1,7 @@
+@media screen and (width >= 800px) {
+  /* CREATE user form */
+  .create-user-form,
+  .update-user-form {
+    max-width: 500px;
+  }
+}

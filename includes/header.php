@@ -6,6 +6,7 @@
     <title>Articles</title>
     <link href="./css/global.css" rel="stylesheet">
     <link href="./css/nav.css" rel="stylesheet">
+    <link href="./css/users.css" rel="stylesheet">
     <link href="./css/articles.css" rel="stylesheet">
     <link href="./css/login.css" rel="stylesheet">
     <link href="./css/footer.css" rel="stylesheet">

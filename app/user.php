@@ -20,7 +20,6 @@
                     ':username' => $username,
                     ':password' => $password
             ]); 
-                echo "New records created successfully";
             } catch (PDOException $e) {
                 echo "Database error: " . $e->getMessage();
             } catch (Error $e) {

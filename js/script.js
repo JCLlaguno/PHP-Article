@@ -4,6 +4,7 @@ import { viewArticle } from "./viewArticle.js";
 import { updateArticle } from "./updateArticle.js";
 import { deleteArticle } from "./deleteArticle.js";
 import { loadAllUsers } from "./loadAllUsers.js";
+import { deleteUser } from "./deleteUser.js";
 
 // SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".mobile-toggle-btn");
@@ -19,28 +20,25 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
 });
 
 // custom ALERT message
-const bogoAlert = (message, alertType = "bg-black") => {
+const bogoAlert = (message, alertType = "bg-black", parentEl) => {
   const html = `
     <div class="alert">
         <div class="alert-content ${alertType}">
             <p class="alert-title">${message}</p>
         </div>
     </div>`;
-  const articles = document.querySelector(".articles");
-  articles.insertAdjacentHTML("afterbegin", html);
+  parentEl.insertAdjacentHTML("afterbegin", html);
 
   const alert = document.querySelector(".alert");
 
   // close ALERT immediately if modal is clicked
   alert.addEventListener("click", () => {
     alert.remove();
-    window.location.reload();
   });
 
   // close ALERT after 2 sec
   setTimeout(() => {
     alert.remove();
-    window.location.reload();
   }, 2000);
 };
 
@@ -50,6 +48,8 @@ export { bogoAlert };
 loadAllUsers();
 // CREATE user
 createUser();
+// Delete user
+deleteUser();
 
 // CREATE article
 createArticle();

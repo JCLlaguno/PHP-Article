@@ -1,6 +1,9 @@
 <!-- USERS section -->
 <section class="users">
-    <?php require_once './includes/createUserForm.php'; ?>
+    <?php 
+        require_once './includes/createUserForm.php'; 
+        require_once './includes/deleteUserForm.php'
+    ?>
     <!-- users container -->
     <div class="section-container">
         <!-- section header -->
@@ -24,9 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <!-- users -->
-                </tr>
             </tbody>
         </table>
         <!-- end of data table -->

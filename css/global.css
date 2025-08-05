@@ -342,7 +342,7 @@ textarea {
   align-items: center;
   backdrop-filter: blur(5px);
 }
-.delete-modal-content {
+.delete-modal-form {
   display: grid;
   grid-template-rows: 1fr auto;
   width: 220px;
@@ -351,12 +351,12 @@ textarea {
   border-radius: var(--radius);
   padding: 0.8rem;
 }
-.delete-modal-content .modal-title {
+.delete-modal-form .modal-title {
   align-self: center;
   justify-self: center;
   font-weight: var(--btn-font-weight);
 }
-.delete-modal-content .modal-confirm {
+.delete-modal-form .modal-confirm {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -536,7 +536,7 @@ textarea {
   }
 
   /* DELETE modal */
-  .delete-modal-content {
+  .delete-modal-form {
     width: 320px;
     min-height: 220px;
   }

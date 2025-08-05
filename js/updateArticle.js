@@ -4,6 +4,7 @@ import { bogoAlert } from "./script.js";
 // 1. from URL (GET) request to laod articles initially
 // 2. from form (PUT) to update articles
 const updateArticle = () => {
+  const articles = document.querySelector(".articles");
   const actionUpdateButton = document.querySelectorAll(".action-update-btn");
   const updateBackButton = document.querySelector(
     ".update-article-form .form-back-btn"
@@ -87,7 +88,7 @@ const updateArticle = () => {
       updateArticleModal.classList.remove("show");
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-green");
+      bogoAlert(successData.message, "bg-green", articles);
     } catch (error) {
       alert(error);
     }

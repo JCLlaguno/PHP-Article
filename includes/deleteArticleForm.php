@@ -1,6 +1,6 @@
 <!-- DELETE modal -->
 <div class="modal-window delete-modal">
-    <form class="delete-modal-content">
+    <form class="delete-modal-form delete-article-form">
         <input id="delete-id" name="delete-id" type="hidden">
         <p class="modal-title">Delete this <?php echo ($_GET['page'] === 'articles') ? 'article' : 'user'; ?>?</p> 
         <div class="modal-confirm">

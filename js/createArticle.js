@@ -1,6 +1,7 @@
 import { bogoAlert } from "./script.js";
 
 const createArticle = () => {
+  const articles = document.querySelector(".articles");
   const newArticleBtn = document.querySelector(".new-btn-container .btn");
   const createArticleModal = document.querySelector(".create-article-modal");
   const createArticleForm = document.querySelector(".create-article-form");
@@ -49,7 +50,7 @@ const createArticle = () => {
       createArticleModal.classList.remove("show");
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-blue");
+      bogoAlert(successData.message, "bg-blue", articles);
     } catch (error) {
       alert(error);
     }

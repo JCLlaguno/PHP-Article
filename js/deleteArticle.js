@@ -1,9 +1,12 @@
 import { bogoAlert } from "./script.js";
 
 const deleteArticle = () => {
-  const deleteButton = document.querySelectorAll(".action-delete-btn");
+  const articles = document.querySelector(".articles");
+  const deleteButton = document.querySelectorAll(
+    ".articles .action-delete-btn"
+  );
   const deleteModal = document.querySelector(".delete-modal");
-  const deleteModalContent = document.querySelector(".delete-modal-content");
+  const deleteArticleForm = document.querySelector(".delete-article-form");
   const deleteModalCancel = document.querySelector(".modal-cancel-btn");
   const deleteModalId = document.getElementById("delete-id");
 
@@ -30,7 +33,7 @@ const deleteArticle = () => {
   });
 
   // id YES is selected on modal
-  deleteModalContent?.addEventListener("submit", async (e) => {
+  deleteArticleForm?.addEventListener("submit", async (e) => {
     e.preventDefault(); // Prevent default form submission
 
     // const deleteId = deleteModalId.value; // get ID from delete Modal
@@ -66,7 +69,7 @@ const deleteArticle = () => {
       const successData = await response.json();
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-red");
+      bogoAlert(successData.message, "bg-red", articles);
     } catch (error) {
       alert(error);
     }

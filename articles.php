@@ -7,7 +7,7 @@
         require_once './includes/createForm.php';
         require_once './includes/viewArticleForm.php';
         require_once './includes/updateForm.php';
-        require_once './includes/deleteForm.php'; 
+        require_once './includes/deleteArticleForm.php'; 
     ?>
     <!-- articles container -->
     <div class="section-container">
