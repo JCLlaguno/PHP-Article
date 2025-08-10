@@ -1,8 +1,5 @@
 import { bogoAlert } from "./script.js";
 
-// we get ID 2 times
-// 1. from URL (GET) request to laod articles initially
-// 2. from form (PUT) to update articles
 const updateArticle = () => {
   const articles = document.querySelector(".articles");
   const actionUpdateButton = document.querySelectorAll(".action-update-btn");
@@ -35,7 +32,7 @@ const updateArticle = () => {
     }
   };
 
-  // // if action UPDATE btn is CLICKED
+  // // if action UPDATE btn is CLICKED (TEMPORARY)
   actionUpdateButton.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -89,6 +86,11 @@ const updateArticle = () => {
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-green", articles);
+
+      // reload page after 2s
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     } catch (error) {
       alert(error);
     }

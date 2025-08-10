@@ -14,7 +14,7 @@
 <main class="main">
      <?php
         // set DEFAULT page
-        if(!isset($_GET['page'])) $_GET['page'] = 'users';
+        if(!isset($_GET['page'])) $_GET['page'] = 'articles';
 
         // include SIDEBAR
         require_once './includes/sidebar.php';

@@ -1,6 +1,6 @@
 <?php
 
-    require_once './app/database.php';
+    require_once __DIR__ . '/../config/database.php';
 
     class Article {
         
@@ -42,9 +42,9 @@
         }
         
         // paginate articles
-        public function paginateArticles($limit, $offset) {
+        public function paginateArticles($limit, $offset, $userid) {
             try {
-                $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles ORDER BY id DESC LIMIT $offset, $limit "); // offset, limit
+                $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles WHERE userid = $userid ORDER BY id DESC LIMIT $offset, $limit "); 
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -55,9 +55,9 @@
         }
 
         // count all articles
-        public function countTotalArticles() {
+        public function countTotalArticles($userid) {
             try {
-                $stmt = $this->conn->prepare("SELECT COUNT(*) As total_count FROM `articles`");
+                $stmt = $this->conn->prepare("SELECT COUNT(*) As total_count FROM `articles` WHERE userid = $userid");
                 $stmt->execute();
                 return $stmt->fetch(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {

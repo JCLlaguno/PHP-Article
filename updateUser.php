@@ -1,47 +1,95 @@
 <?php
-    require_once './app/user.php';
-    require_once './includes/header.php';
+    session_start();
+    require_once __DIR__ . '/classes/user.php';
 
-    // get USER ID from url
-    $id = $_GET['id'];
-    
-    $user = new User(); // create a new USER object
+    // handle UPDATE request
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            header('Content-Type: application/json; charset=utf-8');
 
-    // check if user exists in db
-    $found_user = $user->getUserById($id); // returns []
 
-    if(isset($_POST['submit'])) {
-        if(!empty($_POST['username']) && !empty($_POST['oldpassword']) && !empty($_POST['newpassword'])) {
+            // find user by ID
+            $userId = trim($_POST['update-user-id']);
+            $foundUser = new User()->getUserById($userId);
+
+
+            /* USERNAME */
             $username = trim($_POST['username']);
-            $old_password = trim($_POST['oldpassword']);
-            $new_password = trim($_POST['newpassword']);
-            $password_hash = password_hash($new_password, PASSWORD_DEFAULT); // hash NEW password
-       
-            // if old pass is NOT equal to inputted old pass
-            if(!password_verify($old_password, $found_user['password'])) { // (param: $str, $hash)
-                echo 'Old password is incorrect.';
-
-            // if old pass is SAME as new pass
-            } else if($old_password === $new_password) {
-                echo 'New password must be different.';
-            
-            // else UPDATE data
-            } else {
-                $result = $user->updateUser($id, $username, $password_hash);
-                if($result) header('location: ./index.php');
+            if (empty($username)) {
+                http_response_code(400);
+                echo json_encode(["status" => "error", "message" => "Username required"]);
+                exit;
             }
-        } else echo 'All fields are required.';
+
+
+            /* PASSWORD */
+            // Get password from POST
+            $newPassword = trim($_POST['new-password']);
+            
+            // if current password is the same as inputted password
+            if(!empty($newPassword) && password_verify($newPassword, $foundUser['password'])) { 
+                http_response_code(400);
+                echo json_encode(['error' => 'New password is same as current password!']);
+                exit;
+            }
+
+            // if no inputted new password
+            $passwordHash = empty($newPassword) ?
+                $foundUser['password'] // use old password from db
+                :
+                // if inputted new password
+                password_hash($newPassword, PASSWORD_DEFAULT); // hash new password
+
+
+            /* PHOTO UPLOAD */
+            // if a photo is UPLOADED
+            if(
+                isset($_FILES['photo']) 
+                && $_FILES['photo']['error'] === UPLOAD_ERR_OK 
+                && is_uploaded_file($_FILES['photo']['tmp_name'])) {
+
+                // temp location of uploaded photo
+                $tmpLoc = $_FILES['photo']['tmp_name'];
+
+                // set up local upload directory path
+                $uploadDir = __DIR__ . "/uploads/";
+                
+                // get old photo url from db
+                $photoUrl = $foundUser['photo']; // complete url from db
+                $oldFileName = basename($photoUrl); // extract filename from url
+                $oldImg = $uploadDir . $oldFileName; // append db filename to local upload dir
+                if(file_exists($oldImg)) unlink($oldImg); // DELETE old photo locally
+
+                // generate filename for NEW photo
+                $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
+                $filename = bin2hex(random_bytes(8)) . "." . strtolower($extension); // unique file name for NEW image (lowercased)
+
+                // new photo url to be inserted to db
+                $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $filename;
+
+                // storing photo on local server directory
+                $filePath = $uploadDir . $filename; // final filesystem path of new photo
+                // if false, move uploaded photo from tmp location to local server directory
+                // if true, throw an error
+                if (!is_uploaded_file($tmpLoc) || !move_uploaded_file($tmpLoc, $filePath)) {
+                    http_response_code(500);
+                    echo json_encode(["status" => "error", "message" => "Failed to save file"]);
+                    exit;
+                }
+
+            } else {
+                /* 
+                    if NO new photo is uploaded
+                    reuse existing photo from db 
+                */
+                $fileUrl = $foundUser['photo'];
+            }
+            /* UPDATE USER */
+            new User()->updateUser($userId, $username, $fileUrl, $passwordHash);
+            echo json_encode(["status" => "success", "message" => "Updated user!"]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+        }
     }
 ?>
-    <h4>Update User</h4>
-    <form class="add-user" action="" method="POST">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" value="<?php echo $found_user['username']; ?>"><br>
-        <label for="password">Old Password:</label><br>
-        <input type="password" id="oldpassword" name="oldpassword"><br>
-        <label for="new password">New Password:</label><br>
-        <input type="password" id="newpassword" name="newpassword"><br><br>
-        <input type="submit" name="submit" value="submit">
-    </form> 
-
-<?php require_once './includes/footer.php'; ?>

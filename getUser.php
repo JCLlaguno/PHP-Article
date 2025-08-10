@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once './classes/article.php';
+    require_once './classes/user.php';
 
     // handle GET request
     // get ID from loaded article
@@ -8,7 +8,7 @@
         // get ARTICLE ID from fetch()
         $id = $_GET['get_id'];
         // check if an article exists in db
-        $data = new Article()->getArticleById($id); // []
+        $data = new User()->getUserById($id); // []
 
         // convert [] to JSON {}
         echo json_encode($data); // {}

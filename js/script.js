@@ -4,6 +4,7 @@ import { viewArticle } from "./viewArticle.js";
 import { updateArticle } from "./updateArticle.js";
 import { deleteArticle } from "./deleteArticle.js";
 import { loadAllUsers } from "./loadAllUsers.js";
+import { updateUser } from "./updateUser.js";
 import { deleteUser } from "./deleteUser.js";
 
 // SHOW/HIDE mobile menu
@@ -44,13 +45,17 @@ const bogoAlert = (message, alertType = "bg-black", parentEl) => {
 
 export { bogoAlert };
 
+// USERS
 // LOAD all users
 loadAllUsers();
 // CREATE user
 createUser();
-// Delete user
+// UPDATE user
+updateUser();
+// DELETE user
 deleteUser();
 
+// ARTICLES
 // CREATE article
 createArticle();
 // VIEW article

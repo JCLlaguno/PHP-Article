@@ -2,11 +2,11 @@
 <section class="articles">
     <!-- DELETE modal -->
     <?php 
-        require_once './app/article.php'; 
-        require_once './app/user.php';
-        require_once './includes/createForm.php';
+        require_once __DIR__ . '/classes/article.php'; 
+        require_once __DIR__ . '/classes/user.php';
+        require_once './includes/createArticleForm.php';
         require_once './includes/viewArticleForm.php';
-        require_once './includes/updateForm.php';
+        require_once './includes/updateArticleForm.php';
         require_once './includes/deleteArticleForm.php'; 
     ?>
     <!-- articles container -->
@@ -17,6 +17,7 @@
             <p class="section-title">Articles</p>
         </div>
         <!-- end of section header -->
+
         <!-- add article -->
         <div class="new-btn-container">
             <a class="btn bg-blue new-article-btn">New Article</a>
@@ -43,13 +44,18 @@
 
 
             // get the total no. of pages for pagination
-            $total_articles = new Article()->countTotalArticles();
+            $total_articles = new Article()->countTotalArticles($_SESSION['userid']);
             $total_articles = $total_articles['total_count'];
             $total_no_of_pages = ceil($total_articles / $total_records_per_page);
             $second_last = $total_no_of_pages - 1; // total pages minus 1
+            // get ID of logged in user
+            $createdBy = new User()->getUserById($_SESSION['userid']);
 
             // get paginated articles
-            $articles = new Article()->paginateArticles($total_records_per_page, $offset);
+            $articles = new Article()->paginateArticles($total_records_per_page, $offset, $createdBy['id']);
+            
+            // check if there are no articles
+            if (count($articles) !== 0) {
 
         ?>
 
@@ -70,7 +76,6 @@
                         <td data-title="Id"><?php echo $article['id']; ?></td>
                         <td data-title="Posted by">
                             <?php
-                                $createdBy = new User()->getUserById($article['userid']);
                                 echo $createdBy['username'];
                             ?>
                         </td>
@@ -91,6 +96,7 @@
         </table>
         <!-- end of data table -->
         
+        <?php  ?>
          <!-- pagination-pages -->
         <div class="pagination-pages">
             <p>Page <?php echo $page_no." of ".$total_no_of_pages; ?></p>
@@ -185,6 +191,7 @@
             </li>
         </ul>
         <!-- end of PAGINATION buttons -->
+         <?php } else echo 'No articles' ?> 
     </div>
     <!-- end of articles container -->
 </section>

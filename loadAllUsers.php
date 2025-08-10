@@ -1,5 +1,5 @@
 <?php
-    require_once './app/user.php';
+    require_once './classes/user.php';
         $data = new User()->getAllUsers(); // []
 
         // convert [] to JSON {}

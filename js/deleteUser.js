@@ -20,7 +20,6 @@ const deleteUser = () => {
     e.preventDefault(); // Prevent default form submission
 
     const form = e.target;
-    console.log(e.target);
     const formData = new FormData(form);
     // Convert FormData to a plain JS object
     const deleteId = Object.fromEntries(formData);

@@ -51,6 +51,11 @@ const createArticle = () => {
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-blue", articles);
+
+      // reload page after 2s
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     } catch (error) {
       alert(error);
     }

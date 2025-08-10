@@ -11,8 +11,13 @@
     <!-- mobile links -->
     <ul class="mobile-links">
         <li><a class="mobile-link" href="">Dashboard</a></li>
-        <li class="<?php if($_GET['page'] == 'users') echo 'selected' ?>"><a class="mobile-link" href="?page=users">Users</a></li>
-        <li class="<?php if($_GET['page'] == 'articles') echo 'selected' ?>"><a class="mobile-link" href="?page=articles?page_no=1">Articles</a></li>
+        <li class="
+        <?php 
+            if($_GET['page'] === 'users') echo 'selected';
+            if($_SESSION['username'] !== 'jc') echo 'page-hidden'; 
+        
+        ?>"><a class="mobile-link" href="?page=users">Users</a></li>
+        <li class="<?php if($_GET['page'] === 'articles') echo 'selected' ?>"><a class="mobile-link" href="?page=articles&page_no=1">Articles</a></li>
     </ul>
     <!-- end of mobile links -->
     <!-- log out button -->
@@ -27,13 +32,17 @@
 <aside class="sidebar">
     <!-- page links -->
     <div class="page-links">
-        <a href="./" class="page-link">
+        <a href="#" class="page-link">
             <div class="page-link-container">
                 <span><img class="link-icon" src="./img/dashboard.svg" alt="dashboard"></span>
                 <h4 class="link-name">Dashboard</h4>
             </div>
         </a>
-        <a href="?page=users" class="page-link <?php if($_GET['page'] === 'users') echo 'selected'?>">
+        <a href="?page=users" class="page-link 
+        <?php 
+            if($_GET['page'] === 'users') echo 'selected';
+            if($_SESSION['username'] !== 'jc') echo 'page-hidden'; 
+        ?>">
             <div class="page-link-container">
                 <span><img class="link-icon" src="./img/user.svg" alt="users"></span>
                 <h4 class="link-name">Users</h4>

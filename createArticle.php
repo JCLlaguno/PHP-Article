@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once './app/article.php';
+    require_once './classes/article.php';
 
     // handle POST request 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

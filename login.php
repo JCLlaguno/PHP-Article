@@ -1,6 +1,6 @@
 <?php
     require_once './includes/session.php';
-    require_once './app/user.php';
+    require_once './classes/user.php';
     require_once './includes/header.php';
     
     if(isset($_POST['submit'])) {
@@ -11,7 +11,8 @@
         if($user) {
             if(password_verify($password, $user['password'])) {
                 $_SESSION['userid'] = $user['id'];
-                header('location: ./index.php?page=users');
+                $_SESSION['username'] = $user['username'];
+                header('location: ./index.php?page=articles');
             } // else echo 'Incorrect password';
         } else {
             // echo 'User does not exist.';

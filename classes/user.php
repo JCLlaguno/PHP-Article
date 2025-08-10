@@ -1,6 +1,6 @@
 <?php
 
-    require_once './app/database.php';
+    require_once __DIR__ . '/../config/database.php';
 
     class User {
 
@@ -12,12 +12,13 @@
         }
 
         // add a user
-        public function createUser($username, $password) { 
+        public function createUser($username, $photo, $password) { 
             try {
-                $stmt = $this->conn->prepare("INSERT INTO users (username, password)
-                VALUES (:username, :password)");
+                $stmt = $this->conn->prepare("INSERT INTO users (username, photo, password)
+                VALUES (:username, :photo, :password)");
                 $stmt->execute([
                     ':username' => $username,
+                    ':photo' => $photo,
                     ':password' => $password
             ]); 
             } catch (PDOException $e) {
@@ -30,7 +31,7 @@
         // get all users
         public function getAllUsers() {
             try {
-                $stmt = $this->conn->prepare("SELECT id, username, password FROM users");
+                $stmt = $this->conn->prepare("SELECT id, photo, username, password FROM users");
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -43,7 +44,7 @@
         // get single user by id 
         public function getUserById($id) {
             try {
-                $stmt = $this->conn->prepare("SELECT id, username, password FROM users WHERE id=:id");
+                $stmt = $this->conn->prepare("SELECT id, username,photo, password FROM users WHERE id=:id");
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,12 +69,13 @@
         }
 
         // update user
-        public function updateUser($id, $username, $password) {
+        public function updateUser($id, $username, $photo, $password) {
             try {
-                $stmt = $this->conn->prepare("UPDATE users SET username=:username, password=:password WHERE id=:id");
+                $stmt = $this->conn->prepare("UPDATE users SET username=:username, photo=:photo, password=:password WHERE id=:id");
                 $stmt->execute([
                     ':id' => $id,
                     ':username' => $username,
+                    ':photo' => $photo,
                     ':password' => $password
                 ]);
                 return $stmt->rowCount();

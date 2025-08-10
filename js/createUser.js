@@ -27,28 +27,19 @@ const createUser = () => {
   // when form is SUBMITTED
   createUserForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-
-    // Convert FormData to a plain JS object
-    const data = Object.fromEntries(formData);
+    const formData = new FormData(this);
 
     try {
-      const response = await fetch("./createUser.php", {
+      let response = await fetch("./createUser.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Sending JSON
-        },
-        body: JSON.stringify(data), // send data as JSON
+        body: formData,
       });
-
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error);
+        throw new Error(errorData.message);
       }
       const successData = await response.json();
-
-      // close create article modal
+      // close create user modal
       createUserModal.classList.remove("show");
 
       document.body.style.overflow = "auto";
@@ -59,7 +50,7 @@ const createUser = () => {
       // load all users
       loadAllUsers();
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   });
 };

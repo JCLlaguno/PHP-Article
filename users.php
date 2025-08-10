@@ -1,7 +1,11 @@
 <!-- USERS section -->
-<section class="users">
+<section class="users 
+<?php 
+    if($_SESSION['username'] !== 'jc') echo 'page-hidden'; 
+?>">
     <?php 
         require_once './includes/createUserForm.php'; 
+        require_once './includes/updateUserForm.php';
         require_once './includes/deleteUserForm.php'
     ?>
     <!-- users container -->
@@ -22,6 +26,7 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Photo</th>
                     <th>Username</th>
                     <th class="action-title">Action</th>
                 </tr>

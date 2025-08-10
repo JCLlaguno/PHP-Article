@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once './app/article.php';
+    require_once './classes/article.php';
 
     // handle UPDATE request
     if($_SERVER['REQUEST_METHOD'] === 'PUT') {
