@@ -3,6 +3,7 @@ import { createArticle } from "./createArticle.js";
 import { viewArticle } from "./viewArticle.js";
 import { updateArticle } from "./updateArticle.js";
 import { deleteArticle } from "./deleteArticle.js";
+import { loadActiveUser } from "./loadActiveUser.js";
 import { loadAllUsers } from "./loadAllUsers.js";
 import { updateUser } from "./updateUser.js";
 import { deleteUser } from "./deleteUser.js";
@@ -15,9 +16,11 @@ const mobileMenuCloseBtn = document.querySelector(
 );
 mobileToggle?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
+  document.body.style.overflow = "hidden";
 });
 mobileMenuCloseBtn?.addEventListener("click", () => {
   mobileMenu?.classList.toggle("show-menu");
+  document.body.style.overflow = "auto";
 });
 
 // custom ALERT message
@@ -46,6 +49,8 @@ const bogoAlert = (message, alertType = "bg-black", parentEl) => {
 export { bogoAlert };
 
 // USERS
+// LOAD a single user
+loadActiveUser();
 // LOAD all users
 loadAllUsers();
 // CREATE user

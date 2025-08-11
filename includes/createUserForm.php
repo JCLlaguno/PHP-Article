@@ -6,8 +6,8 @@
         </div>
         <label class="form-label" for="username">Username:</label>
         <input class="form-control" type="text" id="username" name="username" autocomplete="off">
-        <label class="form-label" for="photo">Photo:</label>
-        <input class="form-control" type="file" id="photo" name="photo" accept="image/*">
+        <label class="form-label" for="create-photo">Photo:</label>
+        <input class="form-control" type="file" id="create-photo" name="photo" accept="image/*">
         <label class="form-label" for="password">Password:</label>
         <input class="form-control" type="password" id="password" name="password">
         <div class="form-btn-container">

@@ -49,8 +49,16 @@ const loadAllUsers = async () => {
     // load a single user
     const loadUser = async (id) => {
       try {
-        const response = await fetch(`./getUser.php?get_id=${id}`); // send a GET request to getArticle.php
+        const response = await fetch("./getUser.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Sending JSON
+          },
+          body: JSON.stringify({ userid: id }), // send data as JSON
+        });
+
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+
         const data = await response.json();
 
         // Fill form

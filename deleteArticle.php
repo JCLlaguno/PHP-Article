@@ -1,5 +1,5 @@
 <?php 
-    require_once './classes/article.php';
+    require_once __DIR__ . '/classes/article.php';
     
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         header('Content-Type: application/json');

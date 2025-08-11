@@ -13,6 +13,7 @@ const updateUser = () => {
   updateBackButton?.addEventListener("click", () => {
     updateUserModal.classList.remove("show");
     document.body.style.overflow = "auto";
+    
     // clear form fields
     updateUserForm.reset();
   });

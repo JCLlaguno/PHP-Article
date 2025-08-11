@@ -1,30 +1,32 @@
 
 <!-- mobile sidebar -->
 <aside class="mobile-menu">
-    <!-- nav menu toggle -->
-    <div class="mobile-toggle-btn">
-        <span class="line-1"></span>
-        <span class="line-2"></span>
-        <span class="line-3"></span>
+    <div class="mobile-modal">
+        <!-- nav menu toggle -->
+        <div class="mobile-toggle-btn">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+            <span class="line-3"></span>
+        </div>
+        <!-- end of nav menu toggle -->
+        <!-- mobile links -->
+        <ul class="mobile-links">
+            <li><a class="mobile-link" href="">Dashboard</a></li>
+            <li class="
+            <?php 
+                if($_GET['page'] === 'users') echo 'selected';
+                if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
+            
+            ?>"><a class="mobile-link" href="?page=users">Users</a></li>
+            <li class="<?php if($_GET['page'] === 'articles') echo 'selected' ?>"><a class="mobile-link" href="?page=articles&page_no=1">Articles</a></li>
+        </ul>
+        <!-- end of mobile links -->
+        <!-- log out button -->
+        <div class="log-out-btn">
+            <a href="./logout.php">Log Out</a>
+        </div>
+        <!-- end of log out button -->
     </div>
-    <!-- end of nav menu toggle -->
-    <!-- mobile links -->
-    <ul class="mobile-links">
-        <li><a class="mobile-link" href="">Dashboard</a></li>
-        <li class="
-        <?php 
-            if($_GET['page'] === 'users') echo 'selected';
-            if($_SESSION['username'] !== 'jc') echo 'page-hidden'; 
-        
-        ?>"><a class="mobile-link" href="?page=users">Users</a></li>
-        <li class="<?php if($_GET['page'] === 'articles') echo 'selected' ?>"><a class="mobile-link" href="?page=articles&page_no=1">Articles</a></li>
-    </ul>
-    <!-- end of mobile links -->
-    <!-- log out button -->
-    <div class="log-out-btn">
-        <a href="./logout.php">Log Out</a>
-    </div>
-    <!-- end of log out button -->
 </aside>
 <!-- end of mobile sidebar -->
 
@@ -41,7 +43,7 @@
         <a href="?page=users" class="page-link 
         <?php 
             if($_GET['page'] === 'users') echo 'selected';
-            if($_SESSION['username'] !== 'jc') echo 'page-hidden'; 
+            if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
         ?>">
             <div class="page-link-container">
                 <span><img class="link-icon" src="./img/user.svg" alt="users"></span>

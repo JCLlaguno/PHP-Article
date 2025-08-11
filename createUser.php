@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once './classes/user.php';
+    require_once __DIR__ . '/classes/user.php';
 
     // handle POST request 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -70,5 +70,4 @@
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
         }
     }
-    
 ?>

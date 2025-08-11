@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once './classes/article.php';
+    require_once __DIR__ . '/classes/article.php';
 
     // handle GET request
     // get ID from loaded article

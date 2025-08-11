@@ -22,6 +22,9 @@ const createUser = () => {
     e.preventDefault();
     createUserModal.classList.remove("show");
     document.body.style.overflow = "auto";
+
+    // clear form fields
+    createUserForm.reset();
   });
 
   // when form is SUBMITTED
@@ -49,6 +52,9 @@ const createUser = () => {
 
       // load all users
       loadAllUsers();
+
+      // clear form fields
+      createUserForm.reset();
     } catch (error) {
       alert(error.message);
     }
