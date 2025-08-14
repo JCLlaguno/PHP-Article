@@ -4,10 +4,10 @@
   width: 100%;
   background-color: var(--black);
   color: var(--white);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 9;
   bottom: 0;
   left: 0;
 }

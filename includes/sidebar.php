@@ -11,7 +11,7 @@
         <!-- end of nav menu toggle -->
         <!-- mobile links -->
         <ul class="mobile-links">
-            <li><a class="mobile-link" href="">Dashboard</a></li>
+            <li class="<?php if($_GET['page'] === 'dashboard') echo 'selected' ?>"><a class="mobile-link" href="?page=dashboard">Welcome</a></li>
             <li class="
             <?php 
                 if($_GET['page'] === 'users') echo 'selected';
@@ -32,12 +32,18 @@
 
 <!-- sidebar -->
 <aside class="sidebar">
+    <!-- sidebar logo -->
+        <a class="sidebar-logo" href="./index.php">
+            <img src="./img/logo.svg" alt="">
+            <p class="sidebar-title">Articles</p>
+        </a>
+    <!-- end of sidebar logo -->
     <!-- page links -->
     <div class="page-links">
-        <a href="#" class="page-link">
+        <a href="?page=dashboard" class="page-link <?php if($_GET['page'] === 'dashboard') echo 'selected' ?>">
             <div class="page-link-container">
                 <span><img class="link-icon" src="./img/dashboard.svg" alt="dashboard"></span>
-                <h4 class="link-name">Dashboard</h4>
+                <h4 class="sidebar-link-name">Dashboard</h4>
             </div>
         </a>
         <a href="?page=users" class="page-link 
@@ -46,14 +52,14 @@
             if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
         ?>">
             <div class="page-link-container">
-                <span><img class="link-icon" src="./img/user.svg" alt="users"></span>
-                <h4 class="link-name">Users</h4>
+                <span><img class="sidebar-link-icon" src="./img/user.svg" alt="users"></span>
+                <h4 class="sidebar-link-name">Users</h4>
             </div>
         </a>
         <a href="?page=articles" class="page-link <?php if($_GET['page'] === 'articles') echo 'selected'?>">
             <div class="page-link-container">
-                <span><img class="link-icon" src="./img/articles.svg" alt="articles"></span>
-                <h4 class="link-name">Articles</h4>
+                <span><img class="sidebar-link-icon" src="./img/articles.svg" alt="articles"></span>
+                <h4 class="sidebar-link-name">Articles</h4>
             </div>
         </a>
     </div>

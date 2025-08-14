@@ -4,9 +4,6 @@
     if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
 ?>">
     <?php 
-        require_once './includes/createUserForm.php'; 
-        require_once './includes/updateUserForm.php';
-        require_once './includes/deleteUserForm.php'
     ?>
     <!-- users container -->
     <div class="section-container">

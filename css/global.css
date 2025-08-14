@@ -30,7 +30,6 @@ body {
   font-family: var(--font);
   color: var(--black);
   position: relative;
-  height: 100%;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -47,6 +46,7 @@ li {
 }
 a {
   text-decoration: none;
+  display: block;
   color: var(--fg);
 }
 img {
@@ -55,7 +55,7 @@ img {
 }
 section {
   width: 100%;
-  padding: 6rem 0;
+  padding: 3rem 0;
   background-color: var(--white);
 }
 textarea {
@@ -91,16 +91,11 @@ textarea {
 
 /* MAIN container */
 .main {
-  min-height: calc(100vh - 4rem);
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
   display: grid;
   background-color: var(--white);
-}
-
-.sidebar,
-.link-name {
-  display: none;
-  z-index: 999;
 }
 
 .divider {
@@ -143,10 +138,6 @@ textarea {
   color: var(--white);
   font-weight: normal;
 }
-.center {
-  width: 90vw;
-  margin: 0 auto;
-}
 
 /* SECTION container */
 .section-container {
@@ -175,11 +166,6 @@ textarea {
   letter-spacing: var(--spacing);
 }
 
-/* highlight selected page */
-.selected {
-  background-color: #c6c7cb;
-}
-
 /* MODAL window */
 .modal-window {
   display: none;
@@ -192,10 +178,10 @@ textarea {
   flex-wrap: wrap;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 9999;
+  z-index: 999;
   backdrop-filter: blur(5px);
   overflow: auto;
-  padding: 6rem 0;
+  padding: 4rem 0;
 }
 
 /* DATA TABLE */
@@ -349,8 +335,8 @@ textarea {
 .delete-modal-form {
   display: grid;
   grid-template-rows: 1fr auto;
-  width: 220px;
-  min-height: 200px;
+  width: 300px;
+  height: 200px;
   background-color: var(--white);
   border-radius: var(--radius);
   padding: 0.8rem;
@@ -405,7 +391,12 @@ textarea {
 @media screen and (width >= 800px) {
   .main {
     grid-template-columns: auto 1fr;
+    position: relative;
     align-items: start;
+  }
+  .main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
   }
   /* SECTION container  */
   .section-container {
@@ -416,26 +407,6 @@ textarea {
   }
   .section-title {
     font-size: 4rem;
-  }
-  .sidebar {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding-top: 4rem;
-  }
-  .page-links {
-    display: flex;
-    flex-flow: column wrap;
-    background-color: var(--shade);
-    width: 100%;
-    height: 100%;
-    padding: 3rem 0;
-  }
-  .page-link-container {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    padding: 1rem;
   }
   /* DATA TABLE */
   .data-table td::before {
@@ -542,7 +513,7 @@ textarea {
   /* DELETE modal */
   .delete-modal-form {
     width: 320px;
-    min-height: 220px;
+    height: 220px;
   }
 }
 
@@ -552,12 +523,6 @@ textarea {
   }
   .main {
     grid-template-columns: 1fr 4fr;
-  }
-  .page-links {
-    padding: 3rem 0;
-  }
-  .page-link-container {
-    padding: 1rem 2rem;
   }
   .link-name {
     display: block;

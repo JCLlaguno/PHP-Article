@@ -1,7 +1,12 @@
 <?php
-    require_once './includes/session.php';
     require_once __DIR__ . '/classes/user.php';
     require_once './includes/header.php';
+
+    session_start();
+    if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
+        header('location: ./index.php');
+        exit;
+    } 
     
     if(isset($_POST['submit'])) {
         $username = trim($_POST['username']);
@@ -13,9 +18,7 @@
                 $_SESSION['userid'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 header('location: ./index.php');
-            } // else echo 'Incorrect password';
-        } else {
-            // echo 'User does not exist.';
+            } 
         }
     }
 ?>
@@ -31,5 +34,3 @@
     </form> 
 </section>
 <!-- end of login -->
-
-<?php require_once './includes/footer.php'; ?>

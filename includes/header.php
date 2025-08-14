@@ -6,6 +6,7 @@
     <title>Articles</title>
     <link href="./css/global.css" rel="stylesheet">
     <link href="./css/nav.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
     <link href="./css/users.css" rel="stylesheet">
     <link href="./css/articles.css" rel="stylesheet">
     <link href="./css/login.css" rel="stylesheet">
@@ -16,6 +17,3 @@
 
 <!-- body -->
 <body>
-    
-<!-- include NAVBAR -->
-<?php require_once './includes/nav.php'; ?>

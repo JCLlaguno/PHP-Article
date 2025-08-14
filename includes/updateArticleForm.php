@@ -5,9 +5,9 @@
             <p>Update Article</p>
         </div>
         <label class="form-label" for="article-title">Title:</label>
-        <textarea class="form-control article-title" name="article-title" id="article-title"></textarea>
+        <textarea class="form-control article-title" name="article-title" id="update-article-title"></textarea>
         <label class="form-label" for="article-content">Content</label>
-        <textarea class="form-control article-content" name="article-content" id="article-content"></textarea>
+        <textarea class="form-control article-content" name="article-content" id="update-article-content"></textarea>
         <input id="update-article-id" name="update-article-id" type="hidden">
         <div class="form-btn-container">
             <a class="btn bg-black form-back-btn">Back</a>

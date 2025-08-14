@@ -12,7 +12,7 @@
         }
 
         // add a user
-        public function createArticle($userid, $article_title, $article_content) { 
+        public function createArticle(int $userid, string $article_title, string $article_content) : void { 
             try {
                 $stmt = $this->conn->prepare("INSERT INTO articles (userid, article_title, article_content)
                 VALUES (:userid, :article_title, :article_content)");
@@ -29,7 +29,7 @@
         }
 
         // get all articles
-        public function getAllArticles() {
+        public function getAllArticles() : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles");
                 $stmt->execute();
@@ -42,7 +42,7 @@
         }
         
         // paginate articles
-        public function paginateArticles($limit, $offset, $userid) {
+        public function paginateArticles(int $limit, int $offset, int $userid) : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles WHERE userid = $userid ORDER BY id DESC LIMIT $offset, $limit "); 
                 $stmt->execute();
@@ -55,7 +55,7 @@
         }
 
         // count all articles
-        public function countTotalArticles($userid) {
+        public function countTotalArticles(int $userid) : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT COUNT(*) As total_count FROM `articles` WHERE userid = $userid");
                 $stmt->execute();
@@ -68,7 +68,7 @@
         }
 
         // get single article by id 
-        public function getArticleById($id) {
+        public function getArticleById(int $id) :array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, article_title, article_content FROM articles WHERE id=:id");
                 $stmt->execute([':id' => $id]);
@@ -81,7 +81,7 @@
         }
 
         // update article
-        public function updateArticle($id, $article_title, $article_content) {
+        public function updateArticle(int $id, string $article_title, string $article_content) : int {
             try {
                 $stmt = $this->conn->prepare("UPDATE articles SET article_title=:article_title, article_content=:article_content WHERE id=:id");
                 $stmt->execute([
@@ -98,7 +98,7 @@
         }
 
         // delete article 
-        public function deleteArticle($id) {
+        public function deleteArticle(int $id) : void {
             try {
                 $stmt = $this->conn->prepare("DELETE FROM articles WHERE id=:id");
                 $stmt->execute([':id' => $id]);

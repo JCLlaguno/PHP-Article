@@ -45,6 +45,10 @@ const viewArticle = () => {
     viewArticleModal.classList.remove("show");
     // enable scrolling on body
     document.body.style.overflow = "auto";
+
+    // RESET form
+    viewArticleModal.querySelector(".view-article-title h4").textContent = "";
+    viewArticleModal.querySelector(".view-article-content").textContent = "";
   });
 };
 

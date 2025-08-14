@@ -9,17 +9,17 @@ import { updateUser } from "./updateUser.js";
 import { deleteUser } from "./deleteUser.js";
 
 // SHOW/HIDE mobile menu
-const mobileToggle = document.querySelector(".mobile-toggle-btn");
+const mobileToggle = document.querySelector(".nav-left .mobile-toggle-btn");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuCloseBtn = document.querySelector(
   ".mobile-menu .mobile-toggle-btn"
 );
 mobileToggle?.addEventListener("click", () => {
-  mobileMenu?.classList.toggle("show-menu");
+  mobileMenu?.classList.add("show-menu");
   document.body.style.overflow = "hidden";
 });
 mobileMenuCloseBtn?.addEventListener("click", () => {
-  mobileMenu?.classList.toggle("show-menu");
+  mobileMenu?.classList.remove("show-menu");
   document.body.style.overflow = "auto";
 });
 

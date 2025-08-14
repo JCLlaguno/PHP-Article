@@ -1,13 +1,15 @@
 <!-- navbar -->
 <nav class="navbar">
     <!-- nav header -->
-    <div class="nav-header center">
+    <div class="nav-header">
         <!-- nav left -->
         <div class="nav-left">
             <!-- nav logo -->
             <div class="nav-logo-container">
-                <a href="./index.php"><img class="nav-logo" src="./img/logo.svg" alt=""></a>
-                <h3 class="nav-title">Articles</h3>
+                <a class="nav-logo" href="./index.php">
+                    <img src="./img/articles.svg" alt="">
+                    <h3 class="nav-title">Articles</h3>
+                </a>
             </div>
             <!-- end of nav logo -->
             <!-- nav menu toggle -->

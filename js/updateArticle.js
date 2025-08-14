@@ -54,6 +54,7 @@ const updateArticle = () => {
   updateBackButton?.addEventListener("click", () => {
     updateArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
+    updateArticleForm.reset();
   });
 
   // if form is SUBMITTED

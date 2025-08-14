@@ -4,10 +4,6 @@
     <?php 
         require_once __DIR__ . '/classes/article.php'; 
         require_once __DIR__ . '/classes/user.php';
-        require_once './includes/createArticleForm.php';
-        require_once './includes/viewArticleForm.php';
-        require_once './includes/updateArticleForm.php';
-        require_once './includes/deleteArticleForm.php'; 
     ?>
     <!-- articles container -->
     <div class="section-container">
@@ -34,7 +30,7 @@
             }
 
             // set total records per page value
-            $total_records_per_page = 8;
+            $total_records_per_page = 16;
 
             // calculate offset value & set other variables
             $offset = ($page_no - 1) * $total_records_per_page;

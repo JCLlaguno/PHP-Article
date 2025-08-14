@@ -29,7 +29,7 @@
             // if current password is the same as inputted password
             if(!empty($newPassword) && password_verify($newPassword, $foundUser['password'])) { 
                 http_response_code(400);
-                echo json_encode(['error' => 'New password is same as current password!']);
+                echo json_encode(['status' => 'error', 'message' => 'New password is same as current password!']);
                 exit;
             }
 
@@ -85,8 +85,8 @@
                 $fileUrl = $foundUser['photo'];
             }
             /* UPDATE USER */
-            new User()->updateUser($userId, $username, $fileUrl, $passwordHash);
-            echo json_encode(["status" => "success", "message" => "Updated user!"]);
+            $result = new User()->updateUser($userId, $username, $fileUrl, $passwordHash);
+            if ($result) echo json_encode(["status" => "success", "message" => "Updated user!"]);
         } catch (PDOException $e) {
             http_response_code(500);
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);

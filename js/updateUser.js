@@ -13,7 +13,7 @@ const updateUser = () => {
   updateBackButton?.addEventListener("click", () => {
     updateUserModal.classList.remove("show");
     document.body.style.overflow = "auto";
-    
+
     // clear form fields
     updateUserForm.reset();
   });
@@ -31,7 +31,7 @@ const updateUser = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error);
+        throw new Error(errorData.message);
       }
 
       const successData = await response.json();

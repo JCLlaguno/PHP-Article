@@ -12,7 +12,7 @@
         }
 
         // add a user
-        public function createUser($username, $photo, $password) { 
+        public function createUser(string $username, string $photo, string $password) : void { 
             try {
                 $stmt = $this->conn->prepare("INSERT INTO users (username, photo, password)
                 VALUES (:username, :photo, :password)");
@@ -29,7 +29,7 @@
         }
 
         // get all users
-        public function getAllUsers() {
+        public function getAllUsers() : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, photo, username, password FROM users");
                 $stmt->execute();
@@ -42,7 +42,7 @@
         }
 
         // get single user by id 
-        public function getUserById($id) {
+        public function getUserById(int $id) : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, username,photo, password FROM users WHERE id=:id");
                 $stmt->bindParam(':id', $id);
@@ -56,7 +56,7 @@
         }
 
         // get single user by username 
-        public function getUserByName($username) {
+        public function getUserByName(string $username) : array|false {
             try {
                 $stmt = $this->conn->prepare("SELECT id, username, password FROM users WHERE username=:username");
                 $stmt->execute([':username' => $username]);
@@ -69,7 +69,7 @@
         }
 
         // update user
-        public function updateUser($id, $username, $photo, $password) {
+        public function updateUser(int $id, string $username, string $photo, string $password) : int {
             try {
                 $stmt = $this->conn->prepare("UPDATE users SET username=:username, photo=:photo, password=:password WHERE id=:id");
                 $stmt->execute([
@@ -87,7 +87,7 @@
         }
 
         // delete user 
-        public function deleteUser($id) {
+        public function deleteUser(int $id) : void {
             try {
                 $stmt = $this->conn->prepare("DELETE FROM users WHERE id=:id");
                 $stmt->execute([':id' => $id]);
