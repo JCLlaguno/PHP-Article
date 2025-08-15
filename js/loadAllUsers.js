@@ -27,6 +27,11 @@ const loadAllUsers = async () => {
         </td>`;
       usersTable?.appendChild(tr);
     });
+
+    // load total users on dashboard
+    document.querySelector(".dashboard .users-card-content").textContent = `${
+      Object.keys(data).length
+    }`;
   } catch (error) {
     console.error("Error loading all users:", error);
   }

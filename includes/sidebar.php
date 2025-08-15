@@ -11,7 +11,7 @@
         <!-- end of nav menu toggle -->
         <!-- mobile links -->
         <ul class="mobile-links">
-            <li class="<?php if($_GET['page'] === 'dashboard') echo 'selected' ?>"><a class="mobile-link" href="?page=dashboard">Welcome</a></li>
+            <li class="<?php if($_GET['page'] === 'dashboard') echo 'selected' ?>"><a class="mobile-link" href="?page=dashboard">Dashboard</a></li>
             <li class="
             <?php 
                 if($_GET['page'] === 'users') echo 'selected';

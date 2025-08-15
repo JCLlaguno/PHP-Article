@@ -1,3 +1,4 @@
+import { loadAllArticles } from "./loadAllArticles.js";
 import { createUser } from "./createUser.js";
 import { createArticle } from "./createArticle.js";
 import { viewArticle } from "./viewArticle.js";
@@ -47,6 +48,10 @@ const bogoAlert = (message, alertType = "bg-black", parentEl) => {
 };
 
 export { bogoAlert };
+
+// DASHBOARD
+// LOAD all articles
+loadAllArticles();
 
 // USERS
 // LOAD a single user
