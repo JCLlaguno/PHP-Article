@@ -58,11 +58,11 @@
         }
 
         // count all articles
-        public function countTotalArticles(int $userid) : array|false {
+        public function countTotalArticles(int $userid) : int {
             try {
-                $stmt = $this->conn->prepare("SELECT COUNT(*) As total_count FROM `articles` WHERE userid = $userid");
+                $stmt = $this->conn->prepare("SELECT COUNT(*) FROM `articles` WHERE userid = $userid");
                 $stmt->execute();
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+                return $stmt->fetchColumn();
             } catch (PDOException $e) {
                 echo "Database error:" . $e->getMessage();
             } catch (Error $e) {

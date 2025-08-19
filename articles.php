@@ -41,7 +41,6 @@
 
             // get the total no. of pages for pagination
             $total_articles = new Article()->countTotalArticles($_SESSION['userid']);
-            $total_articles = $total_articles['total_count'];
             $total_no_of_pages = ceil($total_articles / $total_records_per_page);
             $second_last = $total_no_of_pages - 1; // total pages minus 1
             // get ID of logged in user

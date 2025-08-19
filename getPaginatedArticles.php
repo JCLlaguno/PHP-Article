@@ -10,12 +10,15 @@
     require_once __DIR__ . '/classes/article.php';
     
     // Pagination parameters
+    // get current page
     $page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+    // max records to show per page
     $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 8;
+    // how many rows to skip before displaying records.
     $offset = ($page - 1) * $limit;
 
     // get total count of articles
-    $totalCount = new Article()->countTotalArticles($_SESSION['userid'])['total_count'];
+    $totalCount = new Article()->countTotalArticles($_SESSION['userid']);
     // get total pages for pagination
     $totalPages = ceil($totalCount / $limit);
     // get paginated articles
