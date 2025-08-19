@@ -1,13 +1,18 @@
-import { loadAllArticles } from "./loadAllArticles.js";
-import { createUser } from "./createUser.js";
-import { createArticle } from "./createArticle.js";
-import { viewArticle } from "./viewArticle.js";
-import { updateArticle } from "./updateArticle.js";
-import { deleteArticle } from "./deleteArticle.js";
-import { loadActiveUser } from "./loadActiveUser.js";
-import { loadAllUsers } from "./loadAllUsers.js";
-import { updateUser } from "./updateUser.js";
-import { deleteUser } from "./deleteUser.js";
+import { dashboardArticlesCount } from "./dashboard.js";
+import {
+  displayArticle,
+  displayPaginatedArticles,
+  createArticle,
+  updateArticle,
+  deleteArticle,
+} from "./article.js";
+import {
+  displayUsers,
+  loadActiveUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "./user.js";
 
 // SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".nav-left .mobile-toggle-btn");
@@ -24,40 +29,14 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
   document.body.style.overflow = "auto";
 });
 
-// custom ALERT message
-const bogoAlert = (message, alertType = "bg-black", parentEl) => {
-  const html = `
-    <div class="alert">
-        <div class="alert-content ${alertType}">
-            <p class="alert-title">${message}</p>
-        </div>
-    </div>`;
-  parentEl.insertAdjacentHTML("afterbegin", html);
-
-  const alert = document.querySelector(".alert");
-
-  // close ALERT immediately if modal is clicked
-  alert.addEventListener("click", () => {
-    alert.remove();
-  });
-
-  // close ALERT after 2 sec
-  setTimeout(() => {
-    alert.remove();
-  }, 2000);
-};
-
-export { bogoAlert };
-
 // DASHBOARD
-// LOAD all articles
-loadAllArticles();
+dashboardArticlesCount();
 
 // USERS
 // LOAD a single user
 loadActiveUser();
-// LOAD all users
-loadAllUsers();
+// Display all users
+displayUsers();
 // CREATE user
 createUser();
 // UPDATE user
@@ -66,10 +45,12 @@ updateUser();
 deleteUser();
 
 // ARTICLES
+// LOAD all articles
+displayPaginatedArticles();
 // CREATE article
 createArticle();
 // VIEW article
-viewArticle();
+displayArticle();
 // UPDATE article
 updateArticle();
 // DELETE article

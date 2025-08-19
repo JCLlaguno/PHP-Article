@@ -5,6 +5,7 @@
     class Article {
         
         private $conn;
+        private int $status;
         
         // connect to db when an Article object is created
         public function __construct() {
@@ -14,13 +15,15 @@
         // add a user
         public function createArticle(int $userid, string $article_title, string $article_content) : void { 
             try {
-                $stmt = $this->conn->prepare("INSERT INTO articles (userid, article_title, article_content)
-                VALUES (:userid, :article_title, :article_content)");
+                $this->status = 0; // unread
+                $stmt = $this->conn->prepare("INSERT INTO articles (userid, status, article_title, article_content)
+                VALUES (:userid, :status, :article_title, :article_content)");
                 $stmt->execute([
                     ':userid' => $userid,
+                    ':status' => $this->status,
                     ':article_title' => $article_title,
                     ':article_content' => $article_content
-            ]); 
+                ]); 
             } catch (PDOException $e) {
                 echo "Database error: " . $e->getMessage();
             } catch (Error $e) {
@@ -44,7 +47,7 @@
         // paginate articles
         public function paginateArticles(int $limit, int $offset, int $userid) : array|false {
             try {
-                $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles WHERE userid = $userid ORDER BY id DESC LIMIT $offset, $limit "); 
+                $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles WHERE userid = $userid ORDER BY id DESC LIMIT $offset, $limit"); 
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {

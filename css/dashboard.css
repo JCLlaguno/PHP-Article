@@ -1,7 +1,7 @@
 .dashboard-welcome {
   text-align: center;
 }
-.dashboard-contents {
+.dashboard-reports {
   display: grid;
   grid-template-columns: 1fr;
   place-items: center;
@@ -9,7 +9,7 @@
 }
 .dashboard-card {
   width: 100%;
-  height: 300px;
+  height: 200px;
   border-radius: var(--radius);
   padding: 2rem;
   display: grid;
@@ -19,24 +19,79 @@
   justify-items: center;
 }
 .card-icon {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 .card-title {
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 .card-content {
-  font-size: 6rem;
+  font-size: 4rem;
   font-weight: 400;
 }
+.article-index-container {
+  margin-top: 2rem;
+}
+.article-lists-header-container {
+  background-color: var(--shade);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.article-lists-header-container {
+  padding: 1rem;
+}
+.article-lists-header {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#dashboard-article-lists {
+  width: 100%;
+  height: 100%;
+  border: var(--border-small);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  background-color: var(--whiter);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+#dashboard-article-lists li {
+  margin-bottom: 0.5rem;
+}
+
+#pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+#pagination button {
+  padding: 0.5rem 1rem;
+  border: var(--border-small);
+  border-radius: var(--radius);
+  background: var(--whiter);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+#pagination button.active {
+  background: var(--green);
+  color: var(--white);
+  font-weight: var(--btn-font-weight);
+}
+#pagination button:disabled {
+  background: var(--shade);
+  cursor: not-allowed;
+}
+#pagination span {
+  margin: 0 5px;
+}
 @media screen and (width >= 800px) {
-  .dashboard-contents {
+  .dashboard-reports {
     grid-template-columns: 1fr 1fr;
   }
 }
 @media screen and (width >= 1000px) {
-  .dashboard-contents {
+  .dashboard-reports {
     grid-template-columns: repeat(3, 1fr);
   }
 }
