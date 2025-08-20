@@ -10,9 +10,9 @@
     require_once __DIR__ . '/classes/article.php';
     
     // Pagination parameters
-    // get current page
+    // get current page (default = 1)
     $page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-    // max records to show per page
+    // max records to show per page (default = 8)
     $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 8;
     // how many rows to skip before displaying records.
     $offset = ($page - 1) * $limit;
@@ -24,9 +24,8 @@
     $status  = isset($_GET['status']) ? intval($_GET['status']) : 0;
 
     // build SQL condition
-    // if ($status !== 0) $whereClause = "WHERE status = $status AND userid = $userid";
     $whereClause = "WHERE status = $status AND userid = $userid";
-    if ($status === 3) $whereClause = "WHERE userid = $userid";
+    if ($status === 2) $whereClause = "WHERE userid = $userid";
     
     // get total count of articles
     $totalCount = new Article()->countTotalArticles($whereClause);

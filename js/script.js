@@ -46,7 +46,7 @@ deleteUser();
 
 // ARTICLES
 // LOAD all articles
-displayPaginatedArticles();
+displayPaginatedArticles(1, 0);
 // CREATE article
 createArticle();
 // VIEW article

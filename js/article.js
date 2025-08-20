@@ -1,18 +1,25 @@
-import { bogoAlert, loadArticle, getPaginatedArticles } from "./helpers.js";
+import { bogoAlert, loadArticle } from "./helpers.js";
+import { bogoRequest } from "./ajax.js";
 
 // DISPLAY paginated articles on dashboard
 let currentPage;
 let status;
+let limit = 8; // max records to display per page
 export async function displayPaginatedArticles(currentPage, status) {
-  const data = await getPaginatedArticles(currentPage, status);
+  // get paginated articles
+  const data = await bogoRequest(
+    `./getPaginatedArticles.php?page=${currentPage}&limit=${limit}&status=${status}`
+  );
 
   const dashboardArticleLists = document.getElementById(
     "dashboard-article-lists"
   );
   if (!dashboardArticleLists) return;
-  dashboardArticleLists.innerHTML = "";
+
+  dashboardArticleLists.innerHTML = ""; // reset list when displayPaginatedArticles is called
+
+  // if no article matches filter, display a message
   if (data.totalCount === 0) {
-    // display a message
     const li = document.createElement("li");
     li.textContent = `No articles found in this category.`;
     dashboardArticleLists?.appendChild(li);
@@ -29,9 +36,9 @@ export async function displayPaginatedArticles(currentPage, status) {
   const viewArticleModal = document.querySelector(".view-article-modal");
   data.data.forEach((data, i) => {
     const li = document.createElement("li");
-    li.id = "dashboard-article";
+    li.id = "dashboard-article"; // set element id
     li.setAttribute("data-id", data.id); // pass id from data to li element
-    li.textContent = `${i + 1}. ${data.article_title}`;
+    li.textContent = `${i + 1}. ${data.article_title}`; // display title of an article
     dashboardArticleLists?.appendChild(li);
 
     // open view article modal when an article is clicked
@@ -42,13 +49,14 @@ export async function displayPaginatedArticles(currentPage, status) {
       document.body.style.overflow = "hidden";
 
       const articleId = +e.target.closest("li").dataset.id;
-      const data = await loadArticle(articleId);
+      // get a single article
+      const data = await bogoRequest(`./getArticle.php?get_id=${articleId}`);
 
       // Fill form
       viewArticleModal.querySelector(".view-article-title h4").textContent =
-        data.article_title || "errr";
+        data.article_title;
       viewArticleModal.querySelector(".view-article-content").textContent =
-        data.article_content || "errr";
+        data.article_content;
     });
   });
   // render pagination
@@ -204,7 +212,9 @@ export async function displayArticle() {
       document.body.style.overflow = "hidden";
 
       // load selected article
-      const data = await loadArticle(+btn.dataset.id);
+      const data = await bogoRequest(
+        `./getArticle.php?get_id=${+btn.dataset.id}`
+      );
 
       // Fill form
       viewArticleModal.querySelector(".view-article-title h4").textContent =
