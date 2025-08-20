@@ -20,20 +20,17 @@
     // get logged in userid
     $userid = $_SESSION['userid'];
 
-    // set default status
-    $status  = isset($_GET['status']) ? $_GET['status'] : 3; // new filter
-    $status = intval($status);
+    // set status (3 = display all articles)
+    $status  = isset($_GET['status']) ? intval($_GET['status']) : 0;
 
-    // Build SQL condition
-    $whereClause = "WHERE userid = $userid";
-
-    if ($status !== 3) {
-        $whereClause = "WHERE status = $status AND userid = $userid";
-    }
-
+    // build SQL condition
+    // if ($status !== 0) $whereClause = "WHERE status = $status AND userid = $userid";
+    $whereClause = "WHERE status = $status AND userid = $userid";
+    if ($status === 3) $whereClause = "WHERE userid = $userid";
+    
     // get total count of articles
     $totalCount = new Article()->countTotalArticles($whereClause);
-    // get total pages for pagination
+    // get total pages for pagination (min = 1 page);
     $totalPages = max(1, ceil($totalCount / $limit));
 
     // get paginated articles

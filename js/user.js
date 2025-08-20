@@ -78,7 +78,7 @@ const dashboardTitle = document.querySelector(".dashboard .dashboard-welcome");
 
 const loadActiveUser = async () => {
   // call load user from helpers js
-  const data = await loadUser("./getUser.php");
+  const data = await loadUser();
   // Display active user photo on nav
   navUserPhoto.setAttribute("src", `${data.photo}`);
 

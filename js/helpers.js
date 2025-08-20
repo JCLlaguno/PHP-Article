@@ -78,7 +78,7 @@ const loadArticle = async (id) => {
 export { loadArticle };
 
 // LOAD ALL ARTICLES
-const getPaginatedArticles = async (page = 1, status = 3) => {
+const getPaginatedArticles = async (page = 1, status) => {
   try {
     const response = await fetch(
       `./getPaginatedArticles.php?page=${page}&limit=${8}&status=${status}`

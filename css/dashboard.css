@@ -46,7 +46,7 @@
   border-top-right-radius: var(--radius);
 }
 .article-lists-header-container {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 .article-lists-header {
   font-weight: 600;

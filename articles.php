@@ -21,36 +21,36 @@
         <!-- end of add article -->
 
         <?php 
-            // Articles PAGINATION 
-            // get current page no.
-            if(isset($_GET['page_no'])) {
-                $page_no = $_GET['page_no'];
-            } else {
-                $page_no = 1;
-            }
+            // // Articles PAGINATION 
+            // // get current page no.
+            // if(isset($_GET['page_no'])) {
+            //     $page_no = $_GET['page_no'];
+            // } else {
+            //     $page_no = 1;
+            // }
 
-            // set total records per page value
-            $total_records_per_page = 16;
+            // // set total records per page value
+            // $total_records_per_page = 16;
 
-            // calculate offset value & set other variables
-            $offset = ($page_no - 1) * $total_records_per_page;
-            $previous_page = $page_no - 1;
-            $next_page = $page_no + 1;
-            $adjacents = "2";
+            // // calculate offset value & set other variables
+            // $offset = ($page_no - 1) * $total_records_per_page;
+            // $previous_page = $page_no - 1;
+            // $next_page = $page_no + 1;
+            // $adjacents = "2";
 
 
-            // get the total no. of pages for pagination
-            $total_articles = new Article()->countTotalArticles($_SESSION['userid']);
-            $total_no_of_pages = ceil($total_articles / $total_records_per_page);
-            $second_last = $total_no_of_pages - 1; // total pages minus 1
-            // get ID of logged in user
-            $createdBy = new User()->getUserById($_SESSION['userid']);
+            // // get the total no. of pages for pagination
+            // $total_articles = new Article()->countTotalArticles($_SESSION['userid']);
+            // $total_no_of_pages = ceil($total_articles / $total_records_per_page);
+            // $second_last = $total_no_of_pages - 1; // total pages minus 1
+            // // get ID of logged in user
+            // $createdBy = new User()->getUserById($_SESSION['userid']);
 
-            // get paginated articles
-            $articles = new Article()->paginateArticles($total_records_per_page, $offset, $createdBy['id']);
+            // // get paginated articles
+            // $articles = new Article()->paginateArticles($total_records_per_page, $offset, $createdBy['id']);
             
-            // check if there are no articles
-            if (count($articles) !== 0) {
+            // // check if there are no articles
+            // if (count($articles) !== 0) {
 
         ?>
 
@@ -66,27 +66,27 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($articles as $article) { ?>
+                <?php // foreach($articles as $article) { ?>
                     <tr>
-                        <td data-title="Id"><?php echo $article['id']; ?></td>
+                        <td data-title="Id"><?php // echo $article['id']; ?></td>
                         <td data-title="Posted by">
                             <?php
-                                echo $createdBy['username'];
+                                // echo $createdBy['username'];
                             ?>
                         </td>
                         <td class="table-article-title" data-title="Title">
-                            <p><?php echo $article['article_title']; ?></p>
+                            <p><?php // echo $article['article_title']; ?></p>
                         </td>
                         <td data-title="Action">
                             <div class="action-container">
-                                <a class="btn bg-black action-view-btn" data-id="<?php echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                                <a class="btn bg-green action-update-btn" data-id="<?php echo $article['id']; ?>" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="btn bg-red action-delete-btn" data-id="<?php echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
+                                <a class="btn bg-black action-view-btn" data-id="<?php // echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
+                                <a class="btn bg-green action-update-btn" data-id="<?php // echo $article['id']; ?>" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
+                                <a class="btn bg-red action-delete-btn" data-id="<?php // echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
 
                             </div>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php // } ?>
             </tbody>
         </table>
         <!-- end of data table -->
@@ -94,7 +94,7 @@
         <?php  ?>
          <!-- pagination-pages -->
         <div class="pagination-pages">
-            <p>Page <?php echo $page_no." of ".$total_no_of_pages; ?></p>
+            <p>Page <?php // echo $page_no." of ".$total_no_of_pages; ?></p>
         </div>
         <!-- end of pages -->
 
@@ -102,91 +102,91 @@
         <ul class="pagination">
             <!-- PREVIOUS button -->
             <li>
-                <a class="btn pagination-btn <?php if ($page_no <= 1) echo 'pagination-btn-disabled'; ?>" 
-                <?php if($page_no > 1) echo "href='?page=articles&page_no=$previous_page'"; ?>>Previous</a>
+                <a class="btn pagination-btn <?php // if ($page_no <= 1) // echo 'pagination-btn-disabled'; ?>" 
+                <?php // if($page_no > 1) // echo "href='?page=articles&page_no=$previous_page'"; ?>>Previous</a>
             </li>
 
             <!-- clickable PAGE buttons -->
             <?php
-                if ($total_no_of_pages <= 10) {  	 
-                    for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
-                        if ($counter == $page_no) {
-                            echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                        } else {
-                            echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                        }
-                    }
-                } else if ($total_no_of_pages > 10) {
+                // if ($total_no_of_pages <= 10) {  	 
+                //     for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
+                //         if ($counter == $page_no) {
+                //             echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
+                //         } else {
+                //             echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
+                //         }
+                //     }
+                // } else if ($total_no_of_pages > 10) {
                     
-                    // Here we will add further conditions
+                //     // Here we will add further conditions
 
-                    if($page_no <= 4) {	
+                //     if($page_no <= 4) {	
 
-                        for ($counter = 1; $counter < 8; $counter++){	
+                //         for ($counter = 1; $counter < 8; $counter++){	
 
-                            if ($counter == $page_no) {
-                                echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                            } else {
-                                echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                            }
+                //             if ($counter == $page_no) {
+                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
+                //             } else {
+                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
+                //             }
 
-                        }
+                //         }
 
-                        echo "<li><a class='btn pagination-btn'>...</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
 
-                    } else if ($page_no > 4 && $page_no < $total_no_of_pages - 4) {		
+                //     } else if ($page_no > 4 && $page_no < $total_no_of_pages - 4) {		
 
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
-                        echo "<li><a class='btn pagination-btn'>...</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
+                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
 
-                        for (
-                            $counter = $page_no - $adjacents;
-                            $counter <= $page_no + $adjacents;
-                            $counter++
-                            ) {		
-                            if ($counter == $page_no) {
-                                echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                            } else {
-                                echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                            }                  
-                        }
+                //         for (
+                //             $counter = $page_no - $adjacents;
+                //             $counter <= $page_no + $adjacents;
+                //             $counter++
+                //             ) {		
+                //             if ($counter == $page_no) {
+                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
+                //             } else {
+                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
+                //             }                  
+                //         }
 
-                        echo "<li><a class='btn pagination-btn'>...</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
 
-                    } else {
+                //     } else {
 
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
-                        echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
-                        echo "<li><a class='btn pagination-btn'>...</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
+                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
+                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
 
-                        for (
-                            $counter = $total_no_of_pages - 6;
-                            $counter <= $total_no_of_pages;
-                            $counter++
-                        ) {
-                            if ($counter == $page_no) {
-                                echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                            } else {
-                                echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                            }                   
-                        }
-                    }
-                }
+                //         for (
+                //             $counter = $total_no_of_pages - 6;
+                //             $counter <= $total_no_of_pages;
+                //             $counter++
+                //         ) {
+                //             if ($counter == $page_no) {
+                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
+                //             } else {
+                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
+                //             }                   
+                //         }
+                //     }
+                // }
             ?>
 
             <!-- NEXT button -->
             <li >
-                <a class="btn pagination-btn <?php if ($page_no >= $total_no_of_pages) echo 'pagination-btn-disabled'?>"
-                <?php if($page_no < $total_no_of_pages) echo "href='?page=articles&page_no=$next_page'"; ?>>Next</a>
+                <a class="btn pagination-btn <?php // if ($page_no >= $total_no_of_pages) echo 'pagination-btn-disabled'?>"
+                <?php // if($page_no < $total_no_of_pages) echo "href='?page=articles&page_no=$next_page'"; ?>>Next</a>
             </li>
         </ul>
         <!-- end of PAGINATION buttons -->
-         <?php } else echo 'No articles' ?> 
+         <?php // } else echo 'No articles' ?> 
     </div>
     <!-- end of articles container -->
 </section>

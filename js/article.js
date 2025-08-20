@@ -1,8 +1,8 @@
 import { bogoAlert, loadArticle, getPaginatedArticles } from "./helpers.js";
 
 // DISPLAY paginated articles on dashboard
-let currentPage = 1;
-// let status = 3; // default filter
+let currentPage;
+let status;
 export async function displayPaginatedArticles(currentPage, status) {
   const data = await getPaginatedArticles(currentPage, status);
 
@@ -11,14 +11,28 @@ export async function displayPaginatedArticles(currentPage, status) {
   );
   if (!dashboardArticleLists) return;
   dashboardArticleLists.innerHTML = "";
+  if (data.totalCount === 0) {
+    // display a message
+    const li = document.createElement("li");
+    li.textContent = `No articles found in this category.`;
+    dashboardArticleLists?.appendChild(li);
+    // hide pagination buttons
+    document.getElementById("pagination").style.display = "none";
+  } else {
+    // show pagination buttons
+    document.getElementById("pagination").style.display = "flex";
+  }
+  if (data.totalPages === 1)
+    document.getElementById("pagination").style.display = "none";
   data.data.forEach((data, i) => {
     const li = document.createElement("li");
-    li.textContent = `${i + 1}. ${data.status}`;
+    li.textContent = `${i + 1}. ${data.article_title}`;
     dashboardArticleLists?.appendChild(li);
   });
   // render pagination
   renderPagination(data.page, data.totalPages);
   currentPage = data.page;
+  // show pagination buttons
 }
 
 // function to RENDER pagination and buttons
@@ -82,8 +96,9 @@ const renderPagination = (page, totalPages) => {
 };
 
 // Handle role filter change
-document.getElementById("statusSelect").addEventListener("change", (e) => {
-  status = +e.target.value; // 3 = all, 0 = unread, 1 = read
+const statusSelect = document.getElementById("statusSelect");
+statusSelect?.addEventListener("change", (e) => {
+  status = e.target.value; // 3 = all, 0 = unread, 1 = read
   currentPage = 1; // go to first page
   displayPaginatedArticles(currentPage, status); // reload filtered articles
 });

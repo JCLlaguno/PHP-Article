@@ -28,9 +28,9 @@
          <!-- filter dropdown -->
           <div id="filter-dropdown">
             <select id="statusSelect">
-                <option value="3">All</option>
                 <option value="0">Unread</option>
                 <option value="1">Read</option>
+                <option value="3">All</option>
             </select>
         </div>
          <!-- end of filter dropdown -->
