@@ -13,6 +13,11 @@
     // set default page to articles
     if(!isset($_GET['page'])) $_GET['page'] = 'dashboard';
 
+    // include dashboard modals 
+    if($_GET['page'] === 'dashboard') {
+        require_once './includes/viewArticleForm.php';
+    }
+
     // include user modals
     if($_GET['page'] === 'users') {
         require_once './includes/createUserForm.php'; 

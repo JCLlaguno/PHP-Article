@@ -24,15 +24,36 @@ export async function displayPaginatedArticles(currentPage, status) {
   }
   if (data.totalPages === 1)
     document.getElementById("pagination").style.display = "none";
+
+  // when an article is CLICKED
+  const viewArticleModal = document.querySelector(".view-article-modal");
   data.data.forEach((data, i) => {
     const li = document.createElement("li");
+    li.id = "dashboard-article";
+    li.setAttribute("data-id", data.id); // pass id from data to li element
     li.textContent = `${i + 1}. ${data.article_title}`;
     dashboardArticleLists?.appendChild(li);
+
+    // open view article modal when an article is clicked
+    li.addEventListener("click", async (e) => {
+      // SHOW view article modal
+      viewArticleModal.classList.add("show");
+      // disable scrolling on body
+      document.body.style.overflow = "hidden";
+
+      const articleId = +e.target.closest("li").dataset.id;
+      const data = await loadArticle(articleId);
+
+      // Fill form
+      viewArticleModal.querySelector(".view-article-title h4").textContent =
+        data.article_title || "errr";
+      viewArticleModal.querySelector(".view-article-content").textContent =
+        data.article_content || "errr";
+    });
   });
   // render pagination
   renderPagination(data.page, data.totalPages);
   currentPage = data.page;
-  // show pagination buttons
 }
 
 // function to RENDER pagination and buttons

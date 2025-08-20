@@ -62,8 +62,12 @@
   padding: 1rem;
   margin-bottom: 1rem;
 }
-#dashboard-article-lists li {
+#dashboard-article {
   margin-bottom: 0.5rem;
+  transition: color border 0.5s ease;
+}
+#dashboard-article:hover {
+  color: var(--maroon);
 }
 
 #pagination {
@@ -85,7 +89,8 @@
   font-weight: var(--btn-font-weight);
 }
 #pagination button:disabled {
-  background: var(--shade);
+  background: var(--white);
+  color: var(--shade);
   cursor: not-allowed;
 }
 #pagination span {

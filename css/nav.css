@@ -203,7 +203,6 @@
   }
   .sidebar .page-links {
     border-right: var(--border-small);
-    padding-top: 2rem;
     width: 100%;
     height: 100%;
   }
