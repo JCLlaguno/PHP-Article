@@ -1,8 +1,10 @@
 import { bogoAlert, loadArticle, getPaginatedArticles } from "./helpers.js";
 
 // DISPLAY paginated articles on dashboard
-export async function displayPaginatedArticles(currentPage = 1) {
-  const data = await getPaginatedArticles(currentPage);
+let currentPage = 1;
+// let status = 3; // default filter
+export async function displayPaginatedArticles(currentPage, status) {
+  const data = await getPaginatedArticles(currentPage, status);
 
   const dashboardArticleLists = document.getElementById(
     "dashboard-article-lists"
@@ -11,7 +13,7 @@ export async function displayPaginatedArticles(currentPage = 1) {
   dashboardArticleLists.innerHTML = "";
   data.data.forEach((data, i) => {
     const li = document.createElement("li");
-    li.textContent = `${i + 1}. ${data.article_title}`;
+    li.textContent = `${i + 1}. ${data.status}`;
     dashboardArticleLists?.appendChild(li);
   });
   // render pagination
@@ -19,7 +21,7 @@ export async function displayPaginatedArticles(currentPage = 1) {
   currentPage = data.page;
 }
 
-// RENDER pagination and buttons
+// function to RENDER pagination and buttons
 const renderPagination = (page, totalPages) => {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
@@ -28,12 +30,24 @@ const renderPagination = (page, totalPages) => {
   const prevBtn = document.createElement("button");
   prevBtn.textContent = "Prev";
   prevBtn.disabled = page === 1;
-  prevBtn.addEventListener("click", () => displayPaginatedArticles(page - 1));
+  prevBtn.addEventListener("click", () =>
+    displayPaginatedArticles(page - 1, status)
+  );
   pagination.appendChild(prevBtn);
 
-  const maxVisible = 5; // how many page numbers to show around current
+  // const maxVisible = 5; // how many page numbers to show around current
   let start = Math.max(1, page - 2);
   let end = Math.min(totalPages, page + 2);
+
+  const addPageButton = (i, current) => {
+    const pageBtn = document.createElement("button");
+    pageBtn.textContent = i;
+    if (i === current) pageBtn.classList.add("active");
+    pageBtn.addEventListener("click", () =>
+      displayPaginatedArticles(i, status)
+    );
+    pagination.appendChild(pageBtn);
+  };
 
   if (start > 1) {
     addPageButton(1, page);
@@ -61,17 +75,18 @@ const renderPagination = (page, totalPages) => {
   const nextBtn = document.createElement("button");
   nextBtn.textContent = "Next";
   nextBtn.disabled = page === totalPages;
-  nextBtn.addEventListener("click", () => displayPaginatedArticles(page + 1));
+  nextBtn.addEventListener("click", () =>
+    displayPaginatedArticles(page + 1, status)
+  );
   pagination.appendChild(nextBtn);
-
-  function addPageButton(i, current) {
-    const pageBtn = document.createElement("button");
-    pageBtn.textContent = i;
-    if (i === current) pageBtn.classList.add("active");
-    pageBtn.onclick = () => displayPaginatedArticles(i);
-    pagination.appendChild(pageBtn);
-  }
 };
+
+// Handle role filter change
+document.getElementById("statusSelect").addEventListener("change", (e) => {
+  status = +e.target.value; // 3 = all, 0 = unread, 1 = read
+  currentPage = 1; // go to first page
+  displayPaginatedArticles(currentPage, status); // reload filtered articles
+});
 
 // CREATE article
 export function createArticle() {

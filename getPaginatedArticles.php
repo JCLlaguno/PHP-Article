@@ -17,12 +17,27 @@
     // how many rows to skip before displaying records.
     $offset = ($page - 1) * $limit;
 
+    // get logged in userid
+    $userid = $_SESSION['userid'];
+
+    // set default status
+    $status  = isset($_GET['status']) ? $_GET['status'] : 3; // new filter
+    $status = intval($status);
+
+    // Build SQL condition
+    $whereClause = "WHERE userid = $userid";
+
+    if ($status !== 3) {
+        $whereClause = "WHERE status = $status AND userid = $userid";
+    }
+
     // get total count of articles
-    $totalCount = new Article()->countTotalArticles($_SESSION['userid']);
+    $totalCount = new Article()->countTotalArticles($whereClause);
     // get total pages for pagination
-    $totalPages = ceil($totalCount / $limit);
+    $totalPages = max(1, ceil($totalCount / $limit));
+
     // get paginated articles
-    $data = new Article()->paginateArticles($limit, $offset, $_SESSION['userid']); // []
+    $data = new Article()->paginateArticles($limit, $offset, $whereClause); // []
 
     // convert to JSON {}
     echo json_encode([

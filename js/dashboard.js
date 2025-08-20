@@ -1,4 +1,5 @@
 import { getPaginatedArticles } from "./helpers.js";
+
 // load total articles on dashboard
 const dashboardArticlesCount = async () => {
   const articlesCardContent = document.querySelector(

@@ -25,6 +25,15 @@
             <!-- end of single card -->
         </div>
         <!-- end of dashboard reports -->
+         <!-- filter dropdown -->
+          <div id="filter-dropdown">
+            <select id="statusSelect">
+                <option value="3">All</option>
+                <option value="0">Unread</option>
+                <option value="1">Read</option>
+            </select>
+        </div>
+         <!-- end of filter dropdown -->
          <div class="article-index-container">
             <!-- article lists header -->
              <div class="article-lists-header-container">

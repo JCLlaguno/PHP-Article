@@ -45,9 +45,9 @@
         }
         
         // paginate articles
-        public function paginateArticles(int $limit, int $offset, int $userid) : array|false {
+        public function paginateArticles(int $limit, int $offset, string $whereClause) : array|false {
             try {
-                $stmt = $this->conn->prepare("SELECT id, userid, article_title, article_content FROM articles WHERE userid = $userid ORDER BY id DESC LIMIT $offset, $limit"); 
+                $stmt = $this->conn->prepare("SELECT id, userid, status, article_title, article_content FROM `articles` $whereClause ORDER BY id DESC LIMIT $offset, $limit"); 
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -58,9 +58,9 @@
         }
 
         // count all articles
-        public function countTotalArticles(int $userid) : int {
+        public function countTotalArticles(string $whereClause) : int {
             try {
-                $stmt = $this->conn->prepare("SELECT COUNT(*) FROM `articles` WHERE userid = $userid");
+                $stmt = $this->conn->prepare("SELECT COUNT(*) FROM `articles` $whereClause");
                 $stmt->execute();
                 return $stmt->fetchColumn();
             } catch (PDOException $e) {

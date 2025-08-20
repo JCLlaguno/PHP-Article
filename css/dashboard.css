@@ -30,8 +30,15 @@
   font-size: 4rem;
   font-weight: 400;
 }
+
+/* Article filter dropdown */
+#filter-dropdown {
+  margin-top: 1rem;
+}
+
+/* Article lists */
 .article-index-container {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .article-lists-header-container {
   background-color: var(--shade);
@@ -45,7 +52,6 @@
   font-weight: 600;
   font-size: 1rem;
 }
-
 #dashboard-article-lists {
   width: 100%;
   height: 100%;
