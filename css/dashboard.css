@@ -65,6 +65,7 @@
 #dashboard-article {
   margin-bottom: 0.5rem;
   transition: color border 0.5s ease;
+  font-weight: var(--btn-font-weight);
 }
 #dashboard-article:hover {
   color: var(--maroon);

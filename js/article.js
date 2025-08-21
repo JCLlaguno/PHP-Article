@@ -1,5 +1,6 @@
 import { bogoAlert } from "./helpers.js";
 import { bogoRequest } from "./ajax.js";
+// import { dashboardPaginateArticles } from "./dashboard.js";
 
 // CREATE article
 export function createArticle() {
@@ -104,6 +105,13 @@ export async function displayArticle() {
     // RESET form
     viewArticleModal.querySelector(".view-article-title h4").textContent = "";
     viewArticleModal.querySelector(".view-article-content").textContent = "";
+
+    // display paginated articles
+    // dashboardPaginateArticles();
+
+    // reset filter to unread
+    const statusSelect = document.getElementById("statusSelect");
+    statusSelect.selectedIndex = 0;
   });
 }
 
@@ -111,7 +119,7 @@ export async function displayArticle() {
 export async function updateArticleStatus() {
   // get checkbox element
   const checkbox = document.getElementById("view-article-checkbox");
-  checkbox.addEventListener("change", async function () {
+  checkbox?.addEventListener("change", async function () {
     const articleId = this.dataset.id;
     const status = this.checked ? 1 : 0;
 
@@ -126,8 +134,6 @@ export async function updateArticleStatus() {
         const errorData = await response.json();
         throw new Error(`HTTP error ${errorData.message}`);
       }
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.error("Cannot update status:", error);
     }

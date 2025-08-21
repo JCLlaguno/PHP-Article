@@ -1,6 +1,6 @@
 import {
   dashboardArticlesCount,
-  dashboardPaginateArticles,
+  // dashboardPaginateArticles,
 } from "./dashboard.js";
 import {
   displayArticle,
@@ -49,7 +49,7 @@ deleteUser();
 
 // ARTICLES
 // LOAD all articles
-dashboardPaginateArticles();
+// dashboardPaginateArticles();
 // CREATE article
 createArticle();
 // VIEW article

@@ -34,6 +34,7 @@
             </select>
         </div>
          <!-- end of filter dropdown -->
+          
          <div class="article-index-container">
             <!-- article lists header -->
              <div class="article-lists-header-container">
