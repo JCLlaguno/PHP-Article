@@ -5,6 +5,7 @@ import {
 import {
   displayArticle,
   createArticle,
+  updateArticleStatus,
   updateArticle,
   deleteArticle,
 } from "./article.js";
@@ -53,6 +54,8 @@ dashboardPaginateArticles();
 createArticle();
 // VIEW article
 displayArticle();
+// UPDATE article status
+updateArticleStatus();
 // UPDATE article
 updateArticle();
 // DELETE article

@@ -107,6 +107,33 @@ export async function displayArticle() {
   });
 }
 
+// UPDATE article status
+export async function updateArticleStatus() {
+  // get checkbox element
+  const checkbox = document.getElementById("view-article-checkbox");
+  checkbox.addEventListener("change", async function () {
+    const articleId = this.dataset.id;
+    const status = this.checked ? 1 : 0;
+
+    try {
+      const response = await fetch("./updateArticle.php", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "update-article-id": articleId, status }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error ${errorData.message}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Cannot update status:", error);
+    }
+  });
+}
+
 // UPDATE article
 export function updateArticle() {
   const articles = document.querySelector(".articles");

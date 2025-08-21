@@ -96,6 +96,7 @@
 #pagination span {
   margin: 0 5px;
 }
+
 @media screen and (width >= 800px) {
   .dashboard-reports {
     grid-template-columns: 1fr 1fr;

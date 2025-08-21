@@ -22,6 +22,10 @@
                 <a class="btn close-article-btn">
                     <img src="./img/back.svg" alt="">
                 </a>
+                <label class="container checkbox-container">Mark as Read
+                    <input type="checkbox" id="view-article-checkbox">
+                    <span class="checkmark"></span>
+                </label>
             </div>
             <!-- end of close article btn-->
         </div>

@@ -73,7 +73,7 @@
         // get single article by id 
         public function getArticleById(int $id) :array|false {
             try {
-                $stmt = $this->conn->prepare("SELECT id, article_title, article_content FROM articles WHERE id=:id");
+                $stmt = $this->conn->prepare("SELECT id, status, article_title, article_content FROM articles WHERE id=:id");
                 $stmt->execute([':id' => $id]);
                 return $stmt->fetch(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -91,6 +91,22 @@
                     ':id' => $id,
                     ':article_title' => $article_title,
                     ':article_content' => $article_content
+                ]);
+                return $stmt->rowCount();
+            } catch (PDOException $e) {
+                echo "Database error:" . $e->getMessage();
+            } catch (Error $e) {
+                echo "General error: " . $e->getMessage();
+            }
+        }
+
+        // update article status 
+        public function updateArticleStatus(int $id, string $status) : int {
+            try {
+                $stmt = $this->conn->prepare("UPDATE articles SET status=:status WHERE id=:id");
+                $stmt->execute([
+                    ':id' => $id,
+                    ':status' => $status
                 ]);
                 return $stmt->rowCount();
             } catch (PDOException $e) {

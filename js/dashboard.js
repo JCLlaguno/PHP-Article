@@ -63,6 +63,11 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
       const articleId = +e.target.closest("li").dataset.id;
       // get a single article
       const data = await bogoRequest(`./getArticle.php?get_id=${articleId}`);
+      // pass article id to checkbox element
+      const checkbox = document.getElementById("view-article-checkbox");
+      checkbox.setAttribute("data-id", articleId);
+      // get checkbox status if checked/unchecked
+      checkbox.checked = data.status ? true : false;
 
       // Fill form
       viewArticleModal.querySelector(".view-article-title h4").textContent =
