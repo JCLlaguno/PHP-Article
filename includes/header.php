@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles</title>
-    <link href="./css/global.css" rel="stylesheet">
+    <link preload href="./css/global.css" rel="stylesheet">
     <link href="./css/nav.css" rel="stylesheet">
     <link href="./css/dashboard.css" rel="stylesheet">
     <link href="./css/users.css" rel="stylesheet">

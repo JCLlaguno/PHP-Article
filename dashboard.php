@@ -1,7 +1,7 @@
 <!-- Dashboard section -->
 <section class="dashboard">
     <!-- dashboard container -->
-    <div class="section-container">
+    <div class="section-container dashboard-container">
         <!-- section header -->
         <div class="section-header">
             <p class="section-title dashboard-welcome"></p>
@@ -25,34 +25,49 @@
             <!-- end of single card -->
         </div>
         <!-- end of dashboard reports -->
-         <!-- filter dropdown -->
-          <div id="filter-dropdown">
-            <select id="statusSelect">
-                <option value="0">Unread</option>
-                <option value="1">Read</option>
-                <option value="2">All</option>
-            </select>
-        </div>
-         <!-- end of filter dropdown -->
-          
-         <div class="article-index-container">
-            <!-- article lists header -->
+
+        <div class="article-index-container">
+            <!-- article lists header container -->
              <div class="article-lists-header-container">
+                <!-- article lists header -->
                 <p class="article-lists-header">
                     Index of Articles
                 </p>
+                <!-- end of article lists header -->
+                <!-- filter dropdown -->
+                <div id="filter-dropdown">
+                    <select id="statusSelect">
+                        <option value="0">Unread</option>
+                        <option value="1">Read</option>
+                        <option value="2">All</option>
+                    </select>
+                </div>
+                <!-- end of filter dropdown -->
              </div>
-            <!-- end of article lists header -->
+            <!-- end of article lists header container -->
             <!-- article lists -->
-            <ul id="dashboard-article-lists"></ul>
+            <div class="table-scroll">
+                
+            <!-- data table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            </div>
             <!-- end of article lists -->
+        </div>
             <!-- page info -->
             <span id="pageInfo"></span>   
             <!-- end of page info -->
             <!-- pagination buttons -->
             <div id="pagination"></div>
             <!-- end of pagination buttons -->
-         </div>
     </div>
     <!-- end of dashboard container -->
 </section>

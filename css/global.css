@@ -21,6 +21,7 @@
 
   --radius: 5px;
   --border-small: 1px solid var(--shade);
+  --table-border: 1px solid #ebedf1;
   --btn-font-weight: 500;
 
   --font: "Open Sans", sans-serif;
@@ -30,6 +31,7 @@ body {
   font-family: var(--font);
   color: var(--black);
   position: relative;
+  width: 100%;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -54,7 +56,6 @@ img {
   object-fit: cover;
 }
 section {
-  width: 100%;
   padding: 3rem 0;
   background-color: var(--white);
 }
@@ -94,7 +95,6 @@ textarea {
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  display: grid;
   background-color: var(--white);
 }
 
@@ -390,6 +390,7 @@ textarea {
 
 @media screen and (width >= 800px) {
   .main {
+    display: grid;
     grid-template-columns: auto 1fr;
     position: relative;
     align-items: start;

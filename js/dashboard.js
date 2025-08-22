@@ -15,73 +15,86 @@ export { dashboardArticlesCount };
 // DISPLAY paginated articles on dashboard
 let currentPage, status;
 let limit = 8; // max records to display per page
-// const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
-//   // get paginated articles
-//   const data = await bogoRequest(
-//     `./getPaginatedArticles.php?page=${currentPage}&limit=${limit}&status=${status}`
-//   );
+const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
+  // get paginated articles
+  const data = await bogoRequest(
+    `./getPaginatedArticles.php?page=${currentPage}&limit=${limit}&status=${status}`
+  );
 
-//   const dashboardArticleLists = document.getElementById(
-//     "dashboard-article-lists"
-//   );
-//   if (!dashboardArticleLists) return;
+  const dashboardContainer = document.querySelector(".dashboard-container");
+  const dashboardTable = document.querySelector(
+    ".article-index-container table tbody"
+  );
+  if (!dashboardTable) return;
 
-//   dashboardArticleLists.innerHTML = ""; // reset list when dashboardPaginateArticles is called
+  if (dashboardTable) dashboardTable.innerHTML = ""; // clear all existing rows
+  data.data.forEach((article, i) => {
+    const tr = document.createElement("tr");
+    const number = (currentPage - 1) * limit + (i + 1);
+    // LOAD data on users table
+    tr.innerHTML = `
+        <td>${number}</td>
+        <td class="fixed-col">${article.article_title}</td>
+        <td><span class="status-badge">${
+          article.status === 1 ? "Read" : "Unread"
+        }</span></td>`;
+    dashboardTable?.appendChild(tr);
+  });
 
-//   // if no article matches filter, display a message
-//   if (data.totalCount === 0) {
-//     const li = document.createElement("li");
-//     li.textContent = `No articles found in this category.`;
-//     dashboardArticleLists?.appendChild(li);
-//     // hide pagination buttons
-//     document.getElementById("pagination").style.display = "none";
-//   } else {
-//     // show pagination buttons
-//     document.getElementById("pagination").style.display = "flex";
-//   }
-//   if (data.totalPages === 1)
-//     document.getElementById("pagination").style.display = "none";
+  // if no article matches filter, display a message
+  if (data.totalCount === 0) {
+    const li = document.createElement("li");
+    li.textContent = `No articles found in this category.`;
+    dashboardContainer?.appendChild(li);
+    // hide pagination buttons
+    document.getElementById("pagination").style.display = "none";
+  } else {
+    // show pagination buttons
+    document.getElementById("pagination").style.display = "flex";
+  }
+  if (data.totalPages === 1)
+    document.getElementById("pagination").style.display = "none";
 
-//   data.data.forEach((data, i) => {
-//     const li = document.createElement("li");
-//     li.id = "dashboard-article"; // set element id
-//     li.setAttribute("data-id", data.id); // pass id from data to li element
-//     // compute global numbering across pages
-//     const number = (currentPage - 1) * limit + (i + 1);
-//     li.textContent = `${number}. ${data.article_title}`; // display title of an article
-//     dashboardArticleLists?.appendChild(li);
+  // data.data.forEach((data, i) => {
+  //   const li = document.createElement("li");
+  //   li.id = "dashboard-article"; // set element id
+  //   li.setAttribute("data-id", data.id); // pass id from data to li element
+  //   // compute global numbering across pages
+  //   const number = (currentPage - 1) * limit + (i + 1);
+  //   li.textContent = `${number}. ${data.article_title}`; // display title of an article
+  //   dashboardArticleLists?.appendChild(li);
 
-//     // open view article modal when an article is clicked
-//     li.addEventListener("click", async (e) => {
-//       // when an article is CLICKED
-//       const viewArticleModal = document.querySelector(".view-article-modal");
-//       // SHOW view article modal
-//       viewArticleModal.classList.add("show");
-//       // disable scrolling on body
-//       document.body.style.overflow = "hidden";
+  //   // open view article modal when an article is clicked
+  //   li.addEventListener("click", async (e) => {
+  //     // when an article is CLICKED
+  //     const viewArticleModal = document.querySelector(".view-article-modal");
+  //     // SHOW view article modal
+  //     viewArticleModal.classList.add("show");
+  //     // disable scrolling on body
+  //     document.body.style.overflow = "hidden";
 
-//       const articleId = +e.target.closest("li").dataset.id;
-//       // get a single article
-//       const data = await bogoRequest(`./getArticle.php?get_id=${articleId}`);
-//       // pass article id to checkbox element
-//       const checkbox = document.getElementById("view-article-checkbox");
-//       checkbox.setAttribute("data-id", articleId);
-//       // get checkbox status if checked/unchecked
-//       checkbox.checked = data.status ? true : false;
+  //     const articleId = +e.target.closest("li").dataset.id;
+  //     // get a single article
+  //     const data = await bogoRequest(`./getArticle.php?get_id=${articleId}`);
+  //     // pass article id to checkbox element
+  //     const checkbox = document.getElementById("view-article-checkbox");
+  //     checkbox.setAttribute("data-id", articleId);
+  //     // get checkbox status if checked/unchecked
+  //     checkbox.checked = data.status ? true : false;
 
-//       // Fill form
-//       viewArticleModal.querySelector(".view-article-title h4").textContent =
-//         data.article_title;
-//       viewArticleModal.querySelector(".view-article-content").textContent =
-//         data.article_content;
-//     });
-//   });
-//   // render pagination
-//   renderPagination(data.page, data.totalPages);
-//   currentPage = data.page;
-// };
+  //     // Fill form
+  //     viewArticleModal.querySelector(".view-article-title h4").textContent =
+  //       data.article_title;
+  //     viewArticleModal.querySelector(".view-article-content").textContent =
+  //       data.article_content;
+  //   });
+  // });
+  // render pagination
+  renderPagination(data.page, data.totalPages);
+  currentPage = data.page;
+};
 
-// export { dashboardPaginateArticles };
+export { dashboardPaginateArticles };
 
 // function to RENDER pagination and buttons
 const renderPagination = (page, totalPages) => {
