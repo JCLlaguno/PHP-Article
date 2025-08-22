@@ -33,7 +33,10 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
 });
 
 // DASHBOARD
-dashboardArticlesCount();
+if (document.querySelector(".dashboard")) {
+  dashboardArticlesCount();
+  dashboardPaginateArticles();
+}
 
 // USERS
 // LOAD a single user
@@ -49,7 +52,7 @@ deleteUser();
 
 // ARTICLES
 // LOAD all articles
-dashboardPaginateArticles();
+
 // CREATE article
 createArticle();
 // VIEW article

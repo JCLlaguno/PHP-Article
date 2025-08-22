@@ -26,48 +26,49 @@
         </div>
         <!-- end of dashboard reports -->
 
-        <div class="article-index-container">
+        <!-- DATA TABLE -->
+        <div class="table-container">
             <!-- article lists header container -->
-             <div class="article-lists-header-container">
-                <!-- article lists header -->
-                <p class="article-lists-header">
-                    Index of Articles
-                </p>
-                <!-- end of article lists header -->
-                <!-- filter dropdown -->
-                <div id="filter-dropdown">
-                    <select id="statusSelect">
+            <div class="table-header-container">
+                <!-- table header -->
+                <p class="table-header">Index of Articles</p>
+                <!-- end of table header -->
+                <!-- status filter dropdown -->
+                <div class="status-filter-dropdown">
+                    <select class="status-select" id="status-select">
                         <option value="0">Unread</option>
                         <option value="1">Read</option>
                         <option value="2">All</option>
                     </select>
                 </div>
-                <!-- end of filter dropdown -->
-             </div>
-            <!-- end of article lists header container -->
-            <!-- article lists -->
-            <div class="table-scroll">
-                
-            <!-- data table -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+                <!-- end of status filter dropdown -->
             </div>
-            <!-- end of article lists -->
+            <!-- end of article lists header container -->
+            <!-- mobile scroll wrapper -->
+            <div class="table-scroll">
+                <!-- data table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aricle List... -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- end of mobile scroll wrapper -->
         </div>
-            <!-- page info -->
-            <span id="pageInfo"></span>   
-            <!-- end of page info -->
-            <!-- pagination buttons -->
-            <div id="pagination"></div>
-            <!-- end of pagination buttons -->
+        <!-- end of DATA TABLE -->
+        <!-- page info -->
+        <span class="pageInfo"></span>   
+        <!-- end of page info -->
+        <!-- pagination buttons -->
+        <div class="pagination"></div>
+        <!-- end of pagination buttons -->
     </div>
     <!-- end of dashboard container -->
 </section>

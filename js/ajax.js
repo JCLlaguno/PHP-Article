@@ -1,5 +1,5 @@
-// an AJAX request by bogo
-const bogoRequest = async (url, options = {}) => {
+// AJAX helper function
+const ajaxRequest = async (url, options = {}) => {
   try {
     const response = await fetch(url, {
       headers: {
@@ -15,4 +15,4 @@ const bogoRequest = async (url, options = {}) => {
     console.error("Error loading article:", error);
   }
 };
-export { bogoRequest };
+export { ajaxRequest };

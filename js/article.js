@@ -1,6 +1,6 @@
 import { bogoAlert } from "./helpers.js";
-import { bogoRequest } from "./ajax.js";
-// import { dashboardPaginateArticles } from "./dashboard.js";
+import { ajaxRequest } from "./ajax.js";
+import { dashboardPaginateArticles } from "./dashboard.js";
 
 // CREATE article
 export function createArticle() {
@@ -82,7 +82,7 @@ export async function displayArticle() {
       document.body.style.overflow = "hidden";
 
       // load selected article
-      const data = await bogoRequest(
+      const data = await ajaxRequest(
         `./getArticle.php?get_id=${+btn.dataset.id}`
       );
 
@@ -107,11 +107,8 @@ export async function displayArticle() {
     viewArticleModal.querySelector(".view-article-content").textContent = "";
 
     // display paginated articles
+    const checkbox = document.getElementById("view-article-checkbox");
     // dashboardPaginateArticles();
-
-    // reset filter to unread
-    const statusSelect = document.getElementById("statusSelect");
-    statusSelect.selectedIndex = 0;
   });
 }
 
@@ -129,6 +126,12 @@ export async function updateArticleStatus() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ "update-article-id": articleId, status }),
       });
+
+      // display paginated articles
+      dashboardPaginateArticles();
+
+      // reset filter to unread (0)
+      document.querySelector(".status-select").selectedIndex = 0;
 
       if (!response.ok) {
         const errorData = await response.json();
