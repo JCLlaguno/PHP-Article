@@ -1,3 +1,4 @@
+import { navLoadActiveUser } from "./nav.js";
 import {
   dashboardArticlesCount,
   dashboardPaginateArticles,
@@ -9,13 +10,7 @@ import {
   updateArticle,
   deleteArticle,
 } from "./article.js";
-import {
-  displayUsers,
-  loadActiveUser,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "./user.js";
+import { displayUsers, createUser, updateUser, deleteUser } from "./user.js";
 
 // SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".nav-left .mobile-toggle-btn");
@@ -38,9 +33,11 @@ if (document.querySelector(".dashboard")) {
   dashboardPaginateArticles();
 }
 
+// NAV
+// display logged in user image in nav
+navLoadActiveUser();
+
 // USERS
-// LOAD a single user
-loadActiveUser();
 // Display all users
 displayUsers();
 // CREATE user

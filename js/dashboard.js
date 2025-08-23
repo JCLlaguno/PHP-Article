@@ -1,6 +1,8 @@
 import { ajaxRequest } from "./ajax.js";
 import { renderPagination } from "./helpers.js";
 
+// load total users on dashboard
+
 // load total articles on dashboard
 const dashboardArticlesCount = async () => {
   const articlesCardContent = document.querySelector(

@@ -86,7 +86,14 @@
             }
             /* UPDATE USER */
             $result = new User()->updateUser($userId, $username, $fileUrl, $passwordHash);
-            if ($result) echo json_encode(["status" => "success", "message" => "Updated user!"]);
+            
+            // display message based on result
+            if ($result) {
+                echo json_encode(["status" => "success", "message" => "Updated user!"]);
+            } else {
+                http_response_code(409);
+                echo json_encode(['status' => 'success', "message" => "Same values!"]);
+            }
         } catch (PDOException $e) {
             http_response_code(500);
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);

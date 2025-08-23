@@ -1,8 +1,10 @@
-import { bogoAlert, loadUser, loadAllUsers } from "./helpers.js";
+import { bogoAlert, loadUser } from "./helpers.js";
+import { ajaxRequest } from "./ajax.js";
 
 // DISPLAY all users
 const displayUsers = async () => {
-  const data = await loadAllUsers();
+  // get all users from db
+  const data = await ajaxRequest(`./loadAllUsers.php`);
   const usersTable = document.querySelector(".users .users-table tbody");
   if (usersTable) usersTable.innerHTML = ""; // clear all existing rows
   data.forEach((user) => {
@@ -33,6 +35,7 @@ const displayUsers = async () => {
   const updateUserModal = document.querySelector(".update-user-modal");
   const updateUserForm = updateUserModal?.querySelector(".update-user-form");
   const updateuserId = updateUserForm?.querySelector("#update-user-id"); // id from UPDATE FORM
+
   // // if action UPDATE btn is CLICKED
   actionUpdateBtn.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
@@ -44,13 +47,13 @@ const displayUsers = async () => {
       document.body.style.overflow = "hidden";
       // enable scroll on update modal
       if (updateUserModal) updateUserModal.style.overflow = "scroll";
-      // pass row id from table to UPDATE form input
+      // pass row id from table for updating user
       updateuserId?.setAttribute("value", `${btn.dataset.id}`);
-      // // load selected user
-      const data = await loadUser(+btn.dataset.id);
+      // load selected user
+      const data = await ajaxRequest(`./getUser.php?userid=${+btn.dataset.id}`);
       // Fill update form
       if (updateUserForm)
-        updateUserForm.querySelector(".username").value = data.username || "";
+        updateUserForm.querySelector(".username").value = data.username;
     });
   });
 
@@ -71,24 +74,6 @@ const displayUsers = async () => {
   });
 };
 export { displayUsers };
-
-// LOAD a active user
-const navUserPhoto = document.querySelector(".nav-user-photo");
-const dashboardTitle = document.querySelector(".dashboard .dashboard-welcome");
-
-const loadActiveUser = async () => {
-  // call load user from helpers js
-  const data = await loadUser();
-  // Display active user photo on nav
-  navUserPhoto.setAttribute("src", `${data.photo}`);
-
-  // Display active username on dashboard Welcome
-  if (dashboardTitle)
-    dashboardTitle.textContent = `Welcome! ${data.username
-      .charAt(0)
-      .toUpperCase()}${data.username.slice(1)}`;
-};
-export { loadActiveUser };
 
 // CREATE user
 const createUser = () => {
@@ -200,7 +185,8 @@ const updateUser = () => {
       // clear form fields
       updateUserForm.reset();
     } catch (error) {
-      alert(error);
+      // console.error(error);
+      bogoAlert(error.message, "bg-maroon", users);
     }
   });
 };
