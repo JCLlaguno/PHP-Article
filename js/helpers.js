@@ -94,3 +94,57 @@ const getPaginatedArticles = async (page = 1, status) => {
   }
 };
 export { getPaginatedArticles };
+
+// function to RENDER pagination and buttons
+const renderPagination = (page, totalPages, status, paginateArticles) => {
+  const paginationContainer = document.querySelector(".pagination");
+  paginationContainer.innerHTML = "";
+
+  // Prev button
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "Prev";
+  prevBtn.disabled = page === 1;
+  prevBtn.addEventListener("click", () => paginateArticles(page - 1, status));
+  paginationContainer.appendChild(prevBtn);
+
+  let start = Math.max(1, page - 2);
+  let end = Math.min(totalPages, page + 2);
+
+  const addPageButton = (i, current) => {
+    const pageBtn = document.createElement("button");
+    pageBtn.textContent = i;
+    if (i === current) pageBtn.classList.add("active");
+    pageBtn.addEventListener("click", () => paginateArticles(i, status));
+    paginationContainer.appendChild(pageBtn);
+  };
+
+  if (start > 1) {
+    addPageButton(1, page);
+    if (start > 2) {
+      const span = document.createElement("span");
+      span.textContent = "...";
+      paginationContainer.appendChild(span);
+    }
+  }
+
+  for (let i = start; i <= end; i++) {
+    addPageButton(i, page);
+  }
+
+  if (end < totalPages) {
+    if (end < totalPages - 1) {
+      const span = document.createElement("span");
+      span.textContent = "...";
+      paginationContainer.appendChild(span);
+    }
+    addPageButton(totalPages, page);
+  }
+
+  // Next button
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next";
+  nextBtn.disabled = page === totalPages;
+  nextBtn.addEventListener("click", () => paginateArticles(page + 1, status));
+  paginationContainer.appendChild(nextBtn);
+};
+export { renderPagination };

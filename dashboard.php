@@ -7,8 +7,8 @@
             <p class="section-title dashboard-welcome"></p>
         </div>
         <!-- end of section header -->
-        <!-- dashboard reports -->
-        <div class="dashboard-reports">
+        <!-- dashboard summary -->
+        <div class="dashboard-summary">
             <!-- single card -->
              <card class="dashboard-card users-card bg-blue">
                  <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-user.svg" alt=""></div>
@@ -24,14 +24,14 @@
             </card>
             <!-- end of single card -->
         </div>
-        <!-- end of dashboard reports -->
+        <!-- end of dashboard summary -->
 
         <!-- DATA TABLE -->
         <div class="table-container">
             <!-- article lists header container -->
             <div class="table-header-container">
                 <!-- table header -->
-                <p class="table-header">Index of Articles</p>
+                <p class="table-header-title">Index of Articles</p>
                 <!-- end of table header -->
                 <!-- status filter dropdown -->
                 <div class="status-filter-dropdown">

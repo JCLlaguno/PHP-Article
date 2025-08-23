@@ -4,7 +4,7 @@
 .dashboard-welcome {
   text-align: center;
 }
-.dashboard-reports {
+.dashboard-summary {
   display: grid;
   grid-template-columns: 1fr;
   place-items: center;
@@ -35,7 +35,7 @@
   font-weight: 400;
 }
 
-/* Article lists */
+/* NEW table custom styles */
 .table-container {
   margin-top: 2rem;
   border-radius: var(--radius);
@@ -53,12 +53,10 @@
   padding: 1rem 0;
   margin: 0 1rem;
 }
-.table-header {
+.table-header-title {
   font-weight: var(--btn-font-weight);
   font-size: 1rem;
 }
-
-/* NEW table custom styles */
 .table-scroll {
   width: 100%;
   overflow-x: auto;
@@ -71,55 +69,45 @@ table {
   width: 100%;
   background-color: transparent;
 }
-thead tr th {
-  font-weight: var(--btn-font-weight);
-  white-space: nowrap;
-}
-tbody tr th {
-  font-weight: 400;
-  white-space: nowrap;
-}
-tbody tr:last-child {
-  border-bottom: none;
+tr {
+  border-bottom: var(--table-border);
 }
 th,
 td {
   text-align: left;
   padding: 0.5rem;
 }
-td.fixed-col {
+thead tr th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody tr th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* article title column */
+td.article-title {
   min-width: 400px;
 }
-td .article-status-badge {
+td.article-title p {
+  transition: color 0.2s ease;
+}
+td.article-title p:hover {
+  color: var(--maroon);
+}
+td span.article-status-badge {
   display: inline-block;
   padding: 0 0.2rem;
   color: var(--black);
   background-color: var(--white);
   border-radius: var(--radius);
 }
-tr {
-  border-bottom: var(--table-border);
-}
 
-/* #dashboard-article-lists {
-  width: 100%;
-  height: 100%;
-  border: var(--border-small);
-  border-bottom-left-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  background-color: var(--whiter);
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-#dashboard-article {
-  margin-bottom: 0.5rem;
-  transition: color border 0.5s ease;
-  font-weight: var(--btn-font-weight);
-}
-#dashboard-article:hover {
-  color: var(--maroon);
-} */
-
+/* pagination styles */
 .pagination {
   margin-top: 2rem;
   display: flex;
@@ -133,28 +121,28 @@ tr {
   background: var(--whiter);
   cursor: pointer;
   font-size: 0.8rem;
+  font-weight: var(--btn-font-weight);
 }
 .pagination button.active {
   background: var(--green);
   color: var(--white);
-  font-weight: var(--btn-font-weight);
 }
 .pagination button:disabled {
   background: var(--white);
   color: var(--shade);
-  cursor: not-allowed;
+  pointer-events: none;
 }
 .pagination span {
   margin: 0 5px;
 }
 
 @media screen and (width >= 800px) {
-  .dashboard-reports {
+  .dashboard-summary {
     grid-template-columns: 1fr 1fr;
   }
 }
 @media screen and (width >= 1000px) {
-  .dashboard-reports {
+  .dashboard-summary {
     grid-template-columns: repeat(3, 1fr);
   }
 }

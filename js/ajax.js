@@ -8,11 +8,14 @@ const ajaxRequest = async (url, options = {}) => {
       ...options,
     });
 
-    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`HTTP error ${errorData.message}`);
+    }
 
     return await response.json();
   } catch (error) {
-    console.error("Error loading article:", error);
+    console.error("Error loading data:", error);
   }
 };
 export { ajaxRequest };

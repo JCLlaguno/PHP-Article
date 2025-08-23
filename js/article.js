@@ -105,41 +105,33 @@ export async function displayArticle() {
     // RESET form
     viewArticleModal.querySelector(".view-article-title h4").textContent = "";
     viewArticleModal.querySelector(".view-article-content").textContent = "";
-
-    // display paginated articles
-    const checkbox = document.getElementById("view-article-checkbox");
-    // dashboardPaginateArticles();
   });
 }
 
 // UPDATE article status
 export async function updateArticleStatus() {
+  // get status select dropdown element
+  const statusSelect = document.querySelector(".status-select");
   // get checkbox element
   const checkbox = document.getElementById("view-article-checkbox");
+
+  // if checkbox is checked / unchecked
   checkbox?.addEventListener("change", async function () {
-    const articleId = this.dataset.id;
+    const articleId = this.dataset.id; // get checkbox id
     const status = this.checked ? 1 : 0;
 
-    try {
-      const response = await fetch("./updateArticle.php", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "update-article-id": articleId, status }),
-      });
+    // update article status in db
+    await ajaxRequest("./updateArticle.php", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "update-article-id": articleId, status }),
+    });
 
-      // display paginated articles
-      dashboardPaginateArticles();
+    // set status filter value to unread
+    statusSelect.selectedIndex = 0;
 
-      // reset filter to unread (0)
-      document.querySelector(".status-select").selectedIndex = 0;
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`HTTP error ${errorData.message}`);
-      }
-    } catch (error) {
-      console.error("Cannot update status:", error);
-    }
+    // display paginated articles (page = 1, status = 0 (unread))
+    dashboardPaginateArticles();
   });
 }
 
@@ -158,23 +150,23 @@ export function updateArticle() {
     updateArticleForm?.querySelector("#update-article-id"); // id from UPDATE FORM
 
   // LOAD article
-  const loadArticle = async (id) => {
-    try {
-      const response = await fetch(`./getArticle.php?get_id=${id}`); // send a GET request to getArticle.php
+  // const loadArticle = async (id) => {
+  //   try {
+  //     const response = await fetch(`./getArticle.php?get_id=${id}`); // send a GET request to getArticle.php
 
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+  //     if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      // Fill form
-      updateArticleForm.querySelector(".article-title").value =
-        data.article_title || "";
-      updateArticleForm.querySelector(".article-content").value =
-        data.article_content || "";
-    } catch (error) {
-      console.error("Error loading article:", error);
-    }
-  };
+  //     // Fill form
+  //     updateArticleForm.querySelector(".article-title").value =
+  //       data.article_title || "";
+  //     updateArticleForm.querySelector(".article-content").value =
+  //       data.article_content || "";
+  //   } catch (error) {
+  //     console.error("Error loading article:", error);
+  //   }
+  // };
 
   // // if action UPDATE btn is CLICKED (TEMPORARY)
   actionUpdateButton.forEach((btn) => {
