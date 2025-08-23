@@ -10,12 +10,12 @@ const ajaxRequest = async (url, options = {}) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(`HTTP error ${errorData.message}`);
+      throw new Error(`HTTP ERROR: ${errorData.message}`);
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error loading data:", error);
+    console.error(error);
   }
 };
 export { ajaxRequest };

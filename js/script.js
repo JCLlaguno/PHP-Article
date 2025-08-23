@@ -1,5 +1,6 @@
 import { navLoadActiveUser } from "./nav.js";
 import {
+  dashboardUsersCount,
   dashboardArticlesCount,
   dashboardPaginateArticles,
 } from "./dashboard.js";
@@ -29,13 +30,19 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
 
 // DASHBOARD
 if (document.querySelector(".dashboard")) {
+  // display total users in dashboard card
+  dashboardUsersCount();
+  // display total articles on dashboard card
   dashboardArticlesCount();
+  // display paginated articles on dashboard
   dashboardPaginateArticles();
 }
 
 // NAV
 // display logged in user image in nav
 navLoadActiveUser();
+
+// DASHBOARD
 
 // USERS
 // Display all users
@@ -48,8 +55,6 @@ updateUser();
 deleteUser();
 
 // ARTICLES
-// LOAD all articles
-
 // CREATE article
 createArticle();
 // VIEW article

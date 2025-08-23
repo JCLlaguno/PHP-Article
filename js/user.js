@@ -23,13 +23,6 @@ const displayUsers = async () => {
     usersTable?.appendChild(tr);
   });
 
-  // load total users on dashboard
-  const usersCardContent = document.querySelector(
-    ".dashboard .users-card-content"
-  );
-  if (usersCardContent)
-    usersCardContent.textContent = `${Object.keys(data).length}`;
-
   // if action UPDATE btn is pressed
   const actionUpdateBtn = document.querySelectorAll(".action-update-btn");
   const updateUserModal = document.querySelector(".update-user-modal");

@@ -1,9 +1,19 @@
 import { ajaxRequest } from "./ajax.js";
-import { renderPagination } from "./helpers.js";
+import { renderPagination, viewArticle } from "./helpers.js";
 
-// load total users on dashboard
+// display total users on dashboard card
+const dashboardUsersCount = async () => {
+  const data = await ajaxRequest(`./loadAllUsers.php`);
 
-// load total articles on dashboard
+  const usersCardContent = document.querySelector(
+    ".dashboard .users-card-content"
+  );
+  if (usersCardContent)
+    usersCardContent.textContent = `${Object.keys(data).length}`;
+};
+export { dashboardUsersCount };
+
+// display total articles on dashboard card
 const dashboardArticlesCount = async () => {
   const articlesCardContent = document.querySelector(
     ".dashboard .articles-card-content"
@@ -66,33 +76,7 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
   const articleTitle = document.querySelectorAll(
     ".dashboard table .article-title"
   );
-  articleTitle.forEach((article) => {
-    article.addEventListener("click", async (e) => {
-      const viewArticleModal = document.querySelector(".view-article-modal");
-
-      // SHOW view article modal
-      viewArticleModal.classList.add("show");
-      // disable scrolling on body
-      document.body.style.overflow = "hidden";
-
-      // get id from article
-      const articleId = +e.target.closest("td").dataset.id;
-      // get a single article
-      const data = await ajaxRequest(`./getArticle.php?get_id=${articleId}`);
-
-      // pass article id to checkbox element
-      const checkbox = document.getElementById("view-article-checkbox");
-      checkbox.setAttribute("data-id", articleId);
-      // get checkbox status if checked/unchecked
-      checkbox.checked = data.status ? true : false;
-
-      // Fill form
-      viewArticleModal.querySelector(".view-article-title h4").textContent =
-        data.article_title;
-      viewArticleModal.querySelector(".view-article-content").textContent =
-        data.article_content;
-    });
-  });
+  viewArticle(articleTitle);
 
   // render pagination and buttons
   renderPagination(

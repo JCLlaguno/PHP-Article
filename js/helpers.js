@@ -1,3 +1,4 @@
+import { ajaxRequest } from "./ajax.js";
 // custom ALERT message
 const bogoAlert = (message, alertType = "bg-black", parentEl) => {
   const html = `
@@ -148,3 +149,35 @@ const renderPagination = (page, totalPages, status, paginateArticles) => {
   paginationContainer.appendChild(nextBtn);
 };
 export { renderPagination };
+
+// VIEW an article
+const viewArticle = (articleLink) => {
+  articleLink.forEach((article) => {
+    article.addEventListener("click", async (e) => {
+      const viewArticleModal = document.querySelector(".view-article-modal");
+
+      // SHOW view article modal
+      viewArticleModal.classList.add("show");
+      // disable scrolling on body
+      document.body.style.overflow = "hidden";
+
+      // get id from article
+      const articleId = +e.target.closest("td").dataset.id;
+      // get a single article
+      const data = await ajaxRequest(`./getArticle.php?get_id=${articleId}`);
+
+      // pass article id to checkbox element
+      const checkbox = document.getElementById("view-article-checkbox");
+      checkbox.setAttribute("data-id", articleId);
+      // get checkbox status if checked/unchecked
+      checkbox.checked = data.status ? true : false;
+
+      // Fill form
+      viewArticleModal.querySelector(".view-article-title h4").textContent =
+        data.article_title;
+      viewArticleModal.querySelector(".view-article-content").textContent =
+        data.article_content;
+    });
+  });
+};
+export { viewArticle };

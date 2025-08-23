@@ -33,6 +33,7 @@
             
             if (isset($input['update-article-id']) && isset($input['status'])) {
                 new Article()->updateArticleStatus($input['update-article-id'], $input['status']);
+                echo json_encode(["success" => true, "message" => "Article status updated!"]);
             }
 
         } catch (PDOException $e) {
