@@ -20,173 +20,49 @@
         </div>
         <!-- end of add article -->
 
-        <?php 
-            // // Articles PAGINATION 
-            // // get current page no.
-            // if(isset($_GET['page_no'])) {
-            //     $page_no = $_GET['page_no'];
-            // } else {
-            //     $page_no = 1;
-            // }
-
-            // // set total records per page value
-            // $total_records_per_page = 16;
-
-            // // calculate offset value & set other variables
-            // $offset = ($page_no - 1) * $total_records_per_page;
-            // $previous_page = $page_no - 1;
-            // $next_page = $page_no + 1;
-            // $adjacents = "2";
-
-
-            // // get the total no. of pages for pagination
-            // $total_articles = new Article()->countTotalArticles($_SESSION['userid']);
-            // $total_no_of_pages = ceil($total_articles / $total_records_per_page);
-            // $second_last = $total_no_of_pages - 1; // total pages minus 1
-            // // get ID of logged in user
-            // $createdBy = new User()->getUserById($_SESSION['userid']);
-
-            // // get paginated articles
-            // $articles = new Article()->paginateArticles($total_records_per_page, $offset, $createdBy['id']);
-            
-            // // check if there are no articles
-            // if (count($articles) !== 0) {
-
-        ?>
-
-        <!-- data table -->
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Posted by</th>
-                    <th>Title</th>
-                    <!-- <th>Content</th> -->
-                    <th class="action-title">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php // foreach($articles as $article) { ?>
-                    <tr>
-                        <td data-title="Id"><?php // echo $article['id']; ?></td>
-                        <td data-title="Posted by">
-                            <?php
-                                // echo $createdBy['username'];
-                            ?>
-                        </td>
-                        <td class="table-article-title" data-title="Title">
-                            <p><?php // echo $article['article_title']; ?></p>
-                        </td>
-                        <td data-title="Action">
-                            <div class="action-container">
-                                <a class="btn bg-black action-view-btn" data-id="<?php // echo $article['id']; ?>"><img src="./img/view.svg" alt="Edit"></a>
-                                <a class="btn bg-green action-update-btn" data-id="<?php // echo $article['id']; ?>" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
-                                <a class="btn bg-red action-delete-btn" data-id="<?php // echo $article['id']; ?>" alt="Delete"><img src="./img/delete.svg" alt="Delete" ></a>
-
-                            </div>
-                        </td>
-                    </tr>
-                <?php // } ?>
-            </tbody>
-        </table>
-        <!-- end of data table -->
-        
-        <?php  ?>
-         <!-- pagination-pages -->
-        <div class="pagination-pages">
-            <p>Page <?php // echo $page_no." of ".$total_no_of_pages; ?></p>
+        <!-- DATA TABLE -->
+        <div class="table-container">
+            <!-- article lists header container -->
+            <div class="table-header-container">
+                <!-- table header -->
+                <p class="table-header-title">Index of Articles</p>
+                <!-- end of table header -->
+                <!-- status filter dropdown -->
+                <div class="status-filter-dropdown">
+                    <select class="status-select" id="status-select">
+                        <option value="0">Unread</option>
+                        <option value="1">Read</option>
+                        <option value="2">All</option>
+                    </select>
+                </div>
+                <!-- end of status filter dropdown -->
+            </div>
+            <!-- end of article lists header container -->
+            <!-- mobile scroll wrapper -->
+            <div class="table-scroll">
+                <!-- data table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th class="article-status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aricle List... -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- end of mobile scroll wrapper -->
         </div>
-        <!-- end of pages -->
-
-        <!-- PAGINATION buttons -->
-        <ul class="pagination">
-            <!-- PREVIOUS button -->
-            <li>
-                <a class="btn pagination-btn <?php // if ($page_no <= 1) // echo 'pagination-btn-disabled'; ?>" 
-                <?php // if($page_no > 1) // echo "href='?page=articles&page_no=$previous_page'"; ?>>Previous</a>
-            </li>
-
-            <!-- clickable PAGE buttons -->
-            <?php
-                // if ($total_no_of_pages <= 10) {  	 
-                //     for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
-                //         if ($counter == $page_no) {
-                //             echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                //         } else {
-                //             echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                //         }
-                //     }
-                // } else if ($total_no_of_pages > 10) {
-                    
-                //     // Here we will add further conditions
-
-                //     if($page_no <= 4) {	
-
-                //         for ($counter = 1; $counter < 8; $counter++){	
-
-                //             if ($counter == $page_no) {
-                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                //             } else {
-                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                //             }
-
-                //         }
-
-                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-
-                //     } else if ($page_no > 4 && $page_no < $total_no_of_pages - 4) {		
-
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
-                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
-
-                //         for (
-                //             $counter = $page_no - $adjacents;
-                //             $counter <= $page_no + $adjacents;
-                //             $counter++
-                //             ) {		
-                //             if ($counter == $page_no) {
-                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                //             } else {
-                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                //             }                  
-                //         }
-
-                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$second_last'>$second_last</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-
-                //     } else {
-
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=1'>1</a></li>";
-                //         echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=2'>2</a></li>";
-                //         echo "<li><a class='btn pagination-btn'>...</a></li>";
-
-                //         for (
-                //             $counter = $total_no_of_pages - 6;
-                //             $counter <= $total_no_of_pages;
-                //             $counter++
-                //         ) {
-                //             if ($counter == $page_no) {
-                //                 echo "<li><a class='btn pagination-btn pagination-btn-active'>$counter</a></li>";	
-                //             } else {
-                //                 echo "<li><a class='btn pagination-btn' href='?page=articles&page_no=$counter'>$counter</a></li>";
-                //             }                   
-                //         }
-                //     }
-                // }
-            ?>
-
-            <!-- NEXT button -->
-            <li >
-                <a class="btn pagination-btn <?php // if ($page_no >= $total_no_of_pages) echo 'pagination-btn-disabled'?>"
-                <?php // if($page_no < $total_no_of_pages) echo "href='?page=articles&page_no=$next_page'"; ?>>Next</a>
-            </li>
-        </ul>
-        <!-- end of PAGINATION buttons -->
-         <?php // } else echo 'No articles' ?> 
+        <!-- end of DATA TABLE -->
+        <!-- page info -->
+        <span class="pageInfo"></span>   
+        <!-- end of page info -->
+        <!-- pagination buttons -->
+        <div class="pagination"></div>
+        <!-- end of pagination buttons -->
     </div>
     <!-- end of articles container -->
 </section>

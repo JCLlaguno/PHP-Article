@@ -177,3 +177,13 @@ const viewArticle = (articleLink) => {
   });
 };
 export { viewArticle };
+
+const articleStatusSelect = (paginateArticles) => {
+  // handle status filter change
+  document.getElementById("status-select")?.addEventListener("change", (e) => {
+    const status = e.target.value; // 0 = unread, 1 = read, 2 = all
+    const currentPage = 1; // go to first page
+    paginateArticles(currentPage, status); // reload filtered articles
+  });
+};
+export { articleStatusSelect };

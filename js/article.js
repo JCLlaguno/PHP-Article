@@ -1,6 +1,74 @@
 import { bogoAlert } from "./helpers.js";
 import { ajaxRequest } from "./ajax.js";
-import { dashboardPaginateArticles } from "./dashboard.js";
+import {
+  viewArticle,
+  renderPagination,
+  articleStatusSelect,
+} from "./helpers.js";
+
+// DISPLAY paginated articles on dashboard
+let limit = 8; // max records to display per page
+const paginateArticles = async (currentPage = 1, status = 0) => {
+  // get paginated articles
+  const data = await ajaxRequest(
+    `./getPaginatedArticles.php?page=${currentPage}&limit=${limit}&status=${status}`
+  );
+
+  const paginationContainer = document.querySelector(".pagination");
+  // show pagination buttons
+  paginationContainer.style.display = "flex";
+
+  // if article does not exceed 1 page
+  if (data.totalPages === 1) paginationContainer.style.display = "none"; // hide pagination buttons
+
+  const articleTable = document.querySelector(".articles tbody");
+  if (!articleTable) return;
+  articleTable.innerHTML = ""; // clear all existing rows
+
+  // if no article matches filter, display a message
+  if (data.totalCount === 0) {
+    const tr = document.createElement("tr");
+    // style the message
+    tr.style.display = "block";
+    tr.style.color = "var(--red)";
+    tr.style.marginTop = "1rem";
+
+    tr.innerHTML = `No articles found in this category.`;
+    articleTable?.appendChild(tr);
+
+    // hide pagination buttons
+    paginationContainer.style.display = "none";
+  } else {
+    data.data.forEach((article, i) => {
+      const tr = document.createElement("tr");
+      // LOAD data on users table
+      tr.innerHTML = `
+        <td>${(currentPage - 1) * limit + (i + 1)}</td>
+        <td class="article-title" data-id=${article.id}><p>${
+        article.article_title
+      }</p></td>
+        <td class="article-status"><span class="article-status-badge" style="color:${
+          article.status === 1 ? "var(--green)" : "var(--maroon)"
+        };">${article.status === 1 ? "Read" : "Unread"}</span></td>`;
+      articleTable?.appendChild(tr);
+    });
+  }
+
+  // when an article title is clicked, VIEW the article
+  const articleTitle = document.querySelectorAll(
+    ".articles table .article-title"
+  );
+  viewArticle(articleTitle);
+
+  // render pagination and buttons
+  renderPagination(data.page, data.totalPages, status, paginateArticles);
+
+  // currentPage = data.page;
+};
+export { paginateArticles };
+
+// handle status filter change
+articleStatusSelect(paginateArticles);
 
 // CREATE article
 export function createArticle() {
@@ -26,7 +94,7 @@ export function createArticle() {
   });
 
   // when form is submitted
-  createArticleForm?.addEventListener("submit", async function (e) {
+  createArticleForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -52,13 +120,17 @@ export function createArticle() {
       // close create article modal
       createArticleModal.classList.remove("show");
 
+      // enable scroll on body
+      document.body.style.overflow = "auto";
+
       // show an ALERT message
       bogoAlert(successData.message, "bg-blue", articles);
 
-      // reload page after 2s
-      setTimeout(() => {
-        location.reload();
-      }, 2000);
+      // reload paginated articles
+      paginateArticles();
+
+      // clear form fields
+      createArticleForm.reset();
     } catch (error) {
       alert(error);
     }
@@ -108,10 +180,10 @@ export async function displayArticle() {
   });
 }
 
-// UPDATE article status
-export async function updateArticleStatus() {
+// UPDATE checkbox in VIEW articles
+export async function updateCheckbox(paginateArticles) {
   // get status select dropdown element
-  const statusSelect = document.querySelector(".status-select");
+  const statusSelect = document.getElementById("status-select");
   // get checkbox element
   const checkbox = document.getElementById("view-article-checkbox");
 
@@ -131,7 +203,7 @@ export async function updateArticleStatus() {
     statusSelect.selectedIndex = 0;
 
     // display paginated articles (page = 1, status = 0 (unread))
-    dashboardPaginateArticles();
+    paginateArticles();
   });
 }
 

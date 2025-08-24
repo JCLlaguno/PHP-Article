@@ -113,6 +113,7 @@ const createUser = () => {
       // close create user modal
       createUserModal.classList.remove("show");
 
+      // enable scroll on body
       document.body.style.overflow = "auto";
 
       // show an ALERT message

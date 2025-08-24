@@ -4,7 +4,7 @@
     <div class="section-container dashboard-container">
         <!-- section header -->
         <div class="section-header">
-            <p class="section-title dashboard-welcome"></p>
+            <p class="section-title dashboard-welcome">Welcome! <span></span></p>
         </div>
         <!-- end of section header -->
         <!-- dashboard summary -->
@@ -52,7 +52,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>Status</th>
+                            <th class="article-status">Status</th>
                         </tr>
                     </thead>
                     <tbody>

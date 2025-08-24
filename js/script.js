@@ -1,13 +1,15 @@
 import { navLoadActiveUser } from "./nav.js";
 import {
+  dashboardWelcomeUser,
   dashboardUsersCount,
   dashboardArticlesCount,
   dashboardPaginateArticles,
 } from "./dashboard.js";
 import {
+  paginateArticles,
   displayArticle,
   createArticle,
-  updateArticleStatus,
+  updateCheckbox,
   updateArticle,
   deleteArticle,
 } from "./article.js";
@@ -28,21 +30,23 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
   document.body.style.overflow = "auto";
 });
 
+// NAV
+// display logged in user image in nav
+navLoadActiveUser();
+
 // DASHBOARD
 if (document.querySelector(".dashboard")) {
+  // display welcome message on dashboard
+  dashboardWelcomeUser();
   // display total users in dashboard card
   dashboardUsersCount();
   // display total articles on dashboard card
   dashboardArticlesCount();
   // display paginated articles on dashboard
   dashboardPaginateArticles();
+  // UPDATE view article status
+  updateCheckbox(dashboardPaginateArticles);
 }
-
-// NAV
-// display logged in user image in nav
-navLoadActiveUser();
-
-// DASHBOARD
 
 // USERS
 // Display all users
@@ -55,13 +59,17 @@ updateUser();
 deleteUser();
 
 // ARTICLES
-// CREATE article
-createArticle();
-// VIEW article
+// display paginated articles
+if (document.querySelector(".articles")) {
+  paginateArticles();
+  // CREATE article
+  createArticle();
+  // UPDATE view article status
+  updateCheckbox(paginateArticles);
+  // UPDATE article
+  updateArticle();
+  // DELETE article
+  deleteArticle();
+}
+// VIEW article (also needed in dashboard)
 displayArticle();
-// UPDATE article status
-updateArticleStatus();
-// UPDATE article
-updateArticle();
-// DELETE article
-deleteArticle();

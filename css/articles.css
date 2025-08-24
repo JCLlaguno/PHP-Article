@@ -2,26 +2,10 @@
   position: relative;
   z-index: 0;
 }
-/* CUSTOM STYLES for articles */
-.data-table .table-article-title,
-.data-table .table-article-content {
+/* CUSTOM table styles for articles */
+table .article-status {
   text-align: center;
 }
-.data-table .table-article-title p,
-.data-table .article-content p {
-  max-width: 400px;
-  margin: 0 auto;
-}
-.data-table .table-article-title::before,
-.data-table .table-article-content::before {
-  content: attr(data-title) ": ";
-  font-weight: 700;
-  float: none;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-}
-
 /* CREATE article custom styles */
 .create-article-form .article-content {
   min-height: 200px;

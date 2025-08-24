@@ -1,5 +1,22 @@
 import { ajaxRequest } from "./ajax.js";
-import { renderPagination, viewArticle } from "./helpers.js";
+import {
+  renderPagination,
+  viewArticle,
+  articleStatusSelect,
+} from "./helpers.js";
+
+// Display active username on dashboard Welcome
+const dashboardWelcomeUser = async () => {
+  const dashboardTitle = document.querySelector(
+    ".dashboard .dashboard-welcome span"
+  );
+  // load active user (logged in user)
+  const data = await ajaxRequest("./getUser.php");
+  dashboardTitle.textContent = `${data.username
+    .charAt(0)
+    .toUpperCase()}${data.username.slice(1)}`;
+};
+export { dashboardWelcomeUser };
 
 // display total users on dashboard card
 const dashboardUsersCount = async () => {
@@ -41,7 +58,7 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
   if (data.totalPages === 1) paginationContainer.style.display = "none"; // hide pagination buttons
 
   const dashboardTable = document.querySelector(".dashboard tbody");
-  dashboardTable.innerHTML = ""; // clear all existing rows
+  if (dashboardTable) dashboardTable.innerHTML = ""; // clear all existing rows
 
   // if no article matches filter, display a message
   if (data.totalCount === 0) {
@@ -65,7 +82,7 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
         <td class="article-title" data-id=${article.id}><p>${
         article.article_title
       }</p></td>
-        <td><span class="article-status-badge" style="color:${
+        <td class="article-status"><span class="article-status-badge" style="color:${
           article.status === 1 ? "var(--green)" : "var(--maroon)"
         };">${article.status === 1 ? "Read" : "Unread"}</span></td>`;
       dashboardTable?.appendChild(tr);
@@ -91,8 +108,4 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
 export { dashboardPaginateArticles };
 
 // handle status filter change
-document.querySelector(".status-select")?.addEventListener("change", (e) => {
-  const status = e.target.value; // 0 = unread, 1 = read, 2 = all
-  const currentPage = 1; // go to first page
-  dashboardPaginateArticles(currentPage, status); // reload filtered articles
-});
+articleStatusSelect(dashboardPaginateArticles);
