@@ -1,13 +1,13 @@
 import { ajaxRequest } from "./ajax.js";
 // custom ALERT message
-const bogoAlert = (message, alertType = "bg-black", parentEl) => {
+const bogoAlert = (message, alertType = "bg-black") => {
   const html = `
     <div class="alert">
         <div class="alert-content ${alertType}">
             <p class="alert-title">${message}</p>
         </div>
     </div>`;
-  parentEl.insertAdjacentHTML("afterbegin", html);
+  document.body.insertAdjacentHTML("afterbegin", html);
 
   const alert = document.querySelector(".alert");
 

@@ -20,9 +20,14 @@
             $article_content = trim($input['article-content']);
             $article_id = trim($input['update-article-id']);
 
-            new Article()->updateArticle($article_id, $article_title, $article_content);
+            $result = new Article()->updateArticle($article_id, $article_title, $article_content);
 
-            echo json_encode(["success" => true, "message" => "Article updated!"]);
+            // display message based on result
+            if ($result) {
+                echo json_encode(["status" => "success", 'updated' => true, "message" => "Updated article!"]);
+            } else {
+                echo json_encode(['status' => 'success', 'updated' => false, "message" => "Unchanged values!"]);
+            }
 
         } catch (PDOException $e) {
             http_response_code(500);

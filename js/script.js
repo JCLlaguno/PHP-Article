@@ -49,18 +49,20 @@ if (document.querySelector(".dashboard")) {
 }
 
 // USERS
-// Display all users
-displayUsers();
-// CREATE user
-createUser();
-// UPDATE user
-updateUser();
-// DELETE user
-deleteUser();
+if (document.querySelector(".users")) {
+  // Display all users
+  displayUsers();
+  // CREATE user
+  createUser();
+  // UPDATE user
+  updateUser();
+  // DELETE user
+  deleteUser();
+}
 
 // ARTICLES
-// display paginated articles
 if (document.querySelector(".articles")) {
+  // display paginated articles
   paginateArticles();
   // CREATE article
   createArticle();

@@ -91,7 +91,7 @@
                 echo json_encode(["status" => "success", 'updated' => true, "message" => "Updated user!"]);
             } else {
                 // http_response_code(409);
-                echo json_encode(['status' => 'success', 'updated' => false, "message" => "Same values!"]);
+                echo json_encode(['status' => 'success', 'updated' => false, "message" => "Unchanged values!"]);
             }
         } catch (PDOException $e) {
             http_response_code(500);

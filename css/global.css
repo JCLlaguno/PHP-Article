@@ -181,7 +181,7 @@ textarea {
   flex-wrap: wrap;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  z-index: 99;
   backdrop-filter: blur(5px);
   overflow: auto;
   padding: 4rem 0;
@@ -246,6 +246,9 @@ table .action-container {
   justify-content: center;
   align-items: center;
   column-gap: 0.2rem;
+}
+table .action-title {
+  text-align: center;
 }
 /* ACTION column contents */
 table .action-view-btn,
@@ -366,7 +369,6 @@ table .action-delete-btn img {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* backdrop-filter: blur(5px); */
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.2);

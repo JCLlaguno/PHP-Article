@@ -49,7 +49,19 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
       }</p></td>
         <td class="article-status"><span class="article-status-badge" style="color:${
           article.status === 1 ? "var(--green)" : "var(--maroon)"
-        };">${article.status === 1 ? "Read" : "Unread"}</span></td>`;
+        };">${article.status === 1 ? "Read" : "Unread"}</span></td>
+        <td>
+            <div class="action-container">
+                <a class="btn bg-green action-update-btn" data-id="${
+                  article.id
+                }" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
+                <a class="btn bg-red action-delete-btn" data-id="${
+                  article.id
+                }" alt="Delete"><img src="./img/delete.svg" alt="Delete"></a>
+            </div>
+        </td>
+        `;
+
       articleTable?.appendChild(tr);
     });
   }
@@ -59,6 +71,56 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
     ".articles table .article-title"
   );
   viewArticle(articleTitle);
+
+  // handle UPDATE button click
+  const actionUpdateBtn = document.querySelectorAll(".action-update-btn");
+  const updateArticleModal = document.querySelector(".update-article-modal");
+  const updateArticleForm = updateArticleModal.querySelector(
+    ".update-article-form"
+  );
+  const updateArticleId = updateArticleForm.querySelector("#update-article-id"); // id from UPDATE FORM
+
+  // if action UPDATE btn is CLICKED
+  actionUpdateBtn.forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      // SHOW update article form
+      updateArticleModal?.classList.add("show");
+      // disable scroll on body
+      document.body.style.overflow = "hidden";
+      // enable scroll on update modal
+      if (updateArticleModal) updateArticleModal.style.overflow = "scroll";
+      // pass row id from table for updating article
+      updateArticleId?.setAttribute("value", `${btn.dataset.id}`);
+      // load selected article
+      const data = await ajaxRequest(
+        `./getArticle.php?get_id=${+btn.dataset.id}`
+      );
+      // Fill update form
+      updateArticleForm.querySelector(".article-title").value =
+        data["article_title"];
+      // Fill update form
+      updateArticleForm.querySelector(".article-content").value =
+        data["article_content"];
+    });
+  });
+
+  // if action delete btn is pressed
+  // const deleteBtn = document.querySelectorAll(".user-delete-btn");
+  // const deleteModal = document.querySelector(".delete-modal");
+  // const deleteModalId = document.getElementById("delete-id");
+  // // attach and event listener to each delete button
+  // deleteBtn.forEach((btn) => {
+  //   btn.addEventListener("click", () => {
+  //     // show custom DELETE modal
+  //     deleteModal?.classList.toggle("show-modal");
+  //     // disable scrolling
+  //     document.body.style.overflow = "hidden";
+  //     // pass row id from table to custom DELETE modal input
+  //     deleteModalId?.setAttribute("value", `${btn.dataset.id}`);
+  //   });
+  // });
 
   // render pagination and buttons
   renderPagination(data.page, data.totalPages, status, paginateArticles);
@@ -72,7 +134,6 @@ articleStatusSelect(paginateArticles);
 
 // CREATE article
 export function createArticle() {
-  const articles = document.querySelector(".articles");
   const newArticleBtn = document.querySelector(".new-btn-container .btn");
   const createArticleModal = document.querySelector(".create-article-modal");
   const createArticleForm = document.querySelector(".create-article-form");
@@ -124,7 +185,7 @@ export function createArticle() {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-blue", articles);
+      bogoAlert(successData.message, "bg-blue");
 
       // reload paginated articles
       paginateArticles();
@@ -132,7 +193,7 @@ export function createArticle() {
       // clear form fields
       createArticleForm.reset();
     } catch (error) {
-      alert(error);
+      bogoAlert(error, "bg-red");
     }
   });
 }
@@ -209,38 +270,17 @@ export async function updateCheckbox(paginateArticles) {
 
 // UPDATE article
 export function updateArticle() {
-  const articles = document.querySelector(".articles");
-  const actionUpdateButton = document.querySelectorAll(".action-update-btn");
   const updateBackButton = document.querySelector(
     ".update-article-form .form-back-btn"
   );
   const updateArticleModal = document.querySelector(".update-article-modal");
-  const updateArticleForm = updateArticleModal?.querySelector(
+  const updateArticleForm = updateArticleModal.querySelector(
     ".update-article-form"
   );
-  const updateArticleId =
-    updateArticleForm?.querySelector("#update-article-id"); // id from UPDATE FORM
-
-  // // if action UPDATE btn is CLICKED (TEMPORARY)
-  actionUpdateButton.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // SHOW update article form
-      updateArticleModal.classList.add("show");
-      // disable scroll on articles
-      document.body.style.overflow = "hidden";
-      // enable scroll on update modal
-      updateArticleModal.style.overflow = "scroll";
-      // pass row id from table to UPDATE form input
-      updateArticleId?.setAttribute("value", `${btn.dataset.id}`);
-      // load selected article
-      loadArticle(btn.dataset.id);
-    });
-  });
+  const updateArticleId = updateArticleForm.querySelector("#update-article-id"); // id from UPDATE FORM
 
   // close update article modal when back is pressed
-  updateBackButton?.addEventListener("click", () => {
+  updateBackButton.addEventListener("click", () => {
     updateArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
     updateArticleForm.reset();
@@ -271,25 +311,30 @@ export function updateArticle() {
 
       const successData = await response.json();
 
-      // close create article modal
-      updateArticleModal.classList.remove("show");
+      if (successData.updated) {
+        // close create user modal
+        updateArticleModal.classList.remove("show");
+
+        // load all users
+        paginateArticles();
+
+        // clear form fields
+        updateArticleForm.reset();
+      }
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-green", articles);
-
-      // reload page after 2s
-      setTimeout(() => {
-        location.reload();
-      }, 2000);
+      bogoAlert(
+        successData.message,
+        `${successData.updated ? "bg-green" : "bg-red"}`
+      );
     } catch (error) {
-      alert(error);
+      bogoAlert(error, "bg-red");
     }
   });
 }
 
 // DELETE an article
 export function deleteArticle() {
-  const articles = document.querySelector(".articles");
   const deleteButton = document.querySelectorAll(
     ".articles .action-delete-btn"
   );
@@ -357,7 +402,7 @@ export function deleteArticle() {
       const successData = await response.json();
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-red", articles);
+      bogoAlert(successData.message, "bg-red");
     } catch (error) {
       alert(error);
     }

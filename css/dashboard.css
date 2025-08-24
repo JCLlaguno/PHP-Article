@@ -35,53 +35,6 @@
   font-weight: 400;
 }
 
-/* table article title column */
-td.article-title {
-  min-width: 400px;
-}
-td.article-title p {
-  transition: color 0.2s ease;
-}
-td.article-title p:hover {
-  color: var(--maroon);
-}
-td span.article-status-badge {
-  display: inline-block;
-  padding: 0 0.2rem;
-  color: var(--black);
-  background-color: var(--white);
-  border-radius: var(--radius);
-}
-
-/* pagination styles */
-.pagination {
-  margin-top: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem;
-}
-.pagination button {
-  padding: 0.5rem 1rem;
-  border: var(--border-small);
-  border-radius: var(--radius);
-  background: var(--whiter);
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: var(--btn-font-weight);
-}
-.pagination button.active {
-  background: var(--green);
-  color: var(--white);
-}
-.pagination button:disabled {
-  background: var(--white);
-  color: var(--shade);
-  pointer-events: none;
-}
-.pagination span {
-  margin: 0 5px;
-}
-
 @media screen and (width >= 800px) {
   .dashboard-summary {
     grid-template-columns: 1fr 1fr;

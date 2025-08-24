@@ -11,10 +11,10 @@ const displayUsers = async () => {
     const tr = document.createElement("tr");
     // LOAD data on users table
     tr.innerHTML = `
-        <td data-title="Id">${user.id}</td>
-        <td class="user-photo-container" data-title="Photo"><img class="user-photo" src="${user.photo}"></td>
-        <td data-title="Username">${user.username}</td>
-        <td data-title="Action">
+        <td>${user.id}</td>
+        <td class="user-photo-container"><img class="user-photo" src="${user.photo}"></td>
+        <td>${user.username}</td>
+        <td>
             <div class="action-container">
                 <a class="btn bg-green action-update-btn" data-id="${user.id}"><img src="./img/edit.svg" alt="Edit"></a>
                 <a class="btn bg-red action-delete-btn user-delete-btn" data-id="${user.id}"><img src="./img/delete.svg" alt="Edit"></a>
@@ -23,13 +23,13 @@ const displayUsers = async () => {
     usersTable?.appendChild(tr);
   });
 
-  // if action UPDATE btn is pressed
+  // handle UPDATE button click
   const actionUpdateBtn = document.querySelectorAll(".action-update-btn");
   const updateUserModal = document.querySelector(".update-user-modal");
   const updateUserForm = updateUserModal?.querySelector(".update-user-form");
   const updateuserId = updateUserForm?.querySelector("#update-user-id"); // id from UPDATE FORM
 
-  // // if action UPDATE btn is CLICKED
+  // if action UPDATE btn is CLICKED
   actionUpdateBtn.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       e.preventDefault();
@@ -96,7 +96,7 @@ const createUser = () => {
   });
 
   // when form is SUBMITTED
-  createUserForm?.addEventListener("submit", async function (e) {
+  createUserForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
 
@@ -110,6 +110,7 @@ const createUser = () => {
         throw new Error(errorData.message);
       }
       const successData = await response.json();
+
       // close create user modal
       createUserModal.classList.remove("show");
 
@@ -117,7 +118,7 @@ const createUser = () => {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-blue", users);
+      bogoAlert(successData.message, "bg-blue");
 
       // load all users
       displayUsers();
@@ -125,7 +126,7 @@ const createUser = () => {
       // clear form fields
       createUserForm.reset();
     } catch (error) {
-      bogoAlert(error.message, "bg-maroon", users);
+      bogoAlert(error.message, "bg-maroon");
     }
   });
 };
@@ -133,7 +134,6 @@ export { createUser };
 
 // UPDATE user
 const updateUser = () => {
-  const users = document.querySelector(".users");
   const updateBackButton = document.querySelector(
     ".update-user-form .form-back-btn"
   );
@@ -174,11 +174,10 @@ const updateUser = () => {
       // show an ALERT message
       bogoAlert(
         successData.message,
-        `${successData.updated ? "bg-green" : "bg-maroon"}`,
-        users
+        `${successData.updated ? "bg-green" : "bg-red"}`
       );
     } catch (error) {
-      bogoAlert(error.message, "bg-maroon", users);
+      bogoAlert(error.message, "bg-red");
     }
   });
 };
@@ -227,7 +226,7 @@ const deleteUser = () => {
       const successData = await response.json();
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-red", users);
+      bogoAlert(successData.message, "bg-red");
 
       // load all users
       displayUsers();

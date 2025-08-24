@@ -47,6 +47,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th class="article-status">Status</th>
+                            <th class="action-title">Action</th>
                         </tr>
                     </thead>
                     <tbody>
