@@ -127,5 +127,17 @@
                 echo "General error: " . $e->getMessage();
             }
         }
+
+        // delete article by user
+        public function deleteArticleByUser(int $userid) : void {
+            try {
+                $stmt = $this->conn->prepare("DELETE FROM articles WHERE userid=:userid");
+                $stmt->execute([':userid' => $userid]);
+            } catch (PDOException $e) {
+                echo "Database error:" . $e->getMessage();
+            } catch (Error $e) {
+                echo "General error: " . $e->getMessage();
+            }
+        }
     }
 ?>

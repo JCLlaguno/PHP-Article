@@ -18,20 +18,34 @@
             <a class="btn bg-blue new-user-btn">New User</a>
         </div>
         <!-- end of add user -->
-        <!-- data table -->
-        <table class="data-table users-table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Photo</th>
-                    <th>Username</th>
-                    <th class="action-title">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <!-- end of data table -->
+        <!-- DATA TABLE -->
+        <div class="table-container">
+            <!-- article lists header container -->
+            <div class="table-header-container">
+                <!-- table header -->
+                <p class="table-header-title">Users</p>
+                <!-- end of table header -->
+            </div>
+            <!-- end of article lists header container -->
+            <!-- mobile scroll wrapper -->
+            <div class="table-scroll">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Photo</th>
+                            <th>Username</th>
+                            <th class="action-title">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- USER DATA -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- end of mobile scroll wrapper -->
+        </div>
+        <!-- end of DATA TABLE -->
     </div>
     <!-- end of users container -->
 </section>

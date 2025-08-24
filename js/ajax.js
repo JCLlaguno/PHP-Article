@@ -1,21 +1,22 @@
+// import { bogoAlert } from "./helpers";
 // AJAX helper function
 const ajaxRequest = async (url, options = {}) => {
   try {
+    // remove forced JSON header if body is FormData
+    const isFormData = options.body instanceof FormData;
     const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: isFormData ? undefined : { "Content-Type": "application/json" },
       ...options,
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(`HTTP ERROR: ${errorData.message}`);
+      throw new Error(errorData.message);
     }
 
     return await response.json();
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 export { ajaxRequest };

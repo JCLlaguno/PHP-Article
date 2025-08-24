@@ -28,8 +28,7 @@
             
             // if current password is the same as inputted password
             if(!empty($newPassword) && password_verify($newPassword, $foundUser['password'])) { 
-                http_response_code(400);
-                echo json_encode(['status' => 'error', 'message' => 'New password is same as current password!']);
+                echo json_encode(['status' => 'error', 'updated' => false, 'message' => 'New password is same as current password!']);
                 exit;
             }
 
@@ -67,7 +66,7 @@
                 // new photo url to be inserted to db
                 $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $filename;
 
-                // storing photo on local server directory
+                // storing photo on local server directory, 'updated' => false
                 $filePath = $uploadDir . $filename; // final filesystem path of new photo
                 // if false, move uploaded photo from tmp location to local server directory
                 // if true, throw an error
@@ -89,10 +88,10 @@
             
             // display message based on result
             if ($result) {
-                echo json_encode(["status" => "success", "message" => "Updated user!"]);
+                echo json_encode(["status" => "success", 'updated' => true, "message" => "Updated user!"]);
             } else {
-                http_response_code(409);
-                echo json_encode(['status' => 'success', "message" => "Same values!"]);
+                // http_response_code(409);
+                echo json_encode(['status' => 'success', 'updated' => false, "message" => "Same values!"]);
             }
         } catch (PDOException $e) {
             http_response_code(500);

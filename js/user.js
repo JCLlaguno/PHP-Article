@@ -1,4 +1,4 @@
-import { bogoAlert, loadUser } from "./helpers.js";
+import { bogoAlert } from "./helpers.js";
 import { ajaxRequest } from "./ajax.js";
 
 // DISPLAY all users
@@ -124,7 +124,7 @@ const createUser = () => {
       // clear form fields
       createUserForm.reset();
     } catch (error) {
-      alert(error.message);
+      bogoAlert(error.message, "bg-maroon", users);
     }
   });
 };
@@ -154,31 +154,29 @@ const updateUser = () => {
     const formData = new FormData(this);
 
     try {
-      const response = await fetch("./updateUser.php", {
+      const successData = await ajaxRequest("./updateUser.php", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message);
+      if (successData.updated) {
+        // close create user modal
+        updateUserModal.classList.remove("show");
+
+        // load all users
+        displayUsers();
+
+        // clear form fields
+        updateUserForm.reset();
       }
 
-      const successData = await response.json();
-
-      // close create user modal
-      updateUserModal.classList.remove("show");
-
       // show an ALERT message
-      bogoAlert(successData.message, "bg-green", users);
-
-      // load all users
-      displayUsers();
-
-      // clear form fields
-      updateUserForm.reset();
+      bogoAlert(
+        successData.message,
+        `${successData.updated ? "bg-green" : "bg-maroon"}`,
+        users
+      );
     } catch (error) {
-      // console.error(error);
       bogoAlert(error.message, "bg-maroon", users);
     }
   });

@@ -1,6 +1,10 @@
-.data-table .user-photo-container {
+.users table thead tr th,
+.users table tbody tr td {
+  text-align: center;
+}
+.users table .user-photo-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 .user-photo {
@@ -30,8 +34,5 @@
   .create-user-form,
   .update-user-form {
     max-width: 500px;
-  }
-  .data-table .user-photo-container {
-    justify-content: center;
   }
 }

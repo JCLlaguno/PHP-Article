@@ -12,14 +12,10 @@ const bogoAlert = (message, alertType = "bg-black", parentEl) => {
   const alert = document.querySelector(".alert");
 
   // close ALERT immediately if modal is clicked
-  alert.addEventListener("click", () => {
-    alert.remove();
-  });
+  alert.addEventListener("click", () => alert.remove());
 
   // close ALERT after 2 sec
-  setTimeout(() => {
-    alert.remove();
-  }, 2000);
+  setTimeout(() => alert.remove(), 2000);
 };
 export { bogoAlert };
 

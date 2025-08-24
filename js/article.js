@@ -149,25 +149,6 @@ export function updateArticle() {
   const updateArticleId =
     updateArticleForm?.querySelector("#update-article-id"); // id from UPDATE FORM
 
-  // LOAD article
-  // const loadArticle = async (id) => {
-  //   try {
-  //     const response = await fetch(`./getArticle.php?get_id=${id}`); // send a GET request to getArticle.php
-
-  //     if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-
-  //     const data = await response.json();
-
-  //     // Fill form
-  //     updateArticleForm.querySelector(".article-title").value =
-  //       data.article_title || "";
-  //     updateArticleForm.querySelector(".article-content").value =
-  //       data.article_content || "";
-  //   } catch (error) {
-  //     console.error("Error loading article:", error);
-  //   }
-  // };
-
   // // if action UPDATE btn is CLICKED (TEMPORARY)
   actionUpdateButton.forEach((btn) => {
     btn.addEventListener("click", (e) => {

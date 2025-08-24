@@ -1,5 +1,6 @@
 <?php 
     require_once __DIR__ . '/classes/user.php';
+    require_once __DIR__ . '/classes/article.php';
     
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         header('Content-Type: application/json');
@@ -18,7 +19,10 @@
         if(file_exists($oldImg)) unlink($oldImg); // DELETE old photo locally
 
         // delete user from DB
-        new User()->deleteUser($input['delete-id']);   
+        new User()->deleteUser($input['delete-id']); 
+        
+        // delete articles of user
+        new Article()->deleteArticleByUser($input['delete-id']);   
         
         echo json_encode(["success" => true, "message" => "User was deleted!"]);  
     }  
