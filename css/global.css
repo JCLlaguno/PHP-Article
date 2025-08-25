@@ -22,12 +22,13 @@
   --blue: #0643a4;
   --green: #007f4e;
 
-  --radius: 5px;
+  --radius: 1rem;
   --border-small: 1px solid var(--shade);
   --table-border: 1px solid #ebedf1;
   --btn-font-weight: 500;
 
   --font: system-ui, sans-serif;
+  --line-height: 1.5;
 }
 body {
   letter-spacing: 1.92px;
@@ -35,6 +36,7 @@ body {
   color: var(--black);
   position: relative;
   width: 100%;
+  line-height: var(--line-height);
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -64,6 +66,7 @@ section {
 }
 textarea {
   font-family: var(--font);
+  line-height: var(--line-height);
 }
 
 /* HIDE page if user is not admin*/
@@ -102,10 +105,10 @@ textarea {
 }
 
 .divider {
-  height: 2px;
   border-radius: var(--radius);
   display: block;
   width: 20%;
+  height: 2px;
   margin: 1rem auto;
   background-color: var(--shade);
 }
@@ -123,6 +126,7 @@ textarea {
 }
 .section-icon {
   width: 2rem;
+  height: 2rem;
 }
 .section-title {
   color: var(--black);
@@ -145,6 +149,7 @@ textarea {
 /* SECTION container */
 .section-container {
   width: 90%;
+  height: auto;
   max-width: 500px;
   margin: 0 auto;
 }
@@ -192,6 +197,7 @@ textarea {
   margin-top: 2rem;
   border-radius: var(--radius);
   width: 100%;
+  height: auto;
   background: var(--whiter);
   border: var(--border-small);
 }
@@ -211,6 +217,7 @@ textarea {
 }
 .table-scroll {
   width: 100%;
+  height: auto;
   overflow-x: auto;
   padding: 1rem;
   padding-top: 0;
@@ -219,6 +226,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
+  height: 100%;
   background-color: transparent;
 }
 tr {
@@ -254,17 +262,19 @@ table .action-title {
 table .action-view-btn,
 table .action-update-btn,
 table .action-delete-btn {
-  padding: 0.2rem 0.2rem;
-  font-size: 14px;
+  padding: 0.4rem;
+  border-radius: 100%;
 }
 table .action-view-btn img,
 table .action-update-btn img,
 table .action-delete-btn img {
-  width: 26px;
+  width: 24px;
+  height: 24px;
 }
 #page-info {
   display: inline-block;
   margin-top: 1rem;
+  margin-left: 0.5rem;
   font-size: 0.9rem;
 }
 
@@ -317,10 +327,6 @@ table .action-delete-btn img {
 }
 
 /* FORM buttons */
-.form-create-btn,
-.form-update-btn {
-  padding: 0.5rem;
-}
 .form-btn-container {
   display: flex;
   flex-wrap: wrap;
@@ -367,6 +373,7 @@ table .action-delete-btn img {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
 }
 
 /* custom ALERT message */
@@ -387,6 +394,7 @@ table .action-delete-btn img {
   align-items: center;
   flex-wrap: wrap;
   width: 220px;
+  height: auto;
   border-radius: var(--radius);
   padding: 0.8rem;
 }
@@ -421,6 +429,7 @@ table .action-delete-btn img {
   }
   .section-icon {
     width: 4rem;
+    height: 4rem;
   }
   .section-title {
     font-size: 4rem;
@@ -446,12 +455,6 @@ table .action-delete-btn img {
   }
   .form-btn-container {
     margin: 1rem;
-  }
-
-  /* FORM buttons */
-  .form-create-btn,
-  .form-update-btn {
-    max-width: 200px;
   }
 
   /* DELETE modal */

@@ -11,7 +11,7 @@
             $username = trim($_POST['username']) ?? '';
             if (empty($username)) {
                 http_response_code(400);
-                echo json_encode(["status" => "error", "message" => "Username required"]);
+                echo json_encode(["error" => "Username required"]);
                 exit;
             }
 
@@ -19,7 +19,7 @@
             $password = trim($_POST['password']) ?? '';
             if (empty($password)) {
                 http_response_code(400);
-                echo json_encode(["status" => "error", "message" => "Password required"]);
+                echo json_encode(["error" => "Password required"]);
                 exit;
             }
             // Hash the password
@@ -30,7 +30,7 @@
             // Check if file was uploaded
             if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
                 http_response_code(400);
-                echo json_encode(["status" => "error", "message" => "No file uploaded"]);
+                echo json_encode(["error" => "No file uploaded"]);
                 exit;
             }
 
@@ -53,7 +53,7 @@
             // verify uploaded file and move it
             if (!is_uploaded_file($_FILES['photo']['tmp_name']) || !move_uploaded_file($_FILES['photo']['tmp_name'], $filePath)) {
                 http_response_code(500);
-                echo json_encode(["status" => "error", "message" => "Failed to save file"]);
+                echo json_encode(["error" => "Failed to save file"]);
                 exit;
             }
 
@@ -67,7 +67,7 @@
 
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+            echo json_encode(["error" => $e->getMessage()]);
         }
     }
 ?>

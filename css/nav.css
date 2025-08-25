@@ -125,17 +125,20 @@
 /* mobile page links */
 .mobile-menu .mobile-links {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-flow: column wrap;
 }
 .mobile-menu .mobile-links li {
   width: inherit;
+  height: auto;
   padding: 0.5rem 0;
   padding-left: 1rem;
 }
 .mobile-menu .mobile-links .mobile-link {
   display: inline-block;
   width: inherit;
+  height: auto;
   font-weight: var(--btn-font-weight);
   color: var(--black);
 }
@@ -226,7 +229,7 @@
   }
   .sidebar .sidebar-logo .sidebar-title {
     display: block;
-    overflow: hidden;
+    /* overflow: hidden; */
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--white);

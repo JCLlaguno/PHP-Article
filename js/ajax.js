@@ -10,12 +10,12 @@ const ajaxRequest = async (url, options = {}) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message);
+      throw new Error(errorData.error);
     }
 
     return await response.json();
   } catch (error) {
-    throw error;
+    throw error.message;
   }
 };
 export { ajaxRequest };

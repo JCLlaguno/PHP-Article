@@ -33,10 +33,10 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
     const tr = document.createElement("tr");
     // style the message
     tr.style.display = "block";
-    tr.style.color = "var(--red)";
+    tr.style.color = "var(--maroon)";
     tr.style.marginTop = "1rem";
 
-    tr.innerHTML = `No articles found in this category.`;
+    tr.textContent = `No articles found in this category.`;
     articleTable?.appendChild(tr);
 
     // hide pagination buttons
@@ -130,10 +130,8 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
   renderPagination(data.page, data.totalPages, status, paginateArticles);
 
   // show pagination page info
-  if (!data.totalCount === 0)
-    document.getElementById(
-      "page-info"
-    ).textContent = `Page ${data.page} of ${data.totalPages}`;
+  document.getElementById("page-info").textContent =
+    data.totalCount > 0 ? `Page ${data.page} of ${data.totalPages}` : null;
 };
 export { paginateArticles };
 
@@ -160,6 +158,7 @@ export function createArticle() {
     e.preventDefault();
     createArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
+    createArticleForm.reset(); // reset form
   });
 
   // when form is submitted
@@ -172,19 +171,13 @@ export function createArticle() {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("./createArticle.php", {
+      const successData = await ajaxRequest("./createArticle.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Sending JSON
         },
         body: JSON.stringify(data), // send data as JSON
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error);
-      }
-      const successData = await response.json();
 
       // close create article modal
       createArticleModal.classList.remove("show");
@@ -291,7 +284,7 @@ export function updateArticle() {
   updateBackButton.addEventListener("click", () => {
     updateArticleModal.classList.remove("show");
     document.body.style.overflow = "auto";
-    updateArticleForm.reset();
+    updateArticleForm.reset(); // reset form
   });
 
   // if form is SUBMITTED
@@ -304,7 +297,7 @@ export function updateArticle() {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("./updateArticle.php", {
+      const successData = await ajaxRequest("./updateArticle.php", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json", // Sending JSON
@@ -312,22 +305,9 @@ export function updateArticle() {
         body: JSON.stringify(data), // send data as JSON
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error);
-      }
-
-      const successData = await response.json();
-
       if (successData.updated) {
         // close create user modal
         updateArticleModal.classList.remove("show");
-
-        // show an ALERT message
-        bogoAlert(
-          successData.message,
-          `${successData.updated ? "bg-green" : "bg-red"}`
-        );
 
         // set status filter value to unread
         statusSelect.selectedIndex = 0;
@@ -338,6 +318,12 @@ export function updateArticle() {
         // clear form fields
         updateArticleForm.reset();
       }
+
+      // show an ALERT message
+      bogoAlert(
+        successData.message,
+        `${successData.updated ? "bg-green" : "bg-red"}`
+      );
     } catch (error) {
       bogoAlert(error, "bg-red");
     }

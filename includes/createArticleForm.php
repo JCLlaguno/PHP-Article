@@ -4,7 +4,7 @@
         <div class="form-title bg-blue">
             <p>Create Article</p>
         </div>
-        <label class="form-label" for="article-title">Title:</label>
+        <label class="form-label" for="article-title">Title</label>
         <textarea class="form-control article-title" name="article-title" id="article-title"></textarea>
         <label class="form-label" for="article-content">Content</label>
         <textarea class="form-control article-content" name="article-content" id="article-content"></textarea>

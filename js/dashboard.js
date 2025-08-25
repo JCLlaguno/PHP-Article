@@ -28,10 +28,10 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
     const tr = document.createElement("tr");
     // style the message
     tr.style.display = "block";
-    tr.style.color = "var(--red)";
+    tr.style.color = "var(--maroon)";
     tr.style.marginTop = "1rem";
 
-    tr.innerHTML = `No articles found in this category.`;
+    tr.textContent = `No articles found in this category.`;
     dashboardTable?.appendChild(tr);
 
     // hide pagination buttons
@@ -67,10 +67,8 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
   );
 
   // show pagination page info
-  if (!data.totalCount === 0)
-    document.getElementById(
-      "page-info"
-    ).textContent = `Page ${data.page} of ${data.totalPages}`;
+  document.getElementById("page-info").textContent =
+    data.totalCount > 0 ? `Page ${data.page} of ${data.totalPages}` : null;
 };
 export { dashboardPaginateArticles };
 
