@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../classes/user.php';?>
 <!-- navbar -->
 <nav class="navbar">
     <!-- nav header -->
@@ -27,7 +28,9 @@
             <?php if(isset($_SESSION['userid'])) { ?>
                 <!-- nav user photo -->
                 <div class="nav-user-photo-container">
-                    <img class="nav-user-photo" alt="user photo">
+                    <img class="nav-user-photo" 
+                    src="<?php echo new User()->getUserById($_SESSION['userid'])['photo'];
+                    ?>" alt="user photo">
                 </div>
                 <!-- end of nav user photo -->
                 <!-- nav logout button -->

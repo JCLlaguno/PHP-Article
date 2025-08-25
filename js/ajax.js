@@ -1,4 +1,3 @@
-// import { bogoAlert } from "./helpers";
 // AJAX helper function
 const ajaxRequest = async (url, options = {}) => {
   try {

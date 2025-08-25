@@ -1,10 +1,4 @@
-import { navLoadActiveUser } from "./nav.js";
-import {
-  dashboardWelcomeUser,
-  dashboardUsersCount,
-  dashboardArticlesCount,
-  dashboardPaginateArticles,
-} from "./dashboard.js";
+import { dashboardPaginateArticles } from "./dashboard.js";
 import {
   paginateArticles,
   displayArticle,
@@ -30,19 +24,8 @@ mobileMenuCloseBtn?.addEventListener("click", () => {
   document.body.style.overflow = "auto";
 });
 
-// NAV
-// display logged in user image in nav
-navLoadActiveUser();
-
 // DASHBOARD
 if (document.querySelector(".dashboard")) {
-  // display welcome message on dashboard
-  dashboardWelcomeUser();
-  // display total users in dashboard card
-  dashboardUsersCount();
-  // display total articles on dashboard card
-  dashboardArticlesCount();
-  // display paginated articles on dashboard
   dashboardPaginateArticles();
   // UPDATE view article status
   updateCheckbox(dashboardPaginateArticles);

@@ -2,7 +2,7 @@
 table .article-status {
   text-align: center;
 }
-table td.article-title {
+table .article-title {
   min-width: 400px;
 }
 table td.article-title p {

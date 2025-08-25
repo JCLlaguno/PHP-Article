@@ -1,10 +1,5 @@
 <!-- ARTICLES section -->
 <section class="articles">
-    <!-- DELETE modal -->
-    <?php 
-        require_once __DIR__ . '/classes/article.php'; 
-        require_once __DIR__ . '/classes/user.php';
-    ?>
     <!-- articles container -->
     <div class="section-container">
         <!-- section header -->
@@ -45,7 +40,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
+                            <th class="article-title">Title</th>
                             <th class="article-status">Status</th>
                             <th class="action-title">Action</th>
                         </tr>
@@ -59,7 +54,7 @@
         </div>
         <!-- end of DATA TABLE -->
         <!-- page info -->
-        <span class="pageInfo"></span>   
+        <span id="page-info"></span>   
         <!-- end of page info -->
         <!-- pagination buttons -->
         <div class="pagination"></div>

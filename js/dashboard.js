@@ -5,43 +5,6 @@ import {
   articleStatusSelect,
 } from "./helpers.js";
 
-// Display active username on dashboard Welcome
-const dashboardWelcomeUser = async () => {
-  const dashboardTitle = document.querySelector(
-    ".dashboard .dashboard-welcome span"
-  );
-  // load active user (logged in user)
-  const data = await ajaxRequest("./getUser.php");
-  dashboardTitle.textContent = `${data.username
-    .charAt(0)
-    .toUpperCase()}${data.username.slice(1)}`;
-};
-export { dashboardWelcomeUser };
-
-// display total users on dashboard card
-const dashboardUsersCount = async () => {
-  const data = await ajaxRequest(`./loadAllUsers.php`);
-
-  const usersCardContent = document.querySelector(
-    ".dashboard .users-card-content"
-  );
-  if (usersCardContent)
-    usersCardContent.textContent = `${Object.keys(data).length}`;
-};
-export { dashboardUsersCount };
-
-// display total articles on dashboard card
-const dashboardArticlesCount = async () => {
-  const articlesCardContent = document.querySelector(
-    ".dashboard .articles-card-content"
-  );
-  // display count of total articles
-  const status = 2; // get all articles
-  const data = await ajaxRequest(`./getPaginatedArticles.php?status=${status}`);
-  if (articlesCardContent) articlesCardContent.textContent = data.totalCount;
-};
-export { dashboardArticlesCount };
-
 // DISPLAY paginated articles on dashboard
 let limit = 8; // max records to display per page
 const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
@@ -103,7 +66,11 @@ const dashboardPaginateArticles = async (currentPage = 1, status = 0) => {
     dashboardPaginateArticles
   );
 
-  // currentPage = data.page;
+  // show pagination page info
+  if (!data.totalCount === 0)
+    document.getElementById(
+      "page-info"
+    ).textContent = `Page ${data.page} of ${data.totalPages}`;
 };
 export { dashboardPaginateArticles };
 

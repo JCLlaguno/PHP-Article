@@ -63,7 +63,7 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
                 }" alt="Delete"><img src="./img/delete.svg" alt="Delete"></a>
             </div>
         </td>
-        `;
+      `;
 
       articleTable?.appendChild(tr);
     });
@@ -128,6 +128,12 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
 
   // render pagination and buttons
   renderPagination(data.page, data.totalPages, status, paginateArticles);
+
+  // show pagination page info
+  if (!data.totalCount === 0)
+    document.getElementById(
+      "page-info"
+    ).textContent = `Page ${data.page} of ${data.totalPages}`;
 };
 export { paginateArticles };
 

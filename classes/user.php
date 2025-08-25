@@ -41,6 +41,19 @@
             }
         }
 
+        // count all users
+        public function countTotalUsers() : int {
+            try {
+                $stmt = $this->conn->prepare("SELECT COUNT(*) FROM `users`");
+                $stmt->execute();
+                return $stmt->fetchColumn();
+            } catch (PDOException $e) {
+                echo "Database error:" . $e->getMessage();
+            } catch (Error $e) {
+                echo "General error: " . $e->getMessage();
+            }
+        }
+
         // get single user by id 
         public function getUserById(int $id) : array|false {
             try {

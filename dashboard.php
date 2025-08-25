@@ -1,26 +1,32 @@
+<?php require_once __DIR__ . '/classes/user.php';?>
+<?php require_once __DIR__ . '/classes/article.php';?>
 <!-- Dashboard section -->
 <section class="dashboard">
     <!-- dashboard container -->
     <div class="section-container dashboard-container">
         <!-- section header -->
         <div class="section-header">
-            <p class="section-title dashboard-welcome">Welcome! <span></span></p>
+            <p class="section-title dashboard-welcome">Welcome! <?php echo ucfirst(new User()->getUserById($_SESSION['userid'])['username']) ?></p>
         </div>
         <!-- end of section header -->
         <!-- dashboard summary -->
         <div class="dashboard-summary">
-            <!-- single card -->
-             <card class="dashboard-card users-card bg-blue">
-                 <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-user.svg" alt=""></div>
-                 <div class="card-title-container"><p class="card-title">Users</p></div>
-                 <div class="card-content-container"><p class="card-content users-card-content"></p></div>
-            </card>
-            <!-- end of single card -->
+            <?php if($_SESSION['username'] === 'admin') { ?>
+                <!-- single card -->
+                <card class="dashboard-card users-card bg-blue">
+                    <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-user.svg" alt=""></div>
+                    <div class="card-title-container"><p class="card-title">Users</p></div>
+                    <div class="card-content-container"><p class="card-content users-card-content"><?php echo new User()->countTotalUsers(); ?></p></div>
+                </card>
+                <!-- end of single card -->
+            <?php } ?>
             <!-- single card -->
             <card class="dashboard-card articles-card bg-green">
                 <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-article.svg" alt=""></div>
                 <div class="card-title-container"><p class="card-title">Articles</p></div>
-                <div class="card-content-container"><p class="card-content articles-card-content"></p></div>
+                <div class="card-content-container"><p class="card-content articles-card-content"><?php
+                $whereClause = "WHERE userid = " . $_SESSION['userid'];
+                 echo new Article()->countTotalArticles($whereClause);?></p></div>
             </card>
             <!-- end of single card -->
         </div>
@@ -64,7 +70,7 @@
         </div>
         <!-- end of DATA TABLE -->
         <!-- page info -->
-        <span class="pageInfo"></span>   
+        <span id="page-info"></span>   
         <!-- end of page info -->
         <!-- pagination buttons -->
         <div class="pagination"></div>
