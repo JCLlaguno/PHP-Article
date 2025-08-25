@@ -29,7 +29,7 @@ const displayUsers = async () => {
   const updateUserForm = updateUserModal?.querySelector(".update-user-form");
   const updateuserId = updateUserForm?.querySelector("#update-user-id"); // id from UPDATE FORM
 
-  // if action UPDATE btn is CLICKED
+  // if action UPDATE btn is pressed
   actionUpdateBtn.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       e.preventDefault();
@@ -50,10 +50,11 @@ const displayUsers = async () => {
     });
   });
 
-  // if action delete btn is pressed
+  // if action DELETE btn is pressed
   const deleteBtn = document.querySelectorAll(".user-delete-btn");
   const deleteModal = document.querySelector(".delete-modal");
   const deleteModalId = document.getElementById("delete-id");
+
   // attach and event listener to each delete button
   deleteBtn.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -185,21 +186,20 @@ export { updateUser };
 
 // DELETE user
 const deleteUser = () => {
-  const users = document.querySelector(".users");
   const deleteModal = document.querySelector(".delete-modal");
   const deleteUserForm = document.querySelector(".delete-user-form");
   const deleteModalCancel = document.querySelector(".modal-cancel-btn");
 
   // if NO is selected in modal
-  deleteModalCancel?.addEventListener("click", () => {
+  deleteModalCancel.addEventListener("click", () => {
     // hide custom DELETE modal
-    deleteModal?.classList.remove("show-modal");
+    deleteModal.classList.remove("show-modal");
     // enable scrolling
     document.body.style.overflow = "auto";
   });
 
   // if delete form is SUBMITTED
-  deleteUserForm?.addEventListener("submit", async (e) => {
+  deleteUserForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // Prevent default form submission
 
     const form = e.target;
@@ -219,7 +219,7 @@ const deleteUser = () => {
       if (!response.ok) throw new Error(await response.json().error);
 
       // hide custom DELETE modal
-      deleteModal?.classList.remove("show-modal");
+      deleteModal.classList.remove("show-modal");
       // enable scrolling
       document.body.style.overflow = "auto";
 
@@ -231,7 +231,7 @@ const deleteUser = () => {
       // load all users
       displayUsers();
     } catch (error) {
-      alert(error);
+      bogoAlert(error, "bg-red");
     }
   });
 };

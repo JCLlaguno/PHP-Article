@@ -6,6 +6,9 @@ import {
   articleStatusSelect,
 } from "./helpers.js";
 
+// get status select dropdown element
+const statusSelect = document.getElementById("status-select");
+
 // DISPLAY paginated articles on dashboard
 let limit = 8; // max records to display per page
 const paginateArticles = async (currentPage = 1, status = 0) => {
@@ -55,7 +58,7 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
                 <a class="btn bg-green action-update-btn" data-id="${
                   article.id
                 }" alt="Update"><img src="./img/edit.svg" alt="Edit"></a>
-                <a class="btn bg-red action-delete-btn" data-id="${
+                <a class="btn bg-red action-delete-btn article-delete-btn" data-id="${
                   article.id
                 }" alt="Delete"><img src="./img/delete.svg" alt="Delete"></a>
             </div>
@@ -80,19 +83,19 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
   );
   const updateArticleId = updateArticleForm.querySelector("#update-article-id"); // id from UPDATE FORM
 
-  // if action UPDATE btn is CLICKED
+  // attach and event listener to each update button
   actionUpdateBtn.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       e.preventDefault();
 
       // SHOW update article form
-      updateArticleModal?.classList.add("show");
+      updateArticleModal.classList.add("show");
       // disable scroll on body
       document.body.style.overflow = "hidden";
       // enable scroll on update modal
       if (updateArticleModal) updateArticleModal.style.overflow = "scroll";
       // pass row id from table for updating article
-      updateArticleId?.setAttribute("value", `${btn.dataset.id}`);
+      updateArticleId.setAttribute("value", `${btn.dataset.id}`);
       // load selected article
       const data = await ajaxRequest(
         `./getArticle.php?get_id=${+btn.dataset.id}`
@@ -106,26 +109,25 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
     });
   });
 
-  // if action delete btn is pressed
-  // const deleteBtn = document.querySelectorAll(".user-delete-btn");
-  // const deleteModal = document.querySelector(".delete-modal");
-  // const deleteModalId = document.getElementById("delete-id");
-  // // attach and event listener to each delete button
-  // deleteBtn.forEach((btn) => {
-  //   btn.addEventListener("click", () => {
-  //     // show custom DELETE modal
-  //     deleteModal?.classList.toggle("show-modal");
-  //     // disable scrolling
-  //     document.body.style.overflow = "hidden";
-  //     // pass row id from table to custom DELETE modal input
-  //     deleteModalId?.setAttribute("value", `${btn.dataset.id}`);
-  //   });
-  // });
+  // handle action DELETE button click
+  const deleteBtn = document.querySelectorAll(".articles .action-delete-btn");
+  const deleteModal = document.querySelector(".delete-modal");
+  const deleteModalId = document.getElementById("delete-id");
+
+  // attach and event listener to each delete button
+  deleteBtn.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // show custom DELETE modal
+      deleteModal.classList.toggle("show-modal");
+      // disable scrolling
+      document.body.style.overflow = "hidden";
+      // pass row id from table to custom DELETE modal input
+      deleteModalId.setAttribute("value", `${btn.dataset.id}`);
+    });
+  });
 
   // render pagination and buttons
   renderPagination(data.page, data.totalPages, status, paginateArticles);
-
-  // currentPage = data.page;
 };
 export { paginateArticles };
 
@@ -187,6 +189,9 @@ export function createArticle() {
       // show an ALERT message
       bogoAlert(successData.message, "bg-blue");
 
+      // set status filter value to unread
+      statusSelect.selectedIndex = 0;
+
       // reload paginated articles
       paginateArticles();
 
@@ -243,8 +248,6 @@ export async function displayArticle() {
 
 // UPDATE checkbox in VIEW articles
 export async function updateCheckbox(paginateArticles) {
-  // get status select dropdown element
-  const statusSelect = document.getElementById("status-select");
   // get checkbox element
   const checkbox = document.getElementById("view-article-checkbox");
 
@@ -277,7 +280,6 @@ export function updateArticle() {
   const updateArticleForm = updateArticleModal.querySelector(
     ".update-article-form"
   );
-  const updateArticleId = updateArticleForm.querySelector("#update-article-id"); // id from UPDATE FORM
 
   // close update article modal when back is pressed
   updateBackButton.addEventListener("click", () => {
@@ -287,7 +289,7 @@ export function updateArticle() {
   });
 
   // if form is SUBMITTED
-  updateArticleModal?.addEventListener("submit", async (e) => {
+  updateArticleModal.addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -315,18 +317,21 @@ export function updateArticle() {
         // close create user modal
         updateArticleModal.classList.remove("show");
 
+        // show an ALERT message
+        bogoAlert(
+          successData.message,
+          `${successData.updated ? "bg-green" : "bg-red"}`
+        );
+
+        // set status filter value to unread
+        statusSelect.selectedIndex = 0;
+
         // load all users
         paginateArticles();
 
         // clear form fields
         updateArticleForm.reset();
       }
-
-      // show an ALERT message
-      bogoAlert(
-        successData.message,
-        `${successData.updated ? "bg-green" : "bg-red"}`
-      );
     } catch (error) {
       bogoAlert(error, "bg-red");
     }
@@ -335,26 +340,10 @@ export function updateArticle() {
 
 // DELETE an article
 export function deleteArticle() {
-  const deleteButton = document.querySelectorAll(
-    ".articles .action-delete-btn"
-  );
   const deleteModal = document.querySelector(".delete-modal");
   const deleteArticleForm = document.querySelector(".delete-article-form");
   const deleteModalCancel = document.querySelector(".modal-cancel-btn");
-  const deleteModalId = document.getElementById("delete-id");
-
-  // if action delete btn is CLICKED
-  deleteButton?.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      // show custom DELETE modal
-      deleteModal?.classList.toggle("show-modal");
-      // disable scrolling
-      document.body.style.overflow = "hidden";
-      // pass row id from table to custom DELETE modal input
-      deleteModalId?.setAttribute("value", `${btn.dataset.id}`);
-    });
-  });
+  const deleteBtn = document.querySelectorAll(".articles .action-delete-btn");
 
   // if NO is selected in modal
   deleteModalCancel?.addEventListener("click", (e) => {
@@ -369,14 +358,13 @@ export function deleteArticle() {
   deleteArticleForm?.addEventListener("submit", async (e) => {
     e.preventDefault(); // Prevent default form submission
 
-    // const deleteId = deleteModalId.value; // get ID from delete Modal
     const form = e.target;
     const formData = new FormData(form);
     // Convert FormData to a plain JS object
     const deleteId = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("deleteArticle.php", {
+      const response = await fetch("./deleteArticle.php", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", // Sending JSON
@@ -386,16 +374,8 @@ export function deleteArticle() {
 
       if (!response.ok) throw new Error(await response.json().error);
 
-      // find row containing the delete button
-      const rowIndex = [...deleteButton].findIndex(
-        (el) => +el.dataset.id === +deleteId["delete-id"]
-      );
-      const row = deleteButton[+rowIndex].closest("tr");
-
-      // remove row
-      row.remove();
-      deleteModal?.classList.remove("show-modal");
-
+      // hide custom DELETE modal
+      deleteModal.classList.remove("show-modal");
       // enable scrolling
       document.body.style.overflow = "auto";
 
@@ -403,8 +383,14 @@ export function deleteArticle() {
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-red");
+
+      // set status filter value to unread
+      statusSelect.selectedIndex = 0;
+
+      // load paginated articles
+      paginateArticles();
     } catch (error) {
-      alert(error);
+      bogoAlert(error, "bg-red");
     }
   });
 }
