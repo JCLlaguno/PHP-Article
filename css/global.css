@@ -61,7 +61,8 @@ img {
   object-fit: cover;
 }
 section {
-  padding: 3rem 0;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
   background-color: var(--white);
 }
 textarea {
@@ -404,6 +405,10 @@ table .action-delete-btn img {
   align-items: center;
   font-weight: var(--btn-font-weight);
 }
+.main-container {
+  height: 100%;
+  min-height: 100vh;
+}
 
 @media screen and (width >= 400px) {
   /* CREATE & EDIT forms */
@@ -414,14 +419,14 @@ table .action-delete-btn img {
 
 @media screen and (width >= 800px) {
   .main {
-    display: grid;
+    display: flex;
     grid-template-columns: auto 1fr;
     position: relative;
     align-items: start;
   }
   .main-container {
-    display: grid;
-    grid-template-rows: auto 1fr;
+    flex: 1 100%;
+    margin-left: 80px;
   }
   /* SECTION container  */
   .section-container {
@@ -468,8 +473,8 @@ table .action-delete-btn img {
   .section-container {
     max-width: 100%;
   }
-  .main {
-    grid-template-columns: 1fr 4fr;
+  .main-container {
+    margin-left: 200px;
   }
   .link-name {
     display: block;
