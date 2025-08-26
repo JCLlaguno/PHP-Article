@@ -12,11 +12,11 @@
         }
 
         // add a user
-        public function createUser(string $username, string $photo, string $password) : void { 
+        public function createUser(string $username, string $photo, string $password) : bool { 
             try {
                 $stmt = $this->conn->prepare("INSERT INTO users (username, photo, password)
                 VALUES (:username, :photo, :password)");
-                $stmt->execute([
+                return $stmt->execute([
                     ':username' => $username,
                     ':photo' => $photo,
                     ':password' => $password

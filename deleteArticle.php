@@ -5,12 +5,12 @@
         $input = json_decode(file_get_contents('php://input'), true);
 
         // set delete ID
-        $deleteId = intval($input['delete-id']);
+        $deleteId = $input['delete-id'];
     
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && !empty($deleteId)) {
 
-        new Article()->deleteArticle($deleteId);   
+        $result = new Article()->deleteArticle($deleteId);   
         
-        echo json_encode(["success" => true, "message" => "Article was deleted!"]);  
+        if($result) echo json_encode(["success" => true, "message" => "Article was deleted!"]);  
     } 
 ?>

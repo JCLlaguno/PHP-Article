@@ -62,8 +62,9 @@
 
 
             // Insert NEW user into DB 
-            new User()->createUser($username, $fileUrl, $password_hash);
-            echo json_encode(["status" => "success", "message" => "Added new user!", "url" => $fileUrl]);
+            $result = new User()->createUser($username, $fileUrl, $password_hash);
+            
+            if($result) echo json_encode(["success" => true, "message" => "Added new user!"]);
 
         } catch (PDOException $e) {
 

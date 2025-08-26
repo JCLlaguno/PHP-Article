@@ -21,9 +21,10 @@ export { bogoAlert };
 
 // function to RENDER pagination and buttons
 const renderPagination = (page, totalPages, status, paginateArticles) => {
+  page = +page; // convert data type to NUMBER (prevent string concatenation)
+
   const paginationContainer = document.querySelector(".pagination");
   paginationContainer.innerHTML = "";
-  console.log(page);
 
   // Prev button
   const prevBtn = document.createElement("button");

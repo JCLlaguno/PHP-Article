@@ -28,7 +28,7 @@
                     <p class="card-content articles-card-content">
                     <?php
                         $whereClause = "WHERE userid = :userid";
-                        $params = [':userid' => (int) $_SESSION['userid']];
+                        $params = [':userid' => $_SESSION['userid']];
                         echo new Article()->countTotalArticles($whereClause, $params);
                     ?>
                     </p></div>

@@ -6,7 +6,7 @@
     $input = json_decode(file_get_contents('php://input'), true);
 
     // set delete ID
-    $deleteId = intval($input['delete-id']);
+    $deleteId = $input['delete-id'];
     
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && !empty($deleteId)) {
 
@@ -23,11 +23,11 @@
         if(file_exists($oldImg)) unlink($oldImg); // DELETE old photo locally
 
         // delete user from DB
-        new User()->deleteUser($deleteId); 
+        $resultUser = new User()->deleteUser($deleteId); 
         
         // delete articles of user
-        new Article()->deleteArticleByUser($deleteId);   
+        $resultArticle = new Article()->deleteArticleByUser($deleteId);   
         
-        echo json_encode(["success" => true, "message" => "User was deleted!"]);  
+        if($resultUser && $resultArticle) echo json_encode(["success" => true, "message" => "User was deleted!"]);  // JSON response (returns {})
     }  
 ?>

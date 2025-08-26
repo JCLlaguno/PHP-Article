@@ -4,13 +4,6 @@
 
     // handle GET request
     // get ID from selected article
-    if($_SERVER['REQUEST_METHOD'] === 'GET') {
-        // get ARTICLE ID from fetch()
-        $id = $_GET['article-id'];
-        // check if an article exists in db
-        $data = new Article()->getArticleById($id); // []
-
-        // convert [] to JSON {}
-        echo json_encode($data); // {}
-    }
+    if($_SERVER['REQUEST_METHOD'] === 'GET') 
+        echo json_encode(new Article()->getArticleById($_GET['article-id'])); // JSON response (returns {})
 ?>

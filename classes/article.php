@@ -13,12 +13,12 @@
         }
 
         // add a user
-        public function createArticle(int $userid, string $article_title, string $article_content) : void { 
+        public function createArticle(int $userid, string $article_title, string $article_content) : bool { 
             try {
                 $this->status = 0; // unread
                 $stmt = $this->conn->prepare("INSERT INTO articles (userid, status, article_title, article_content)
                 VALUES (:userid, :status, :article_title, :article_content)");
-                $stmt->execute([
+                return $stmt->execute([
                     ':userid' => $userid,
                     ':status' => $this->status,
                     ':article_title' => $article_title,
@@ -135,10 +135,10 @@
         }
 
         // delete article 
-        public function deleteArticle(int $id) : void {
+        public function deleteArticle(int $id) : bool {
             try {
                 $stmt = $this->conn->prepare("DELETE FROM articles WHERE id=:id");
-                $stmt->execute([':id' => $id]);
+                return $stmt->execute([':id' => $id]);
             } catch (PDOException $e) {
                 echo "Database error:" . $e->getMessage();
             } catch (Error $e) {
@@ -147,10 +147,10 @@
         }
 
         // delete article by user
-        public function deleteArticleByUser(int $userid) : void {
+        public function deleteArticleByUser(int $userid) : bool {
             try {
                 $stmt = $this->conn->prepare("DELETE FROM articles WHERE userid=:userid");
-                $stmt->execute([':userid' => $userid]);
+                return $stmt->execute([':userid' => $userid]);
             } catch (PDOException $e) {
                 echo "Database error:" . $e->getMessage();
             } catch (Error $e) {

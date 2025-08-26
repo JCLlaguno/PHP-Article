@@ -4,6 +4,13 @@
     header('Content-Type: application/json; charset=utf-8');
     $input = json_decode(file_get_contents('php://input'), true);
 
+    // validate JSON
+    if ($input === null && json_last_error() !== JSON_ERROR_NONE) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid JSON']);
+        exit;
+    }
+
     // handle UPDATE request
     if($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
