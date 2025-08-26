@@ -1,14 +1,16 @@
 <?php 
+    require_once __DIR__ . '/includes/session.php';
     require_once __DIR__ . '/classes/article.php';
-        header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
         $input = json_decode(file_get_contents('php://input'), true);
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && !empty($input['delete-id'])) {
 
-        new Article()->deleteArticle(intval($input['delete-id']));   
+        // set delete ID
+        $deleteId = intval($input['delete-id']);
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && !empty($deleteId)) {
+
+        new Article()->deleteArticle($deleteId);   
         
         echo json_encode(["success" => true, "message" => "Article was deleted!"]);  
-    } else {
-        echo json_encode(["success" => false, "message" => "Article was NOT deleted!"]); 
-    }
+    } 
 ?>

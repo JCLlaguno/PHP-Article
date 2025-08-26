@@ -1,14 +1,14 @@
 <?php
-    session_start();
+    require_once __DIR__ . '/includes/session.php';
     require_once __DIR__ . '/classes/user.php';
+    header('Content-Type: application/json; charset=utf-8');
 
     // handle POST request 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        header('Content-Type: application/json; charset=utf-8');
-
         try {
+
             // Get username from POST
-            $username = trim($_POST['username']) ?? '';
+            $username = trim($_POST['username']);
             if (empty($username)) {
                 http_response_code(400);
                 echo json_encode(["error" => "Username required"]);
@@ -16,7 +16,7 @@
             }
 
             // Get password from POST
-            $password = trim($_POST['password']) ?? '';
+            $password = trim($_POST['password']);
             if (empty($password)) {
                 http_response_code(400);
                 echo json_encode(["error" => "Password required"]);
@@ -66,8 +66,10 @@
             echo json_encode(["status" => "success", "message" => "Added new user!", "url" => $fileUrl]);
 
         } catch (PDOException $e) {
+
             http_response_code(500);
             echo json_encode(["error" => $e->getMessage()]);
+        
         }
     }
 ?>

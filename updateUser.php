@@ -1,12 +1,11 @@
 <?php
-    session_start();
+    require_once __DIR__ . '/includes/session.php';
     require_once __DIR__ . '/classes/user.php';
+    header('Content-Type: application/json; charset=utf-8');
 
     // handle UPDATE request
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
-            header('Content-Type: application/json; charset=utf-8');
-
 
             // find user by ID
             $userId = trim($_POST['update-user-id']);
@@ -93,9 +92,12 @@
                 // http_response_code(409);
                 echo json_encode(['status' => 'success', 'updated' => false, "message" => "Unchanged values!"]);
             }
+
         } catch (PDOException $e) {
+
             http_response_code(500);
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+            
         }
     }
 ?>

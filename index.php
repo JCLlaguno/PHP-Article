@@ -2,7 +2,7 @@
     session_start();
 
     // prevent access to INDEX page if not LOGGED IN
-    if(!isset($_SESSION['userid']) && empty($_SESSION['userid'])) {
+    if(!isset($_SESSION['userid']) || empty($_SESSION['userid'])) {
         header('location: ./login.php');
         exit;
     }

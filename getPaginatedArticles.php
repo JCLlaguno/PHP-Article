@@ -2,7 +2,7 @@
     session_start();
     if(!isset($_SESSION['userid'])) {
         http_response_code(401);
-        echo json_encode(["status" => "error", "message" => "User not logged in!"]);
+        echo json_encode(["error" => "User not logged in!"]);
         exit;
     };
 
@@ -12,28 +12,36 @@
     // Pagination parameters
     // get current page (default = 1)
     $page  = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
     // max records to show per page (default = 8)
     $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 8;
     // how many rows to skip before displaying records.
-    $offset = ($page - 1) * $limit;
+    $offset = (int) ($page - 1) * $limit;
 
     // get logged in userid
-    $userid = $_SESSION['userid'];
+    $userid = (int) $_SESSION['userid'];
 
     // set status (3 = display all articles)
-    $status  = isset($_GET['status']) ? intval($_GET['status']) : 0;
+    $status  = isset($_GET['status']) ? (int) $_GET['status'] : 0;
 
     // build SQL condition
-    $whereClause = "WHERE status = $status AND userid = $userid";
-    if ($status === 2) $whereClause = "WHERE userid = $userid";
+    $whereClause = "WHERE status = :status AND userid = :userid";
+    $params = [
+        ':status' => (int) $status,
+        ':userid' => (int) $userid
+    ];
+    if ($status === 2) {
+        $whereClause = "WHERE userid = :userid";
+        $params = [':userid' => (int) $userid];
+    };
     
     // get total count of articles
-    $totalCount = new Article()->countTotalArticles($whereClause);
+    $totalCount = (int) new Article()->countTotalArticles($whereClause, $params);
     // get total pages for pagination (min = 1 page);
-    $totalPages = max(1, ceil($totalCount / $limit));
+    $totalPages = (int) max(1, ceil($totalCount / $limit));
 
     // get paginated articles
-    $data = new Article()->paginateArticles($limit, $offset, $whereClause); // []
+    $data = (array) new Article()->paginateArticles($limit, $offset, $whereClause, $params); // []
 
     // convert to JSON {}
     echo json_encode([

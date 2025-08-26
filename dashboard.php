@@ -24,9 +24,14 @@
             <card class="dashboard-card articles-card bg-green">
                 <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-article.svg" alt=""></div>
                 <div class="card-title-container"><p class="card-title">Articles</p></div>
-                <div class="card-content-container"><p class="card-content articles-card-content"><?php
-                $whereClause = "WHERE userid = " . $_SESSION['userid'];
-                 echo new Article()->countTotalArticles($whereClause);?></p></div>
+                <div class="card-content-container">
+                    <p class="card-content articles-card-content">
+                    <?php
+                        $whereClause = "WHERE userid = :userid";
+                        $params = [':userid' => (int) $_SESSION['userid']];
+                        echo new Article()->countTotalArticles($whereClause, $params);
+                    ?>
+                    </p></div>
             </card>
             <!-- end of single card -->
         </div>

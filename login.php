@@ -1,8 +1,8 @@
 <?php
     require_once __DIR__ . '/classes/user.php';
     require_once './includes/header.php';
-
     session_start();
+
     if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
         header('location: ./index.php');
         exit;

@@ -102,15 +102,10 @@ const createUser = () => {
     const formData = new FormData(this);
 
     try {
-      let response = await fetch("./createUser.php", {
+      const successData = await ajaxRequest("./createUser.php", {
         method: "POST",
         body: formData,
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message);
-      }
-      const successData = await response.json();
 
       // close create user modal
       createUserModal.classList.remove("show");
@@ -127,7 +122,7 @@ const createUser = () => {
       // clear form fields
       createUserForm.reset();
     } catch (error) {
-      bogoAlert(error.message, "bg-maroon");
+      bogoAlert(error, "bg-maroon");
     }
   });
 };
@@ -208,7 +203,7 @@ const deleteUser = () => {
     const deleteId = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("./deleteUser.php", {
+      const successData = await ajaxRequest("./deleteUser.php", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", // Sending JSON
@@ -216,14 +211,10 @@ const deleteUser = () => {
         body: JSON.stringify(deleteId), // send data as JSON
       });
 
-      if (!response.ok) throw new Error(await response.json().error);
-
       // hide custom DELETE modal
       deleteModal.classList.remove("show-modal");
       // enable scrolling
       document.body.style.overflow = "auto";
-
-      const successData = await response.json();
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-red");

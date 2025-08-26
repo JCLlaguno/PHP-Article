@@ -1,12 +1,12 @@
 <?php
-    session_start();
+    require_once __DIR__ . '/includes/session.php';
     require_once __DIR__ . '/classes/article.php';
 
     // handle GET request
-    // get ID from loaded article
+    // get ID from selected article
     if($_SERVER['REQUEST_METHOD'] === 'GET') {
         // get ARTICLE ID from fetch()
-        $id = $_GET['get_id'];
+        $id = $_GET['article-id'];
         // check if an article exists in db
         $data = new Article()->getArticleById($id); // []
 

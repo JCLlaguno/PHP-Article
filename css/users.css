@@ -23,7 +23,7 @@
 #update-photo::file-selector-button {
   border: none;
   padding: 0.5rem;
-  border-radius: var(--radius);
+  border-radius: var(--radius-small);
   color: var(--black);
   background-color: var(--shade);
   font-family: var(--font);

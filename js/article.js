@@ -96,9 +96,9 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
       if (updateArticleModal) updateArticleModal.style.overflow = "scroll";
       // pass row id from table for updating article
       updateArticleId.setAttribute("value", `${btn.dataset.id}`);
-      // load selected article
+      // get selected article
       const data = await ajaxRequest(
-        `./getArticle.php?get_id=${+btn.dataset.id}`
+        `./getArticle.php?article-id=${+btn.dataset.id}`
       );
       // Fill update form
       updateArticleForm.querySelector(".article-title").value =
@@ -220,7 +220,7 @@ export async function displayArticle() {
 
       // load selected article
       const data = await ajaxRequest(
-        `./getArticle.php?get_id=${+btn.dataset.id}`
+        `./getArticle.php?article-id=${+btn.dataset.id}`
       );
 
       // Fill form
@@ -356,7 +356,7 @@ export function deleteArticle() {
     const deleteId = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("./deleteArticle.php", {
+      const successData = await ajaxRequest("./deleteArticle.php", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", // Sending JSON
@@ -364,14 +364,10 @@ export function deleteArticle() {
         body: JSON.stringify(deleteId), // send data as JSON
       });
 
-      if (!response.ok) throw new Error(await response.json().error);
-
       // hide custom DELETE modal
       deleteModal.classList.remove("show-modal");
       // enable scrolling
       document.body.style.overflow = "auto";
-
-      const successData = await response.json();
 
       // show an ALERT message
       bogoAlert(successData.message, "bg-red");

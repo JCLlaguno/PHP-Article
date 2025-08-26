@@ -29,7 +29,7 @@ table td span.article-status-badge {
 .pagination button {
   padding: 0.5rem 1rem;
   border: var(--border-small);
-  border-radius: var(--radius);
+  border-radius: var(--radius-small);
   background: var(--whiter);
   cursor: pointer;
   font-size: 0.8rem;
@@ -111,7 +111,6 @@ table td span.article-status-badge {
 }
 
 /* CUSTOM CHECKBOX */
-/* Customize the label (the container) */
 .checkbox-container {
   display: block;
   position: relative;
@@ -137,13 +136,13 @@ table td span.article-status-badge {
   background-color: var(--shade);
   border-radius: var(--radius);
 }
-/* On mouse-over, add a grey background color */
+/* On mouse-over, add a white background color */
 .checkbox-container:hover input ~ .checkmark {
   background-color: #ebedf1;
 }
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a green background color */
 .checkbox-container input:checked ~ .checkmark {
-  background-color: var(--blue);
+  background-color: var(--green);
 }
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {

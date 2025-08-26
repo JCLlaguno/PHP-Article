@@ -26,7 +26,7 @@
 }
 .login-form input {
   border: var(--border-small);
-  border-radius: var(--radius);
+  border-radius: var(--radius-small);
   outline: none;
   padding: 0.2rem;
   font-size: 1rem;
