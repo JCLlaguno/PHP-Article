@@ -27,9 +27,9 @@
     <form class="login-form" action="" method="POST">
         <h4 class="login-form-title">Login</h4>
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" autocomplete="off"><br>
+        <input class="form-control" type="text" id="username" name="username" autocomplete="off"><br>
         <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
+        <input class="form-control" type="password" id="password" name="password"><br><br>
         <input type="submit" name="submit" class="btn login-btn" value="Login">
     </form> 
 </section>

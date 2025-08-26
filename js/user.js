@@ -122,7 +122,7 @@ const createUser = () => {
       // clear form fields
       createUserForm.reset();
     } catch (error) {
-      bogoAlert(error, "bg-maroon");
+      bogoAlert(error, "bg-red");
     }
   });
 };

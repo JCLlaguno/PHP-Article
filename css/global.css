@@ -14,6 +14,7 @@
   --black: #191919;
   --whiter: #fefeff;
   --white: #f7f9fe;
+  --darker-white: #ebedf1;
   --shade: #dee0e5;
   --fg: #191919;
   --maroon: #772e25;
@@ -24,7 +25,7 @@
   --radius: 1rem;
   --radius-small: 0.5rem;
   --border-small: 1px solid var(--shade);
-  --table-border: 1px solid #ebedf1;
+  --table-border: 1px solid var(--darker-white);
   --btn-font-weight: 500;
 
   --font: system-ui, sans-serif;
@@ -61,8 +62,8 @@ img {
   object-fit: cover;
 }
 section {
-  margin-top: 6rem;
-  margin-bottom: 4rem;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
   background-color: var(--white);
 }
 textarea {
@@ -187,7 +188,7 @@ textarea {
   flex-wrap: wrap;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 99;
+  z-index: 999;
   backdrop-filter: blur(5px);
   overflow: auto;
   padding: 4rem 0;
@@ -348,7 +349,7 @@ table .action-delete-btn img {
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 999;
 }
 .delete-modal.show-modal {
   display: flex;
@@ -482,5 +483,11 @@ table .action-delete-btn img {
   /* CREATE & EDIT forms */
   .custom-form {
     max-width: 800px;
+  }
+}
+
+@media screen and (width >= 1400px) {
+  .main-container {
+    margin-left: 280px;
   }
 }
