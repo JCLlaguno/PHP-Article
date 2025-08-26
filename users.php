@@ -15,7 +15,7 @@
         <!-- end of section header -->
         <!-- add user -->
         <div class="new-btn-container">
-            <a class="btn bg-blue new-user-btn">New User</a>
+            <a class="btn bg-blue new-btn">New User</a>
         </div>
         <!-- end of add user -->
         <!-- DATA TABLE -->

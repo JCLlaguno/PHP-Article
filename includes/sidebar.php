@@ -42,7 +42,7 @@
     <div class="page-links">
         <a href="?page=dashboard" class="page-link <?php if($_GET['page'] === 'dashboard') echo 'selected' ?>">
             <div class="page-link-container">
-                <span><img class="link-icon" src="./img/dashboard.svg" alt="dashboard"></span>
+                <span><img class="sidebar-link-icon" src="./img/dashboard.svg" alt="dashboard"></span>
                 <h4 class="sidebar-link-name">Dashboard</h4>
             </div>
         </a>

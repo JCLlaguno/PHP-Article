@@ -71,8 +71,7 @@ export { displayUsers };
 
 // CREATE user
 const createUser = () => {
-  const users = document.querySelector(".users");
-  const newUserBtn = document.querySelector(".new-btn-container .new-user-btn");
+  const newUserBtn = document.querySelector(".users .new-btn");
   const createUserModal = document.querySelector(".create-user-modal");
   const createUserForm = document.querySelector(".create-user-form");
 

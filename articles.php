@@ -11,7 +11,7 @@
 
         <!-- add article -->
         <div class="new-btn-container">
-            <a class="btn bg-blue new-article-btn">New Article</a>
+            <a class="btn bg-blue new-btn">New Article</a>
         </div>
         <!-- end of add article -->
 

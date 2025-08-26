@@ -229,6 +229,10 @@
   .sidebar .selected {
     background-color: var(--darker-white);
   }
+  .sidebar .sidebar-link-icon {
+    width: 35px;
+    height: 35px;
+  }
 }
 @media screen and (width >= 1000px) {
   /* NAVBAR */
@@ -248,7 +252,6 @@
   }
   .sidebar .sidebar-logo .sidebar-title {
     display: block;
-    /* overflow: hidden; */
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--white);
@@ -273,10 +276,8 @@
   }
   .sidebar .sidebar-logo .sidebar-title {
     display: block;
-    /* overflow: hidden; */
     font-weight: 600;
     font-size: 1.5rem;
-    color: var(--white);
     height: 2rem;
   }
 }

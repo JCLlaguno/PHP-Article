@@ -140,7 +140,7 @@ articleStatusSelect(paginateArticles);
 
 // CREATE article
 export function createArticle() {
-  const newArticleBtn = document.querySelector(".new-btn-container .btn");
+  const newArticleBtn = document.querySelector(".articles .new-btn");
   const createArticleModal = document.querySelector(".create-article-modal");
   const createArticleForm = document.querySelector(".create-article-form");
 
