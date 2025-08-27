@@ -29,6 +29,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // get all articles
@@ -42,6 +43,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
         
         // paginate articles
@@ -73,6 +75,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // count all articles
@@ -99,6 +102,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // update article
@@ -144,6 +148,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // delete article by user
@@ -156,6 +161,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
     }
 ?>

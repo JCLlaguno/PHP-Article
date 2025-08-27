@@ -26,6 +26,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // get all users
@@ -39,6 +40,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // count all users
@@ -66,6 +68,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // get single user by username 
@@ -79,6 +82,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
         // update user
@@ -109,6 +113,7 @@
             } catch (Error $e) {
                 echo "General error: " . $e->getMessage();
             }
+            return false;
         }
 
     }

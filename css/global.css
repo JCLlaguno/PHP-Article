@@ -1,3 +1,49 @@
+/* CUSTOM FONT */
+/* Light */
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Regular */
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -11,16 +57,21 @@
   user-select: none;
 }
 :root {
-  --black: #191919;
+  /* --black: #191919; */
+  --black: #1e1e1e;
   --whiter: #fefeff;
   --white: #f7f9fe;
   --darker-white: #ebedf1;
   --shade: #dee0e5;
-  --fg: #191919;
-  --maroon: #772e25;
+  --fg: var(--black);
+  /* --maroon: #772e25;
   --red: #c71f37;
   --blue: #0643a4;
-  --green: #007f4e;
+  --green: #007f4e; */
+  --maroon: #800020;
+  --red: #d32f2f;
+  --blue: #1565c0;
+  --green: #2e7d32;
 
   --radius: 1rem;
   --radius-small: 0.5rem;
@@ -28,7 +79,7 @@
   --table-border: 1px solid var(--darker-white);
   --btn-font-weight: 500;
 
-  --font: system-ui, sans-serif;
+  --font: "Noto Sans", system-ui;
   --line-height: 1.5;
 }
 body {
@@ -401,12 +452,9 @@ table .action-delete-btn img {
   width: 220px;
   height: auto;
   border-radius: var(--radius);
-  padding: 0.8rem;
+  padding: 1rem;
 }
 .alert-content .alert-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: var(--btn-font-weight);
 }
 .main-container {

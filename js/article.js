@@ -186,7 +186,7 @@ export function createArticle() {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-blue");
+      bogoAlert(successData.message, "bg-blue", 2);
 
       // set status filter value to unread
       statusSelect.selectedIndex = 0;
@@ -323,7 +323,7 @@ export function updateArticle() {
       bogoAlert(
         successData.message,
         `${successData.updated ? "bg-green" : "bg-red"}`
-      );
+      , 2);
     } catch (error) {
       bogoAlert(error, "bg-red");
     }
@@ -370,7 +370,7 @@ export function deleteArticle() {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-red");
+      bogoAlert(successData.message, "bg-red", 2);
 
       // set status filter value to unread
       statusSelect.selectedIndex = 0;

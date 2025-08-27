@@ -116,7 +116,7 @@ const createUser = () => {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-blue");
+      bogoAlert(successData.message, "bg-blue", 2);
 
       // load all users
       displayUsers();
@@ -172,7 +172,8 @@ const updateUser = () => {
       // show an ALERT message
       bogoAlert(
         successData.message,
-        `${successData.updated ? "bg-green" : "bg-red"}`
+        `${successData.updated ? "bg-green" : "bg-red"}`,
+        2
       );
     } catch (error) {
       bogoAlert(error.message, "bg-red");
@@ -219,7 +220,7 @@ const deleteUser = () => {
       document.body.style.overflow = "auto";
 
       // show an ALERT message
-      bogoAlert(successData.message, "bg-red");
+      bogoAlert(successData.message, "bg-red", 2);
 
       // load all users
       displayUsers();

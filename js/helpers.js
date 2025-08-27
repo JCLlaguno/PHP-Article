@@ -1,6 +1,6 @@
 import { ajaxRequest } from "./ajax.js";
 // custom ALERT message
-const bogoAlert = (message, alertType = "bg-black") => {
+const bogoAlert = (message, alertType = "bg-black", duration = false) => {
   const html = `
     <div class="alert">
         <div class="alert-content ${alertType}">
@@ -14,8 +14,8 @@ const bogoAlert = (message, alertType = "bg-black") => {
   // close ALERT immediately if modal is clicked
   alert.addEventListener("click", () => alert.remove());
 
-  // close ALERT after 2 sec
-  setTimeout(() => alert.remove(), 2000);
+  // close ALERT after duration (optional)
+  if (duration) setTimeout(() => alert.remove(), duration * 1000);
 };
 export { bogoAlert };
 
