@@ -100,10 +100,10 @@
         }
 
         // delete user 
-        public function deleteUser(int $id) : void {
+        public function deleteUser(int $id) : bool {
             try {
                 $stmt = $this->conn->prepare("DELETE FROM users WHERE id=:id");
-                $stmt->execute([':id' => $id]);
+                return $stmt->execute([':id' => $id]);
             } catch (PDOException $e) {
                 echo "Database error:" . $e->getMessage();
             } catch (Error $e) {

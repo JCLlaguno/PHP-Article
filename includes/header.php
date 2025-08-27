@@ -15,8 +15,7 @@
     <link href="./css/users.css" rel="stylesheet">
     <link href="./css/articles.css" rel="stylesheet">
     <link href="./css/login.css" rel="stylesheet">
-    <link rel="modulepreload" href="./js/script.js">
-    <script type="module" src="./js/script.js"></script>
+    <script defer type="module" src="./js/script.js"></script>
 </head>
 
 <!-- body -->

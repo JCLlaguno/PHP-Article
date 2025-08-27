@@ -17,7 +17,7 @@
             if(password_verify($password, $user['password'])) {
                 $_SESSION['userid'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                header('location: ./index.php');
+                header('location: ./index.php?page=users');
             } 
         }
     }
