@@ -36,8 +36,8 @@ table td span.article-status-badge {
   font-weight: var(--btn-font-weight);
 }
 .pagination button.active {
-  background: var(--blue);
-  color: var(--white);
+  background: var(--darker-white);
+  color: var(--black);
 }
 .pagination button:disabled {
   background: var(--white);

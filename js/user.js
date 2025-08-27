@@ -34,6 +34,8 @@ const displayUsers = async () => {
     btn.addEventListener("click", async (e) => {
       e.preventDefault();
 
+      updateUserForm.reset();
+
       // SHOW update user form
       updateUserModal?.classList.add("show");
       // disable scroll on body
@@ -80,6 +82,7 @@ const createUser = () => {
     e.preventDefault();
     createUserModal.classList.add("show");
     document.body.style.overflow = "hidden";
+    createUserForm.reset();
   });
 
   // close create user modal when back is pressed
@@ -133,7 +136,7 @@ const updateUser = () => {
     ".update-user-form .form-back-btn"
   );
   const updateUserModal = document.querySelector(".update-user-modal");
-  const updateUserForm = updateUserModal?.querySelector(".update-user-form");
+  const updateUserForm = updateUserModal.querySelector(".update-user-form");
 
   // close update user modal when BACK is pressed
   updateBackButton?.addEventListener("click", () => {

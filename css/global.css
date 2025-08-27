@@ -119,16 +119,17 @@ textarea {
   background-color: var(--whiter);
   border: var(--border-small);
   display: flex;
-  column-gap: 0.5rem;
   margin-bottom: 2rem;
   justify-content: center;
   align-items: center;
   padding: 2rem;
   border-radius: var(--radius);
+  column-gap: 0.1rem;
 }
 .section-icon {
   width: 30px;
   height: 30px;
+  margin-bottom: 2px;
 }
 .section-title {
   color: var(--black);
@@ -160,7 +161,6 @@ textarea {
 .new-btn-container {
   display: flex;
   justify-content: end;
-  margin-bottom: 1rem;
 }
 
 /* BUTTONS */
@@ -199,7 +199,7 @@ textarea {
 
 /* NEW DATA TABLE */
 .table-container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-radius: var(--radius);
   width: 100%;
   height: auto;
@@ -423,13 +423,9 @@ table .action-delete-btn img {
 
 @media screen and (width >= 800px) {
   .main {
-    display: flex;
-    grid-template-columns: auto 1fr;
     position: relative;
-    align-items: start;
   }
   .main-container {
-    flex: 1 100%;
     margin-left: 80px;
   }
   /* SECTION container  */
@@ -439,6 +435,7 @@ table .action-delete-btn img {
   .section-icon {
     width: 60px;
     height: 60px;
+    margin-bottom: 4px;
   }
   .section-title {
     font-size: 4rem;

@@ -9,6 +9,9 @@ import {
 } from "./article.js";
 import { displayUsers, createUser, updateUser, deleteUser } from "./user.js";
 
+// reset login form
+document.querySelector(".login-form")?.reset();
+
 // SHOW/HIDE mobile menu
 const mobileToggle = document.querySelector(".nav-left .mobile-toggle-btn");
 const mobileMenu = document.querySelector(".mobile-menu");
