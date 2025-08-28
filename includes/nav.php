@@ -25,7 +25,7 @@
 
         <!-- nav right -->
         <div class="nav-right">
-            <?php if(isset($_SESSION['userid'])) { ?>
+            <?php if(isset($_SESSION['userid'])): ?>
                 <!-- nav user photo -->
                 <div class="nav-user-photo-container">
                     <img class="nav-user-photo" 
@@ -36,7 +36,7 @@
                 <!-- nav logout button -->
                 <a href="./logout.php" class="nav-logout-btn">Log Out</a>
                 <!-- end of nav logout button -->
-            <?php } ?>
+            <?php endif; ?>
         </div>
         <!-- end of nav right -->
 

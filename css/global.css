@@ -57,17 +57,12 @@
   user-select: none;
 }
 :root {
-  /* --black: #191919; */
   --black: #1e1e1e;
   --whiter: #fefeff;
   --white: #f7f9fe;
   --darker-white: #ebedf1;
   --shade: #dee0e5;
   --fg: var(--black);
-  /* --maroon: #772e25;
-  --red: #c71f37;
-  --blue: #0643a4;
-  --green: #007f4e; */
   --maroon: #800020;
   --red: #d32f2f;
   --blue: #1565c0;

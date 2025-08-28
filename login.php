@@ -1,36 +1,49 @@
 <?php
     require_once __DIR__ . '/classes/user.php';
-    require_once './includes/header.php';
     session_start();
+    header('Content-Type: application/json; charset=utf-8');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
-    if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
-        header('location: ./index.php');
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid Request Method!']);
         exit;
-    } 
+
+    }
     
-    if(isset($_POST['submit'])) {
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
-        
-        $user = new User()->getUserByName($username);
-        if($user) {
-            if(password_verify($password, $user['password'])) {
-                $_SESSION['userid'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                header('location: ./index.php?page=users');
-            } 
-        }
+    if(empty($_POST['username']) || empty($_POST['password'])) {
+
+        http_response_code(400);
+        echo json_encode(['error' => 'Username or Password is empty!']);
+        exit;
+    }
+
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    $user = new User()->getUserByName($username);
+
+    if(!$user) { 
+
+        http_response_code(400);
+        echo json_encode(['error' => 'User does not exist!']);
+        exit;
+
+    }
+
+    if(!password_verify($password, $user['password'])) {
+
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid Password!']);
+        exit;
+
+    }
+
+    if(password_verify($password, $user['password'])) {
+
+        $_SESSION['userid'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        echo json_encode(['success' => true, 'redirect' => './index.php']);
+        exit;
+
     }
 ?>
-<!-- login -->
-<section class="login">
-    <form class="login-form" action="" method="POST">
-        <h4 class="login-form-title">Login</h4>
-        <label for="username">Username:</label><br>
-        <input class="form-control" type="text" id="username" name="username" autocomplete="off"><br>
-        <label for="password">Password:</label><br>
-        <input class="form-control" type="password" id="password" name="password"><br><br>
-        <input type="submit" name="submit" class="btn login-btn" value="Login">
-    </form> 
-</section>
-<!-- end of login -->

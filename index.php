@@ -3,7 +3,7 @@
 
     // prevent access to INDEX page if not LOGGED IN
     if(!isset($_SESSION['userid']) || empty($_SESSION['userid'])) {
-        header('location: ./login.php');
+        header('location: ./loginForm.php');
         exit;
     }
 

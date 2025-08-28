@@ -42,9 +42,7 @@
             /* PHOTO UPLOAD */
             // if a photo is UPLOADED
             if(
-                isset($_FILES['photo']) 
-                && $_FILES['photo']['error'] === UPLOAD_ERR_OK 
-                && is_uploaded_file($_FILES['photo']['tmp_name'])) {
+                isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
 
                 // temp location of uploaded photo
                 $tmpLoc = $_FILES['photo']['tmp_name'];
