@@ -41,45 +41,84 @@
 
             /* PHOTO UPLOAD */
             // if a photo is UPLOADED
-            if(
-                isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['photo']['tmp_name'];
+                $fileName = $_FILES['photo']['name'];
+                $fileSize = $_FILES['photo']['size'];
+                $fileType = $_FILES['photo']['type'];
 
-                // temp location of uploaded photo
-                $tmpLoc = $_FILES['photo']['tmp_name'];
+                // Check file extension
+                $allowedExtension = 'webp';
+
+                // Create uploads directory if not exists
+                $uploadDir = __DIR__ . "/uploads/";
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
 
                 // set up local upload directory path
                 $uploadDir = __DIR__ . "/uploads/";
+
+                // ensure uploadDir ends with separator
+                $uploadDir = rtrim($uploadDir, '/\\') . DIRECTORY_SEPARATOR;
+
                 
-                // get old photo url from db
+                // get OLD PHOTO url from db
                 $photoUrl = $foundUser['photo']; // complete url from db
-                $oldFileName = basename($photoUrl); // extract filename from url
+                $oldFileName = basename($photoUrl); // extract FILENAME from url
                 $oldImg = $uploadDir . $oldFileName; // append db filename to local upload dir
                 if(file_exists($oldImg)) unlink($oldImg); // DELETE old photo locally
 
-                // generate filename for NEW photo
-                $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
-                $filename = bin2hex(random_bytes(8)) . "." . strtolower($extension); // unique file name for NEW image (lowercased)
+                // Generate unique filename for NEW photo
+                // get and sanitize extension
+                $ext = pathinfo($fileName, PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
+                $ext = strtolower(preg_replace('/[^a-z0-9]+/i', '', $ext)); // only letters/numbers
+                $fileName = bin2hex(random_bytes(8)) . "." . $ext; // random name for image (lowercased)
 
-                // new photo url to be inserted to db
-                $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $filename;
-
-                // storing photo on local server directory, 'updated' => false
-                $filePath = $uploadDir . $filename; // final filesystem path of new photo
-                // if false, move uploaded photo from tmp location to local server directory
-                // if true, throw an error
-                if (!is_uploaded_file($tmpLoc) || !move_uploaded_file($tmpLoc, $filePath)) {
-                    http_response_code(500);
-                    echo json_encode(["status" => "error", "message" => "Failed to save file"]);
+                if ($ext !== $allowedExtension) {
+                    http_response_code(400);
+                    echo json_encode(["error" => "Only .webp files are allowed!"]);
                     exit;
                 }
 
+                // Check MIME type using finfo (safer than $_FILES['type'])
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeType = finfo_file($finfo, $fileTmpPath);
+                finfo_close($finfo);
+
+                if ($mimeType !== 'image/webp') {
+                    http_response_code(400);
+                    echo json_encode(["error" => "File is not a valid WebP image!"]);
+                    exit;
+                }
+
+                // Optional: Check file size (example: max 500kb)
+                if ($fileSize > 500 * 1024) {
+                    http_response_code(400);
+                    echo json_encode(["error" => "File too large. Max 500kb allowed!"]);
+                    exit;
+                }
+
+                // NEW photo URL to be inserted to db
+                $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $fileName;
+
+                
+                // final filesystem path of new photo
+                $filePath = $uploadDir . $fileName; 
+
+                /* storing photo LOCALLY */
+                // verify uploaded file and move it
+                if (!move_uploaded_file($fileTmpPath, $filePath)) {
+                    http_response_code(500);
+                    echo json_encode(["error" => "Error moving uploaded file!"]);
+                    exit;
+                } 
+
             } else {
-                /* 
-                    if NO new photo is uploaded
-                    reuse existing photo from db 
-                */
-                $fileUrl = $foundUser['photo'];
+                // if NO new photo is uploaded
+                $fileUrl = false;
             }
+
             /* UPDATE USER */
             $result = new User()->updateUser($userId, $username, $fileUrl, $passwordHash);
             

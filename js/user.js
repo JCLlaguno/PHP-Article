@@ -176,7 +176,7 @@ const updateUser = () => {
         2
       );
     } catch (error) {
-      bogoAlert(error.message, "bg-red");
+      bogoAlert(error, "bg-red");
     }
   });
 };

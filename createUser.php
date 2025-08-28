@@ -50,7 +50,7 @@
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 
-            // IMAGE UPLOAD
+            /* PHOTO UPLOAD */
             // if a photo is UPLOADED
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['photo']['tmp_name'];
@@ -60,9 +60,10 @@
 
                 // Check file extension
                 $allowedExtension = 'webp';
-                // Generate unique filename 
+
+                // Generate unique filename for NEW photo
                 // get and sanitize extension
-                $ext = pathinfo($fileName, PATHINFO_EXTENSION); // get file extension from file (e.g: jpg)
+                $ext = pathinfo($fileName, PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
                 $ext = strtolower(preg_replace('/[^a-z0-9]+/i', '', $ext)); // only letters/numbers
                 $fileName = bin2hex(random_bytes(8)) . "." . $ext; // random name for image (lowercased)
 
@@ -91,22 +92,24 @@
                 }
 
                 // Create uploads directory if not exists
-                // $uploadDir = __DIR__ . "/uploads/";
-                // if (!is_dir($uploadDir)) {
-                //     mkdir($uploadDir, 0777, true);
-                // }
+                $uploadDir = __DIR__ . "/uploads/";
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
 
                 // Move file to uploads/ folder
                 $uploadDir = __DIR__ . "/uploads/";
 
                 // ensure uploadDir ends with separator
                 $uploadDir = rtrim($uploadDir, '/\\') . DIRECTORY_SEPARATOR;
-                $filePath = $uploadDir . $fileName; // final filesystem path
 
+                // final filesystem path
+                $filePath = $uploadDir . $fileName; 
 
+                /* storing photo LOCALLY */
                 // verify uploaded file and move it
-                if (!is_uploaded_file($fileTmpPath) && !move_uploaded_file($fileTmpPath, $filePath)) {
-                    http_response_code(400);
+                if (!move_uploaded_file($fileTmpPath, $filePath)) {
+                    http_response_code(500);
                     echo json_encode(["error" => "Error moving uploaded file!"]);
                     exit;
                 }
@@ -117,7 +120,7 @@
                 exit;
             }
 
-            // Generate file URL
+            // Generate file URL to be inserted to db
             $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $fileName;
 
 

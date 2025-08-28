@@ -86,15 +86,34 @@
         }
 
         // update user
-        public function updateUser(int $id, string $username, string $photo, string $password) : int {
+        public function updateUser(int $id, string $username, string|bool $photo, string $password) : int {
             try {
-                $stmt = $this->conn->prepare("UPDATE users SET username=:username, photo=:photo, password=:password WHERE id=:id");
-                $stmt->execute([
-                    ':id' => $id,
-                    ':username' => $username,
-                    ':photo' => $photo,
-                    ':password' => $password
-                ]);
+                 if ($photo) {
+                    // Update with photo
+                    $stmt = $this->conn->prepare("
+                        UPDATE users 
+                        SET username = :username, photo = :photo, password = :password 
+                        WHERE id = :id
+                    ");
+                    $stmt->execute([
+                        ':id' => $id,
+                        ':username' => $username,
+                        ':photo' => $photo,
+                        ':password' => $password
+                    ]);
+                } else {
+                    // Update without touching photo
+                    $stmt = $this->conn->prepare("
+                        UPDATE users 
+                        SET username = :username, password = :password 
+                        WHERE id = :id
+                    ");
+                    $stmt->execute([
+                        ':id' => $id,
+                        ':username' => $username,
+                        ':password' => $password
+                    ]);
+                }
                 return $stmt->rowCount();
             } catch (PDOException $e) {
                 echo "Database error:" . $e->getMessage();
