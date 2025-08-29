@@ -52,66 +52,86 @@
 
 
             /* PHOTO UPLOAD */
-            // if a photo is UPLOADED
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['photo']['tmp_name'];
-                $fileName = $_FILES['photo']['name'];
-                $fileSize = $_FILES['photo']['size'];
-                $fileType = $_FILES['photo']['type'];
+                $fileSize    = $_FILES['photo']['size'];
 
-                // Check file extension
-                $allowedExtension = 'webp';
+                // Generate random name (always .webp since we convert everything)
+                $fileName = bin2hex(random_bytes(8)) . ".webp";
 
-                // Generate unique filename for NEW photo
-                // get and sanitize extension
-                $ext = pathinfo($fileName, PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
-                $ext = strtolower(preg_replace('/[^a-z0-9]+/i', '', $ext)); // only letters/numbers
-                $fileName = bin2hex(random_bytes(8)) . "." . $ext; // random name for image (lowercased)
-
-                if ($ext !== $allowedExtension) {
-                    http_response_code(400);
-                    echo json_encode(["error" => "Only .webp files are allowed!"]);
-                    exit;
-                }
-
-                // Check MIME type using finfo (safer than $_FILES['type'])
+                // Detect MIME type
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
                 $mimeType = finfo_file($finfo, $fileTmpPath);
                 finfo_close($finfo);
 
-                if ($mimeType !== 'image/webp') {
+                // Load uploaded file into GD directly
+                switch ($mimeType) {
+                    case 'image/jpeg':
+                        $srcImage = imagecreatefromjpeg($fileTmpPath);
+                        break;
+                    case 'image/png':
+                        $srcImage = imagecreatefrompng($fileTmpPath);
+                        break;
+                    case 'image/webp':
+                        $srcImage = function_exists('imagecreatefromwebp')
+                            ? imagecreatefromwebp($fileTmpPath)
+                            : imagecreatefromstring(file_get_contents($fileTmpPath));
+                        break;
+                    default:
+                        http_response_code(400);
+                        echo json_encode(["error" => "Unsupported image type: $mimeType"]);
+                        exit;
+                }
+
+                // Validate file size (max 2 MB before conversion)
+                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
                     http_response_code(400);
-                    echo json_encode(["error" => "File is not a valid WebP image!"]);
+                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
                     exit;
                 }
 
-                // Optional: Check file size (example: max 500kb)
-                if ($fileSize > 500 * 1024) {
-                    http_response_code(400);
-                    echo json_encode(["error" => "File too large. Max 500kb allowed!"]);
-                    exit;
-                }
+                if ($srcImage) {
+                    $srcWidth  = imagesx($srcImage);
+                    $srcHeight = imagesy($srcImage);
 
-                // Create uploads directory if not exists
-                $uploadDir = __DIR__ . "/uploads/";
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
+                    // Square crop
+                    $minSide = min($srcWidth, $srcHeight);
+                    $srcX = (int)(($srcWidth  - $minSide) / 2);
+                    $srcY = (int)(($srcHeight - $minSide) / 2);
 
-                // Move file to uploads/ folder
-                $uploadDir = __DIR__ . "/uploads/";
+                    $thumbWidth  = 32;
+                    $thumbHeight = 32;
+                    $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
 
-                // ensure uploadDir ends with separator
-                $uploadDir = rtrim($uploadDir, '/\\') . DIRECTORY_SEPARATOR;
+                    // Preserve transparency for PNG
+                    if ($mimeType === 'image/png') {
+                        imagecolortransparent($thumbImage, imagecolorallocatealpha($thumbImage, 0, 0, 0, 127));
+                        imagealphablending($thumbImage, false);
+                        imagesavealpha($thumbImage, true);
+                    }
 
-                // final filesystem path
-                $filePath = $uploadDir . $fileName; 
+                    // Crop + resize in one step
+                    imagecopyresampled(
+                        $thumbImage, $srcImage,
+                        0, 0, $srcX, $srcY,
+                        $thumbWidth, $thumbHeight,
+                        $minSide, $minSide
+                    );
 
-                /* storing photo LOCALLY */
-                // verify uploaded file and move it
-                if (!move_uploaded_file($fileTmpPath, $filePath)) {
+                    // Save directly as WebP in uploads/
+                    $uploadDir = __DIR__ . "/uploads/";
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+                    $thumbPath = $uploadDir . $fileName;
+                    imagewebp($thumbImage, $thumbPath, 80);
+
+                    // Free memory
+                    imagedestroy($srcImage);
+                    imagedestroy($thumbImage);
+                } else {
                     http_response_code(500);
-                    echo json_encode(["error" => "Error moving uploaded file!"]);
+                    echo json_encode(["error" => "Error creating WebP thumbnail!"]);
                     exit;
                 }
 

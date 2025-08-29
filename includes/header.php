@@ -16,6 +16,9 @@
     <link rel="preload" href="./css/global.css" as="style">
     <link rel="preload" href="./css/nav.css" as="style">
     <link rel="preload" href="./css/dashboard.css" as="style">
+    <link rel="preload" href="./css/users.css" as="style">
+    <link rel="preload" href="./css/articles.css" as="style">
+    <link rel="preload" href="./css/login.css" as="style">
     <link href="./css/global.css" rel="stylesheet">
     <link href="./css/nav.css" rel="stylesheet">
     <link href="./css/dashboard.css" rel="stylesheet">

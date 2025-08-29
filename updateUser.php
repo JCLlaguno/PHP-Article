@@ -49,82 +49,103 @@
 
 
             /* PHOTO UPLOAD */
-            // if a photo is UPLOADED
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['photo']['tmp_name'];
-                $fileName = $_FILES['photo']['name'];
-                $fileSize = $_FILES['photo']['size'];
-                $fileType = $_FILES['photo']['type'];
+                $fileSize    = $_FILES['photo']['size'];
 
-                // Check file extension
-                $allowedExtension = 'webp';
+                // Generate random .webp filename
+                $fileName = bin2hex(random_bytes(8)) . ".webp";
 
-                // Create uploads directory if not exists
+                // Detect MIME type
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeType = finfo_file($finfo, $fileTmpPath);
+                finfo_close($finfo);
+
+                // Load uploaded image into GD
+                switch ($mimeType) {
+                    case 'image/jpeg':
+                        $srcImage = imagecreatefromjpeg($fileTmpPath);
+                        break;
+                    case 'image/png':
+                        $srcImage = imagecreatefrompng($fileTmpPath);
+                        break;
+                    case 'image/webp':
+                        if (function_exists('imagecreatefromwebp')) {
+                            $srcImage = imagecreatefromwebp($fileTmpPath);
+                        } else {
+                            $srcImage = imagecreatefromstring(file_get_contents($fileTmpPath));
+                        }
+                        break;
+                    default:
+                        http_response_code(400);
+                        echo json_encode(["error" => "Unsupported image type: $mimeType"]);
+                        exit;
+                }
+
+                // Validate file size (max 2 MB before conversion)
+                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
+                    http_response_code(400);
+                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
+                    exit;
+                }
+
+                // Prepare uploads directory
                 $uploadDir = __DIR__ . "/uploads/";
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }
 
-                // set up local upload directory path
-                $uploadDir = __DIR__ . "/uploads/";
+                // Delete old photo if exists
+                $photoUrl = $foundUser['photo'];
+                $oldFileName = basename($photoUrl);
+                $oldImg = $uploadDir . $oldFileName;
+                if (file_exists($oldImg)) unlink($oldImg);
 
-                // ensure uploadDir ends with separator
-                $uploadDir = rtrim($uploadDir, '/\\') . DIRECTORY_SEPARATOR;
+                // --- 📌 Square crop + resize ---
+                $srcWidth  = imagesx($srcImage);
+                $srcHeight = imagesy($srcImage);
 
-                
-                // get OLD PHOTO url from db
-                $photoUrl = $foundUser['photo']; // complete url from db
-                $oldFileName = basename($photoUrl); // extract FILENAME from url
-                $oldImg = $uploadDir . $oldFileName; // append db filename to local upload dir
-                if(file_exists($oldImg)) unlink($oldImg); // DELETE old photo locally
+                // Find smallest side (to crop square)
+                $minSide = min($srcWidth, $srcHeight);
+                $srcX = (int)(($srcWidth  - $minSide) / 2);
+                $srcY = (int)(($srcHeight - $minSide) / 2);
 
-                // Generate unique filename for NEW photo
-                // get and sanitize extension
-                $ext = pathinfo($fileName, PATHINFO_EXTENSION); // get FILE EXTENSION from file (e.g: jpg)
-                $ext = strtolower(preg_replace('/[^a-z0-9]+/i', '', $ext)); // only letters/numbers
-                $fileName = bin2hex(random_bytes(8)) . "." . $ext; // random name for image (lowercased)
+                $thumbWidth  = 32;
+                $thumbHeight = 32;
+                $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
 
-                if ($ext !== $allowedExtension) {
-                    http_response_code(400);
-                    echo json_encode(["error" => "Only .webp files are allowed!"]);
+                // Preserve transparency if PNG
+                if ($mimeType === 'image/png') {
+                    imagecolortransparent($thumbImage, imagecolorallocatealpha($thumbImage, 0, 0, 0, 127));
+                    imagealphablending($thumbImage, false);
+                    imagesavealpha($thumbImage, true);
+                }
+
+                // Crop + resize in one step
+                imagecopyresampled(
+                    $thumbImage, $srcImage,
+                    0, 0, $srcX, $srcY,
+                    $thumbWidth, $thumbHeight,
+                    $minSide, $minSide
+                );
+
+                // Save final thumbnail directly as WebP
+                $filePath = $uploadDir . $fileName;
+                if (!imagewebp($thumbImage, $filePath, 80)) {
+                    http_response_code(500);
+                    echo json_encode(["error" => "Error creating WebP thumbnail!"]);
                     exit;
                 }
 
-                // Check MIME type using finfo (safer than $_FILES['type'])
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mimeType = finfo_file($finfo, $fileTmpPath);
-                finfo_close($finfo);
+                // Free memory
+                imagedestroy($srcImage);
+                imagedestroy($thumbImage);
 
-                if ($mimeType !== 'image/webp') {
-                    http_response_code(400);
-                    echo json_encode(["error" => "File is not a valid WebP image!"]);
-                    exit;
-                }
-
-                // Optional: Check file size (example: max 500kb)
-                if ($fileSize > 500 * 1024) {
-                    http_response_code(400);
-                    echo json_encode(["error" => "File too large. Max 500kb allowed!"]);
-                    exit;
-                }
-
-                // NEW photo URL to be inserted to db
+                // Build file URL to store in DB
                 $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $fileName;
 
-                
-                // final filesystem path of new photo
-                $filePath = $uploadDir . $fileName; 
-
-                /* storing photo LOCALLY */
-                // verify uploaded file and move it
-                if (!move_uploaded_file($fileTmpPath, $filePath)) {
-                    http_response_code(500);
-                    echo json_encode(["error" => "Error moving uploaded file!"]);
-                    exit;
-                } 
-
             } else {
-                // if NO new photo is uploaded
+                // No new photo → keep old photo
                 $fileUrl = false;
             }
 
