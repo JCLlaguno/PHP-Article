@@ -225,6 +225,9 @@ const deleteUser = () => {
       // load all users
       displayUsers();
     } catch (error) {
+      // hide custom DELETE modal
+      deleteModal.classList.remove("show-modal");
+
       bogoAlert(error, "bg-red");
     }
   });

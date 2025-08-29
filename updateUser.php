@@ -19,6 +19,15 @@
                 echo json_encode(["status" => "error", "message" => "Username required"]);
                 exit;
             }
+            
+            // validate username
+            if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{3,15}$/', $username)) {
+                http_response_code(400);
+                echo json_encode([
+                    "error" => "Username must start with a letter and be 4–16 characters and no spaces."
+                ]);
+                exit;
+            }
 
 
             /* PASSWORD */

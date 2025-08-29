@@ -64,6 +64,20 @@
         </div>
 </main>
 <!-- end of MAIN content-->
-
-<!-- FOOTER -->
-<?php // require_once './includes/footer.php'; ?>
+</body>
+<script>
+    // SHOW/HIDE mobile menu
+    const mobileToggle = document.querySelector(".nav-left .mobile-toggle-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const mobileMenuCloseBtn = document.querySelector(
+    ".mobile-menu .mobile-toggle-btn"
+    );
+    mobileToggle?.addEventListener("click", () => {
+    mobileMenu?.classList.add("show-menu");
+    document.body.style.overflow = "hidden";
+    });
+    mobileMenuCloseBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.remove("show-menu");
+    document.body.style.overflow = "auto";
+});
+</script>

@@ -20,6 +20,7 @@
                 exit;
             }
             
+            // validate username
             if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{3,15}$/', $username)) {
                 http_response_code(400);
                 echo json_encode([
