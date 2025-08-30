@@ -1,7 +1,7 @@
 <!-- USERS section -->
 <section class="users 
 <?php 
-    if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
+    if($_SESSION['username'] !== 'JC@admin') echo 'page-hidden'; 
 ?>">
     <?php 
     ?>

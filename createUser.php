@@ -119,9 +119,9 @@
                     $srcX = (int)(($srcWidth  - $minSide) / 2); // x offset
                     $srcY = (int)(($srcHeight - $minSide) / 2); // y offset
 
-                    $thumbWidth  = 32;
-                    $thumbHeight = 32;
-                    $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight); // blank 32 x 32 canvas
+                    $thumbWidth  = 64;
+                    $thumbHeight = 64;
+                    $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight); // blank 64 x 64 canvas
 
                     // Preserve transparency for PNG
                     if ($mimeType === 'image/png') {

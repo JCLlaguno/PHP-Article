@@ -48,7 +48,7 @@
         <a href="?page=users" class="page-link 
         <?php 
             if($_GET['page'] === 'users') echo 'selected';
-            if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
+            if($_SESSION['username'] !== 'JC@admin') echo 'page-hidden'; 
         ?>">
             <div class="page-link-container">
                 <span><img class="sidebar-link-icon" src="./img/user.svg" alt="users-icon"></span>

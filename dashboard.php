@@ -11,7 +11,7 @@
         <!-- end of section header -->
         <!-- dashboard summary -->
         <div class="dashboard-summary">
-            <?php if($_SESSION['username'] === 'admin') { ?>
+            <?php if($_SESSION['username'] === 'JC@admin') { ?>
                 <!-- single card -->
                 <card class="dashboard-card users-card bg-blue">
                     <div class="card-icon-container"><img class="card-icon" src="./img/dashboard-user.svg" alt=""></div>

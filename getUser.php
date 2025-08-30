@@ -12,6 +12,7 @@
     } else {
         // get user ID from fetched user (GET request)
         $id = $_GET['userid'];
-    }
+    } 
+
     echo json_encode(new User()->getUserById($id)); // JSON response (returns {})
 ?>

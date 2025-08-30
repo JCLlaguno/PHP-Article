@@ -22,7 +22,7 @@
         }
 
         // prevent Admin account from being deleted
-        if($foundUser['username'] === 'admin') {
+        if($foundUser['username'] === 'JC@admin') {
             http_response_code(403); // forbidden
             echo json_encode(['error' => 'Admin account cannot be deleted!']);
             exit;
