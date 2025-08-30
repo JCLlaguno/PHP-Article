@@ -20,7 +20,7 @@
             <!-- article lists header container -->
             <div class="table-header-container">
                 <!-- table header -->
-                <p class="table-header-title">Index of Articles</p>
+                <p class="table-header-title">Articles</p>
                 <!-- end of table header -->
                 <!-- status filter dropdown -->
                 <div class="status-filter-dropdown">
@@ -42,6 +42,7 @@
                             <th>#</th>
                             <th class="article-title">Title</th>
                             <th class="article-status">Status</th>
+                            <th class="article-created">Date Created</th>
                             <th class="action-title">Action</th>
                         </tr>
                     </thead>

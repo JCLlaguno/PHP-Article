@@ -4,6 +4,7 @@ import {
   viewArticle,
   renderPagination,
   articleStatusSelect,
+  formatDate,
 } from "./helpers.js";
 
 // get status select dropdown element
@@ -53,6 +54,9 @@ const paginateArticles = async (currentPage = 1, status = 0) => {
         <td class="article-status"><span class="article-status-badge" style="color:${
           article.status === 1 ? "var(--green)" : "var(--maroon)"
         };">${article.status === 1 ? "Read" : "Unread"}</span></td>
+        <td class="article-created"><p>${formatDate(
+          article.date_created
+        )}</p></td>
         <td>
             <div class="action-container">
                 <a class="btn bg-green action-update-btn" data-id="${
@@ -322,8 +326,9 @@ export function updateArticle() {
       // show an ALERT message
       bogoAlert(
         successData.message,
-        `${successData.updated ? "bg-green" : "bg-red"}`
-      , 2);
+        `${successData.updated ? "bg-green" : "bg-red"}`,
+        2
+      );
     } catch (error) {
       bogoAlert(error, "bg-red");
     }

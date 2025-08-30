@@ -1,7 +1,4 @@
 /* CUSTOM table styles for articles */
-table .article-status {
-  text-align: center;
-}
 table .article-title {
   min-width: 400px;
 }
@@ -17,6 +14,13 @@ table td span.article-status-badge {
   color: var(--black);
   background-color: var(--white);
   border-radius: var(--radius);
+}
+table .article-status {
+  text-align: center;
+}
+table .article-created {
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* articles PAGINATION styles */

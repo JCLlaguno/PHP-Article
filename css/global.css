@@ -292,10 +292,6 @@ thead tr th {
   font-weight: 600;
   white-space: nowrap;
 }
-tbody tr th {
-  font-weight: 600;
-  white-space: nowrap;
-}
 tbody tr:last-child {
   border-bottom: none;
 }

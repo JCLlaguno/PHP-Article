@@ -51,7 +51,7 @@
             try {
 
                 $stmt = $this->conn->prepare(
-                    "SELECT id, userid, status, article_title, article_content 
+                    "SELECT id, userid, status, date_created, article_title, article_content 
                     FROM `articles` 
                     $whereClause 
                     ORDER BY id DESC 

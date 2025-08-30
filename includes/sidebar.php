@@ -15,7 +15,7 @@
             <li class="
             <?php 
                 if($_GET['page'] === 'users') echo 'selected';
-                if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
+                if($_SESSION['username'] !== 'JC@admin') echo 'page-hidden'; 
             ?>"><a class="mobile-link" href="?page=users">Users</a></li>
             <li class="<?php if($_GET['page'] === 'articles') echo 'selected' ?>"><a class="mobile-link" href="?page=articles&page_no=1">Articles</a></li>
         </ul>

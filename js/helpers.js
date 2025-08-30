@@ -118,3 +118,11 @@ const articleStatusSelect = (paginateArticles) => {
   });
 };
 export { articleStatusSelect };
+
+const formatDate = (dateStr) => {
+  // Replace space with 'T' so JS can parse it as ISO8601
+  const date = new Date(dateStr.replace(" ", "T"));
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
+};
+export { formatDate };
