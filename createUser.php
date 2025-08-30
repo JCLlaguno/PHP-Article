@@ -12,24 +12,44 @@
             $username = trim($_POST['username']);
             $password = trim($_POST['password']);
 
-            // USERNAME
+
+            /* USERNAME */
+            // VALIDATE USERNAME
             // Check if username and password fields are empty
             if (empty($username) || empty($password)) {
                 http_response_code(400);
                 echo json_encode(["error" => "Username and Password are required!"]);
                 exit;
             }
-            
-            // validate username
-            if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{3,15}$/', $username)) {
+
+            // 1. Username must start with a letter
+            if (!preg_match('/^[A-Za-z]/', $username)) {
                 http_response_code(400);
                 echo json_encode([
-                    "error" => "Username must start with a letter and be 4–16 characters"
+                    "error" => "Username must start with a letter."
                 ]);
                 exit;
             }
 
-            // Check if username already exists
+            // 2. Username length must be between 4 and 16 characters
+            if (strlen($username) < 4 || strlen($username) > 16) {
+                http_response_code(400);
+                echo json_encode([
+                    "error" => "Username must be 4–16 characters long."
+                ]);
+                exit;
+            }
+
+            // 3. Username must not contain spaces
+            if (preg_match('/\s/', $username)) {
+                http_response_code(400);
+                echo json_encode([
+                    "error" => "Username must not contain spaces."
+                ]);
+                exit;
+            }
+
+            // 4. Check if username already exists
             $userExist = new User()->getUserByName($username);
             if($userExist) {
                 http_response_code(400);
@@ -40,7 +60,7 @@
             }
 
 
-            // PASSWORD
+            /* PASSWORD */
             // Check if password is less 32 characters
             if (strlen($password) > 32) {
                 http_response_code(400);
@@ -56,6 +76,13 @@
                 $fileTmpPath = $_FILES['photo']['tmp_name'];
                 $fileSize    = $_FILES['photo']['size'];
 
+                // Validate file size (max 2 MB before conversion)
+                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
+                    http_response_code(400);
+                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
+                    exit;
+                }
+
                 // Generate random name (always .webp since we convert everything)
                 $fileName = bin2hex(random_bytes(8)) . ".webp";
 
@@ -67,10 +94,10 @@
                 // Load uploaded file into GD directly
                 switch ($mimeType) {
                     case 'image/jpeg':
-                        $srcImage = imagecreatefromjpeg($fileTmpPath);
+                        $srcImage = imagecreatefromjpeg($fileTmpPath); // create webp image object
                         break;
                     case 'image/png':
-                        $srcImage = imagecreatefrompng($fileTmpPath);
+                        $srcImage = imagecreatefrompng($fileTmpPath); // create png image object
                         break;
                     case 'image/webp':
                         $srcImage = function_exists('imagecreatefromwebp')
@@ -83,25 +110,18 @@
                         exit;
                 }
 
-                // Validate file size (max 2 MB before conversion)
-                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
-                    http_response_code(400);
-                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
-                    exit;
-                }
-
                 if ($srcImage) {
                     $srcWidth  = imagesx($srcImage);
                     $srcHeight = imagesy($srcImage);
 
                     // Square crop
                     $minSide = min($srcWidth, $srcHeight);
-                    $srcX = (int)(($srcWidth  - $minSide) / 2);
-                    $srcY = (int)(($srcHeight - $minSide) / 2);
+                    $srcX = (int)(($srcWidth  - $minSide) / 2); // x offset
+                    $srcY = (int)(($srcHeight - $minSide) / 2); // y offset
 
                     $thumbWidth  = 32;
                     $thumbHeight = 32;
-                    $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
+                    $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight); // blank 32 x 32 canvas
 
                     // Preserve transparency for PNG
                     if ($mimeType === 'image/png') {
@@ -111,6 +131,8 @@
                     }
 
                     // Crop + resize in one step
+                    // Copy a square region ($minSide × $minSide) from $srcImage (starting at $srcX,$srcY),
+                    // resize it smoothly, and draw it onto the blank 32×32 thumbnail canvas ($thumbImage)
                     imagecopyresampled(
                         $thumbImage, $srcImage,
                         0, 0, $srcX, $srcY,
@@ -123,10 +145,18 @@
                     if (!is_dir($uploadDir)) {
                         mkdir($uploadDir, 0777, true);
                     }
-                    $thumbPath = $uploadDir . $fileName;
-                    imagewebp($thumbImage, $thumbPath, 80);
 
-                    // Free memory
+                    // Save the thumbnail as a WebP image at $thumbPath with 80% quality (balance between size & quality)
+
+                    $thumbPath = $uploadDir . $fileName; // Set the file path where the thumbnail will be saved (upload folder + filename)
+
+                    if (!imagewebp($thumbImage, $thumbPath, 80)) {
+                        http_response_code(500);
+                        echo json_encode(["error" => "Error creating WebP thumbnail!"]);
+                        exit;
+                    }
+
+                    // Free up memory used by the images (important if processing many files)
                     imagedestroy($srcImage);
                     imagedestroy($thumbImage);
                 } else {

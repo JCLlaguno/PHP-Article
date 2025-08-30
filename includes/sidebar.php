@@ -41,7 +41,7 @@
     <div class="page-links">
         <a href="?page=dashboard" class="page-link <?php if($_GET['page'] === 'dashboard') echo 'selected' ?>">
             <div class="page-link-container">
-                <span><img class="sidebar-link-icon" src="./img/dashboard.svg" alt="dashboard"></span>
+                <span><img class="sidebar-link-icon" src="./img/dashboard.svg" alt="dashboard-icon"></span>
                 <h4 class="sidebar-link-name">Dashboard</h4>
             </div>
         </a>
@@ -51,13 +51,13 @@
             if($_SESSION['username'] !== 'admin') echo 'page-hidden'; 
         ?>">
             <div class="page-link-container">
-                <span><img class="sidebar-link-icon" src="./img/user.svg" alt="users"></span>
+                <span><img class="sidebar-link-icon" src="./img/user.svg" alt="users-icon"></span>
                 <h4 class="sidebar-link-name">Users</h4>
             </div>
         </a>
         <a href="?page=articles" class="page-link <?php if($_GET['page'] === 'articles') echo 'selected'?>">
             <div class="page-link-container">
-                <span><img class="sidebar-link-icon" src="./img/articles.svg" alt="articles"></span>
+                <span><img class="sidebar-link-icon" src="./img/articles.svg" alt="articles-icon"></span>
                 <h4 class="sidebar-link-name">Articles</h4>
             </div>
         </a>

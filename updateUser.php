@@ -7,33 +7,54 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
 
+           
+            // Get username and password (optional) from POST 
+            $username = trim($_POST['username']);
+            $newPassword = trim($_POST['new-password']);
+
             // find user by ID
             $userId = trim($_POST['update-user-id']);
             $foundUser = new User()->getUserById($userId);
 
 
-            /* USERNAME */
-            $username = trim($_POST['username']);
+            // USERNAME
+            // VALIDATE USERNAME
+            // Check if username and password fields are empty
             if (empty($username)) {
                 http_response_code(400);
-                echo json_encode(["status" => "error", "message" => "Username required"]);
+                echo json_encode(["error" => "Username is required!"]);
                 exit;
             }
-            
-            // validate username
-            if (!preg_match('/^[A-Za-z][A-Za-z0-9_]{3,15}$/', $username)) {
+
+            // 1. Username must start with a letter
+            if (!preg_match('/^[A-Za-z]/', $username)) {
                 http_response_code(400);
                 echo json_encode([
-                    "error" => "Username must start with a letter and be 4–16 characters and no spaces."
+                    "error" => "Username must start with a letter."
+                ]);
+                exit;
+            }
+
+            // 2. Username length must be between 4 and 16 characters
+            if (strlen($username) < 4 || strlen($username) > 16) {
+                http_response_code(400);
+                echo json_encode([
+                    "error" => "Username must be 4–16 characters long."
+                ]);
+                exit;
+            }
+
+            // 3. Username must not contain spaces
+            if (preg_match('/\s/', $username)) {
+                http_response_code(400);
+                echo json_encode([
+                    "error" => "Username must not contain spaces."
                 ]);
                 exit;
             }
 
 
             /* PASSWORD */
-            // Get password from POST
-            $newPassword = trim($_POST['new-password']);
-            
             // if current password is the same as inputted password
             if(!empty($newPassword) && password_verify($newPassword, $foundUser['password'])) { 
                 echo json_encode(['status' => 'error', 'updated' => false, 'message' => 'New password is same as current password!']);
@@ -52,6 +73,13 @@
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['photo']['tmp_name'];
                 $fileSize    = $_FILES['photo']['size'];
+
+                // Validate file size (max 2 MB before conversion)
+                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
+                    http_response_code(400);
+                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
+                    exit;
+                }
 
                 // Generate random .webp filename
                 $fileName = bin2hex(random_bytes(8)) . ".webp";
@@ -82,13 +110,6 @@
                         exit;
                 }
 
-                // Validate file size (max 2 MB before conversion)
-                if ($fileSize > 2 * 1024 * 1024) { // 2 MB = 2097152 bytes
-                    http_response_code(400);
-                    echo json_encode(["error" => "File too large. Max 2 MB allowed!"]);
-                    exit;
-                }
-
                 // Prepare uploads directory
                 $uploadDir = __DIR__ . "/uploads/";
                 if (!is_dir($uploadDir)) {
@@ -107,14 +128,14 @@
 
                 // Find smallest side (to crop square)
                 $minSide = min($srcWidth, $srcHeight);
-                $srcX = (int)(($srcWidth  - $minSide) / 2);
-                $srcY = (int)(($srcHeight - $minSide) / 2);
+                $srcX = (int)(($srcWidth  - $minSide) / 2); // x offset
+                $srcY = (int)(($srcHeight - $minSide) / 2); // y offset
 
                 $thumbWidth  = 32;
                 $thumbHeight = 32;
-                $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
+                $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight); // blank 32 x 32 canvas
 
-                // Preserve transparency if PNG
+                // Preserve transparency for PNG
                 if ($mimeType === 'image/png') {
                     imagecolortransparent($thumbImage, imagecolorallocatealpha($thumbImage, 0, 0, 0, 127));
                     imagealphablending($thumbImage, false);
@@ -122,6 +143,8 @@
                 }
 
                 // Crop + resize in one step
+                // Copy a square region ($minSide × $minSide) from $srcImage (starting at $srcX,$srcY),
+                // resize it smoothly, and draw it onto the blank 32×32 thumbnail canvas ($thumbImage)
                 imagecopyresampled(
                     $thumbImage, $srcImage,
                     0, 0, $srcX, $srcY,
@@ -129,15 +152,17 @@
                     $minSide, $minSide
                 );
 
-                // Save final thumbnail directly as WebP
-                $filePath = $uploadDir . $fileName;
-                if (!imagewebp($thumbImage, $filePath, 80)) {
+                // Save the thumbnail as a WebP image at $thumbPath with 80% quality (balance between size & quality)
+
+                $thumbPath = $uploadDir . $fileName;// Set the file path where the thumbnail will be saved (upload folder + filename)
+
+                if (!imagewebp($thumbImage, $thumbPath, 80)) {
                     http_response_code(500);
                     echo json_encode(["error" => "Error creating WebP thumbnail!"]);
                     exit;
                 }
 
-                // Free memory
+                // Free up memory used by the images (important if processing many files)
                 imagedestroy($srcImage);
                 imagedestroy($thumbImage);
 
@@ -145,7 +170,7 @@
                 $fileUrl = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/uploads/" . $fileName;
 
             } else {
-                // No new photo → keep old photo
+                // No new photo -> keep old photo
                 $fileUrl = false;
             }
 

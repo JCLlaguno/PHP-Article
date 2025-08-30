@@ -12,7 +12,7 @@ const displayUsers = async () => {
     // LOAD data on users table
     tr.innerHTML = `
         <td>${user.id}</td>
-        <td class="user-photo-container"><img class="user-photo" src="${user.photo}"></td>
+        <td class="user-photo-container"><img class="user-photo" src="${user.photo}" alt="User-photo"></td>
         <td>${user.username}</td>
         <td>
             <div class="action-container">
