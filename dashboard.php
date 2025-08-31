@@ -45,13 +45,20 @@
                 <p class="table-header-title">Index of Articles</p>
                 <!-- end of table header -->
                 <!-- status filter dropdown -->
-                <div class="status-filter-dropdown">
-                    <select class="status-select" id="status-select">
-                        <option value="0">Unread</option>
-                        <option value="1">Read</option>
-                        <option value="2">All</option>
-                    </select>
-                </div>
+                <select id="status-select">
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                    <option value="0">
+                        <span class="option-label">Unread</span>
+                    </option>
+                    <option value="1">
+                        <span class="option-label">Read</span>
+                    </option>
+                    <option value="2">
+                        <span class="option-label">All</span>
+                    </option>
+                </select>
                 <!-- end of status filter dropdown -->
             </div>
             <!-- end of article lists header container -->

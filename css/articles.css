@@ -171,6 +171,48 @@ table .article-created {
   transform: rotate(45deg);
 }
 
+/* custom select styles */
+select,
+::picker(select) {
+  appearance: base-select;
+}
+select {
+  border: var(--border-small);
+  background: var(--whiter);
+  padding: 0.5rem;
+  outline: none;
+}
+::picker(select) {
+  border: var(--border-small);
+  border-radius: var(--radius-small);
+}
+select::picker-icon {
+  color: var(--black);
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+selectedcontent .icon {
+  display: none;
+}
+option {
+  padding: 0.5rem;
+  outline: none;
+}
+option .icon {
+  text-box: trim-both cap alphabetic;
+}
+option:hover,
+option:focus {
+  background: var(--darker-white);
+}
+option:checked {
+  font-weight: 600;
+}
+option::checkmark {
+  content: none;
+}
+
 @media screen and (width >= 400px) {
   /* VIEW article page styles */
   .article-container {
