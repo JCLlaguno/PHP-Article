@@ -46,9 +46,6 @@
                 <!-- end of table header -->
                 <!-- status filter dropdown -->
                 <select id="status-select">
-                    <button>
-                        <selectedcontent></selectedcontent>
-                    </button>
                     <option value="0">
                         <span class="option-label">Unread</span>
                     </option>

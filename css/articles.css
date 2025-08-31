@@ -179,8 +179,9 @@ select,
 select {
   border: var(--border-small);
   background: var(--whiter);
-  padding: 0.5rem;
+  padding: 0.3rem;
   outline: none;
+  font-size: 0.9rem;
 }
 ::picker(select) {
   border: var(--border-small);
@@ -196,7 +197,7 @@ selectedcontent .icon {
   display: none;
 }
 option {
-  padding: 0.5rem;
+  padding: 0.3rem;
   outline: none;
 }
 option .icon {
